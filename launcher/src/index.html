@@ -5,7 +5,7 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
+      content="default-src 'self'; script-src 'self'; img-src 'self' local-resource: data:; style-src 'self' 'unsafe-inline';"
     />
     <meta
       http-equiv="X-Content-Security-Policy"
@@ -22,25 +22,50 @@
         </div>
         <div class="search-bar">
           <input type="text" placeholder="Search for a game..." />
+          <!-- aqui vai ter um coiso autocomplete -->
         </div>
         <div id="settings" class="settings">
           <img src="assets/gear-fill.svg" alt="Settings" />
         </div>
+      </div>
 
+      <div class="main-area">
+        <div id="games" class="games">
+          <!-- jogos vao ser adicionados dinamicamente aqui com classe="game-box" -->
+        </div>
+        <div class="sidebar">
+          <div class="row">
+            <img src="assets/plus-lg.svg" alt="IGS Launcher Icon" />
+          </div>
+          <div class="row">
+            <h3>Game Name</h3>
+          </div>
+          <div class="row">
+            <button class="play-btn">Play Game</button>
+            <button class="play-btn">More</button>
+          </div>
+          <div class="row" style="border-bottom: 1.5px solid var(--blue);">
+            <p>Game description</p>
+          </div>
+          <div class="row" style="flex-direction: column;">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tincidunt neque nec dapibus placerat. 
+              Aliquam ac sapien lectus. Aliquam nec semper sem, et aliquam neque. Praesent a tellus sed augue facilisis 
+              lacinia vel et est. Pellentesque molestie ante et ipsum tempor fringilla. Morbi et malesuada turpis, ut auctor justo. 
+              Curabitur sem leo, tincidunt sed placerat non, tempor quis quam. Sed suscipit magna eu ultricies hendrerit.
+              Praesent urna magna, viverra vitae turpis eu, semper dapibus sapien. Maecenas eu nisl a diam convallis dictum 
+              quis eu sem. Nulla eu felis non lorem mattis venenatis.
+            </p>
+            <p>
+              Cras sapien magna, tincidunt id ullamcorper et, varius ornare nunc. Pellentesque a fermentum nunc, in mollis ipsum. 
+              Morbi vitae nibh neque. Ut porta eros a orci vehicula, vitae pharetra elit egestas. Donec et consectetur ante. 
+              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis eu sapien leo. 
+              Nam varius enim sed urna facilisis luctus. Nam non vestibulum metus.
+            </p>
+          </div>
+
+        </div>
         
       </div>
-      <div id="games">
-        <div class="game-box">
-
-        </div>
-        <div class="game-box">
-          
-        </div>
-        <div class="game-box">
-          
-        </div>
-      </div>
-
 
       <div class="footer">
         <button id="add-game-button">
@@ -49,9 +74,10 @@
         IGS Launcher v0.1.0
       </div>
 
+      </div>
+      
     </div>
-    
-    
-
   </body>
+
+  <script src="renderer.js"></script>
 </html>

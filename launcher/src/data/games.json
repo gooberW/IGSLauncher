@@ -1,0 +1,14 @@
+{
+    "games": {
+        "Example Game": {
+            "path": "C:/Path/To/ExampleGame.exe",
+            "coverImage": "C:/Path/To/ExampleGameCover.png",
+            "icon": "C:/Path/To/ExampleGameIcon.png"
+        },
+        "Another Game": {
+            "path": "C:/Path/To/AnotherGame.exe",
+            "coverImage": "C:/Path/To/AnotherGameCover.png",
+            "icon": "C:/Path/To/AnotherGameIcon.png"
+        }
+    }
+}
