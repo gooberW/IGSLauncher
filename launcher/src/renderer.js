@@ -18,7 +18,7 @@ async function displayGames() {
 
             gameBox.innerHTML = `
                 <img src="local-resource://${info.coverImage}" alt="${name}">
-                <h2>${name}</h2>
+                <h2 class="game-title">${name}</h2>
                 <div class="row">
                     <button class="play-btn" title="Play ${name}">
                         <img src="assets/play-fill.svg" alt="Play ${name}">

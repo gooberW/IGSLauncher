@@ -3,12 +3,30 @@
         "Example Game": {
             "path": "C:/Path/To/ExampleGame.exe",
             "coverImage": "C:/Path/To/ExampleGameCover.png",
-            "icon": "C:/Path/To/ExampleGameIcon.png"
+            "icon": "C:/Path/To/ExampleGameIcon.png",
+            "tags": ["tag1", "tag2", "tag3"],
+            "description": "This is an example game."
         },
         "Another Game": {
             "path": "C:/Path/To/AnotherGame.exe",
             "coverImage": "C:/Path/To/AnotherGameCover.png",
-            "icon": "C:/Path/To/AnotherGameIcon.png"
+            "icon": "C:/Path/To/AnotherGameIcon.png",
+            "tags": ["tag1", "tag2", "tag3"],
+            "description": "This is another example game."
+        },
+        "Anothernother Game": {
+            "path": "C:/Path/To/AnotherGame.exe",
+            "coverImage": "C:/Path/To/AnotherGameCover.png",
+            "icon": "C:/Path/To/AnotherGameIcon.png",
+            "tags": ["tag1", "tag2", "tag3"],
+            "description": "This is another example game."
+        },
+         "Anothernothernother Game": {
+            "path": "C:/Path/To/AnotherGame.exe",
+            "coverImage": "C:/Path/To/AnotherGameCover.png",
+            "icon": "C:/Path/To/AnotherGameIcon.png",
+            "tags": ["tag1", "tag2", "tag3"],
+            "description": "This is another example game."
         }
     }
 }
