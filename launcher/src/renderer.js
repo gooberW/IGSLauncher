@@ -1,3 +1,7 @@
+/**
+ * Displays all the games in the 'games' div.
+ * @throws {Error} If there is an error loading the games.
+ */
 async function displayGames() {
     const container = document.getElementById('games'); 
 
@@ -37,3 +41,40 @@ async function displayGames() {
 }
 
 document.addEventListener('DOMContentLoaded', displayGames);
+
+async function autoCompleteSearch() {
+    //TODO
+    // this will go through every game, 
+    // get the names and populate dinamically the search bar with sugestions.
+    
+}
+
+/**
+ * Opens the settings window.
+ * 
+ * @todo Implement this function.
+ */
+async function openSettings() {
+    // TODO
+    // this will open the settings window.
+}
+
+/**
+ * Displays the sidebar with the game info for the game that was clicked.
+ * @remarks The game info will be retrieved from the data object.
+ * @todo Implement this function.
+ */
+async function displaySidebar() {
+    // TODO
+    // depending on the game clicked, 
+    // this will open the sidebar with the correct game info.
+}
+
+/**
+ * Closes the sidebar when the "x" is clicked.
+ * @todo Implement this function.
+ */
+async function closeSidebar() {
+    // TODO
+    // this will close the sidebar when clicking the "x".
+}

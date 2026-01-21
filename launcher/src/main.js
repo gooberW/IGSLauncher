@@ -3,6 +3,7 @@ const { app, BrowserWindow, ipcMain, protocol, net } = require('electron')
 const fs = require('fs');
 const path = require('path');
 
+// reads the JSON and saves the data so it can be used in the renderer.
 ipcMain.handle('get-games-data', async () => {
     const filePath = path.join(__dirname, 'data/games.json'); 
     const jsonData = fs.readFileSync(filePath, 'utf-8');
