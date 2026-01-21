@@ -1,6 +1,8 @@
 const searchInput = document.getElementById('searchInput');
 const suggestions = document.getElementById('suggestions');
 let gamesCache = null;
+let activeIndex = -1;
+
 /**
  * Adds suggestions to the search bar based on the games in the library.
  * Suggestions are added as div elements with the class 'suggestion'.
@@ -9,6 +11,7 @@ let gamesCache = null;
  */
 async function autoCompleteSearch(query) {
     suggestions.innerHTML = '';
+    activeIndex = -1;
 
     if (!query) {
         suggestions.style.display = 'none';
@@ -42,6 +45,41 @@ async function autoCompleteSearch(query) {
     suggestions.style.display = 'block';
 }
 
+/**
+ * Handles keydown events on the search bar.
+ * If the key pressed is one of the arrow keys, it will move the active index up or down
+ * the list of suggestions. If the enter key is pressed, it will simulate a click on the
+ * currently active suggestion.
+ * @param {KeyboardEvent} e The event object passed to the function.
+ */
+function handleKeydown(e) {
+    const items = suggestions.querySelectorAll('.suggestion-item');
+    if (!items.length || suggestions.style.display === 'none') return;
+
+    if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        activeIndex = (activeIndex + 1) % items.length;
+    } 
+    else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeIndex = (activeIndex - 1 + items.length) % items.length;
+    } 
+    else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (activeIndex >= 0) {
+            items[activeIndex].click();
+        }
+        return;
+    } 
+    else {
+        return;
+    }
+
+    items.forEach(item => item.classList.remove('active'));
+    items[activeIndex].classList.add('active');
+}
+
+
 async function loadGamesOnce() {
     if (gamesCache) return gamesCache;
 
@@ -68,3 +106,5 @@ document.addEventListener('click', (e) => {
         suggestions.style.display = 'none';
     }
 });
+
+searchInput.addEventListener('keydown', handleKeydown);
