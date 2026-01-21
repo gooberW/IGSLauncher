@@ -42,12 +42,6 @@ async function displayGames() {
 
 document.addEventListener('DOMContentLoaded', displayGames);
 
-async function autoCompleteSearch() {
-    //TODO
-    // this will go through every game, 
-    // get the names and populate dinamically the search bar with sugestions.
-    
-}
 
 /**
  * Opens the settings window.

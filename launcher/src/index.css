@@ -106,8 +106,6 @@ body {
     padding: 10px;
     display: flex;
     border: 1.5px solid var(--blue);
-    width: 20vw;
-    min-width: 200px;
     border-radius: 5px;
 }
 
@@ -128,6 +126,34 @@ body {
     color: var(--blue);
     opacity: 0.75;
 }
+
+.search-container{
+    position: relative;
+    width: 20vw;
+    min-width: 200px;
+}
+
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1.5px solid var(--blue);
+  border-top: none;
+  background: var(--white);
+  z-index: 5;
+  border-radius: 0 0 5px 5px;
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: var(--red);
+}
+
 
 .icon {
     width: 25px;
