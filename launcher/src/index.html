@@ -44,9 +44,9 @@
          <!-- the data must be related to the game clicked -->
         <div class="sidebar">
           <div class="row">
-            <img src="assets/plus-lg.svg" alt="IGS Launcher Icon" />
+            <img src="assets/plus-lg.svg" id="closeSidebar" alt="IGS Launcher Icon" />
           </div>
-          <div class="row">
+          <div id="gameName" class="row">
             <h3>Game Name</h3>
           </div>
           <div class="row">
@@ -56,14 +56,14 @@
           <div class="row" style="border-bottom: 1.5px solid var(--blue);">
             <p>Tags</p>
           </div>
-          <div class="row">
+          <div id="tags" class="row">
             <p class="tag">Action</p>
             <p class="tag">Adventure</p>
           </div>
           <div class="row" style="border-bottom: 1.5px solid var(--blue);">
             <p>Game description</p>
           </div>
-          <div class="row" style="flex-direction: column;">
+          <div id="description"class="row" style="flex-direction: column; justify-content: start;">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tincidunt neque nec dapibus placerat. 
               Aliquam ac sapien lectus. Aliquam nec semper sem, et aliquam neque. Praesent a tellus sed augue facilisis 
               lacinia vel et est. Pellentesque molestie ante et ipsum tempor fringilla. Morbi et malesuada turpis, ut auctor justo. 
@@ -90,6 +90,37 @@
         IGS Launcher v0.1.0
       </div>
 
+      </div>
+
+      <div class="add-game-window">
+        <div class="row">
+          <p>Add Game</p>
+          <img src="assets/plus-lg.svg" style="rotate: 45deg; height: 20px;" id="closeAddGame" alt="IGS Launcher Icon" />
+        </div>
+        <div class="input-group">
+          <label for="name">Game Name:</label>
+          <input type="text" id="name" name="name" />
+        </div>
+        <div class="input-group">
+          <label for="path">Path:</label>
+          <input type="file" id="path" name="path" />
+        </div>
+        <div class="input-group">
+          <label for="cover">Cover Image:</label>
+          <input type="file" id="cover" name="cover" />
+        </div>
+        <div class="input-group">
+          <label for="icon">Icon:</label>
+          <input type="file" id="icon" name="icon" />
+        </div>
+        <div class="input-group">
+          <label for="tags">Tags:</label>
+          <button id="addTag">+</button>
+        </div>
+        <div class="input-group desc">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" cols="20" rows="10"></textarea>
+        </div>
       </div>
       
     </div>

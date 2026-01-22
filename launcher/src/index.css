@@ -46,6 +46,12 @@ h1, h2, h3 {
     font-weight: normal;
 }
 
+p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
 body {
     background-color: rgb(234, 241, 241);
     height: 100vh;
@@ -107,6 +113,7 @@ body {
     display: flex;
     border: 1.5px solid var(--blue);
     border-radius: 5px;
+    z-index: 6;
 }
 
 .search-bar input {
@@ -135,14 +142,13 @@ body {
 
 .suggestions {
   position: absolute;
-  top: 100%;
+  top: 110%;
   left: 0;
   width: 100%;
   border: 1.5px solid var(--blue);
-  border-top: none;
   background: var(--white);
   z-index: 5;
-  border-radius: 0 0 5px 5px;
+  border-radius: 5px;
 }
 
 .suggestion-item {
@@ -178,14 +184,20 @@ body {
     justify-content: center;
 }
 
-.sidebar {    
+.sidebar {     
     display: flex;
     flex-direction: column;
-    width: 30vw;
+    width: 0;
     background-color: var(--white);
-    border-left: 1.5px solid var(--blue);
-    min-width: 300px;
+    border-left: 0 solid var(--blue);
+    overflow-x: hidden;
     overflow-y: auto;
+}
+
+.sidebar.active {
+    width: 30vw;
+    min-width: 300px;
+    border-left: 1.5px solid var(--blue);
 }
 
 .sidebar p {
@@ -255,6 +267,11 @@ body {
     height: 100%;
 }
 
+.game-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
 .game-box .row {
     display: flex;
@@ -267,7 +284,7 @@ body {
 
 .game-box .game-title {
     font-size: 22px;
-    font-weight: bold;
+    font-weight: normal;
     color: var(--blue);
     margin: 0;
     max-width: 100%;
@@ -290,19 +307,19 @@ button#add-game-button {
     color: var(--blue);
     border: none;
     cursor: pointer;
+    border: 1.5px solid var(--blue);
     transition: all 0.1s ease-in-out;
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     font-family: var(--tango);
-
+    padding: 10px;
+    border-radius: 5px ;
+    background-color: var(--white);
 }
 
-button#add-game-button:hover .plus img {
-    transform: rotate(90deg);
-}
-
-button#add-game-button:hover .plus {
+button#add-game-button:hover {
     background-color: var(--red);
 }
 
@@ -350,4 +367,64 @@ button#add-game-button:hover .plus {
 
 .play-btn:hover {
     background-color: var(--red);
+}
+
+.add-game-window {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 0;
+    width: 0;
+    visibility: hidden;
+    background-color: var(--white);
+    border: 1.5px solid var(--blue);
+    border-radius: 5px;
+    overflow: auto;
+    transition: all 0.5s ease-in-out;
+    max-height: 95vh;
+}
+
+.add-game-window .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1.5px solid var(--blue);
+    padding: 10px;
+}
+
+.add-game-window .input-group {
+    padding: 5px 10px;
+}
+
+.add-game-window .input-group:last-child {
+    padding: 10px;
+}
+
+.add-game-window .active {
+    width: fit-content;
+    height: fit-content;
+    visibility: visible;
+}
+
+input, textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1.5px solid var(--blue);
+    font-size: 14px;
+    background-color: var(--white);
+    outline: none;
+    width: 400px;
+    display: flex;
+}
+
+.input-group.desc {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }

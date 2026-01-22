@@ -35,8 +35,9 @@ async function autoCompleteSearch(query) {
         item.textContent = name;
 
         item.addEventListener('click', () => {
-            searchInput.value = name;
+            searchInput.value = '';
             suggestions.style.display = 'none';
+            openSidebar(name);
         });
 
         suggestions.appendChild(item);
@@ -68,6 +69,8 @@ function handleKeydown(e) {
         e.preventDefault();
         if (activeIndex >= 0) {
             items[activeIndex].click();
+            searchInput.value = '';
+            searchInput.blur();
         }
         return;
     } 
@@ -108,3 +111,4 @@ document.addEventListener('click', (e) => {
 });
 
 searchInput.addEventListener('keydown', handleKeydown);
+suggestions.style.display = 'none';
