@@ -18,7 +18,7 @@
     <div id="app">
       <div class="nav-bar">
         <div class="icon">
-          <img src="icon_blue.png" alt="IGS Launcher Icon" />
+          <img src="icon_blue.png" alt="IGS Launcher Icon" data-title="ISEL Game Studios" />
         </div>
         <div class="search-container">
           <div id="search" class="search-bar">
@@ -31,7 +31,9 @@
 
         </div>
         <div id="settings" class="settings">
-          <img src="assets/gear-fill.svg" alt="Settings" />
+          <button id="settingsBtn" data-title="Settings" style="background: none; border: none;">
+            <img src="assets/gear-fill.svg" alt="Settings" data-title="Settings"/>
+          </button>
         </div>
       </div>
 
@@ -43,15 +45,24 @@
         <!-- the sidebar appears when the "i" icon is clicked on a game.-->
          <!-- the data must be related to the game clicked -->
         <div class="sidebar">
-          <div class="row">
-            <img src="assets/plus-lg.svg" id="closeSidebar" alt="IGS Launcher Icon" />
+          <div class="row" style="justify-content: end;">
+            <button id="closeSidebar" style="background: none; border: none;" data-title="Close Sidebar">
+              <img src="assets/plus-lg.svg" alt="X" />
+            </button>
           </div>
           <div id="gameName" class="row">
             <h3>Game Name</h3>
           </div>
           <div class="row">
             <button id="sidebarPlay" class="play-btn">Play Game</button>
-            <button class="play-btn">More</button>
+            <div class="more-container">
+              <button id="moreBtn" class="play-btn" style="min-width: 100%;">More</button>
+              <div id="moreMenu" class="more-menu">
+                <button id="editGameBtn" class="more-item">Edit Game</button>
+                <button id="removeGameBtn" class="more-item">Remove Game</button>
+              </div>
+            </div>
+ 
           </div>
           <div class="row" style="border-bottom: 1.5px solid var(--blue);">
             <p>Tags</p>
@@ -80,7 +91,9 @@
       <div class="add-game-window">
         <div class="row">
           <p>Add Game</p>
-          <img src="assets/plus-lg.svg" id="closeAddGame" title="Close Window" alt="Close" />
+          <button id="closeAddGame" style="background: none; border: none;" data-title="Close Window">
+              <img src="assets/plus-lg.svg" alt="X" />
+            </button>
         </div>
         <div class="input-group">
           <label for="name">Game Name:</label>
@@ -117,7 +130,7 @@
           <label for="tags">Tags:</label>
           <div class="add-tag">
             <input type="text" id="tag" name="tag" />
-            <button id="addTag" title="Add Tag">+</button>
+            <button id="addTag" data-title="Add Tag">+</button>
           </div>
         </div>
         <div id="tag-container" class="row tags" >

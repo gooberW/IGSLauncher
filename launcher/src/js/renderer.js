@@ -1,4 +1,5 @@
 let gamesData = null;
+let currentGameName = null;
 
 /**
  * Displays all the games in the 'games' div.
@@ -26,11 +27,11 @@ async function displayGames() {
             gameBox.style.backgroundImage = `url("${coverSrc}")`;
             gameBox.innerHTML = `
                 <div class="row">
-                    <button id="play-game"class="play-btn" title="Play ${name}">
-                        <img src="assets/play-fill.svg" alt="Play ${name}">
+                    <button id="play-game" class="play-btn" data-title="Play" >
+                        <img src="assets/play-fill.svg" alt="Play">
                     </button>
-                    <button id="info" class="play-btn" title="More info">
-                        <img src="assets/info-lg.svg" alt="Info for ${name}">
+                    <button id="info" class="play-btn" data-title="More info">
+                        <img src="assets/info-lg.svg" alt="More Info">
                     </button>
                 </div>
             `;
@@ -55,8 +56,27 @@ async function displayGames() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', displayGames);
+/**
+ * Removes the currently selected game from the library.
+ * Prompts the user to confirm the removal and displays an alert if the removal fails.
+ * If the removal is successful, it also closes the sidebar and updates the game list.
+ */
+async function removeGame() {
+    if (!currentGameName) return;
 
+    const confirmed = confirm(`Remove "${currentGameName}" from library?`);
+    if (!confirmed) return;
+
+    const result = await window.electronAPI.removeGame(currentGameName);
+    const sidebar = document.querySelector('.sidebar');
+    if (result.success) {
+        currentGameName = null;
+        if (sidebar) sidebar.classList.remove('active');
+        displayGames();
+    } else {
+        alert('Failed to remove game');
+    }
+}
 
 /**
  * Opens the settings window.
@@ -76,6 +96,7 @@ async function openSettings() {
 function openSidebar(gameName) {
     const gameInfo = gamesData[gameName];
     const sidebar = document.querySelector('.sidebar');
+    currentGameName = gameName;
 
     if (!gameInfo || !sidebar) return;
 
@@ -113,11 +134,37 @@ function closeSidebar() {
     if (sidebar) sidebar.classList.remove('active');
 }
 
+
+// Event Listeners ----------- 
+
+document.addEventListener('DOMContentLoaded', displayGames);
+
+const moreBtn = document.getElementById('moreBtn');
+const moreMenu = document.getElementById('moreMenu');
+
+moreBtn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    moreMenu.classList.toggle('active');
+});
+
+document.addEventListener('click', (event) => {
+    if (!moreMenu.contains(event.target) && !moreBtn.contains(event.target)) {
+        moreMenu.classList.remove('active');
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('closeSidebar');
     
     if (closeBtn) {
         closeBtn.addEventListener('click', closeSidebar);
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const removeBtn = document.getElementById('removeGameBtn');
+    if (removeBtn) {
+        removeBtn.addEventListener('click', removeGame);
     }
 });
 

@@ -1,20 +1,3 @@
 {
-    "games": {
-        "Nature Strikes Back": {
-            "path": "C:\\Users\\Utilizador\\Downloads\\NSB_demo_bug_fixes\\Nature Strikes Back.exe",
-            "coverImage": "C:\\Users\\Utilizador\\Downloads\\NSB_SPLASH.png",
-            "icon": "",
-            "tags": [],
-            "description": "Nature. Man."
-        },
-        "SLAM!": {
-            "path": "C:\\Users\\Utilizador\\Downloads\\SLAM-DEMO\\SLAM-DJ.exe",
-            "coverImage": "C:\\Users\\Utilizador\\Downloads\\Artboard 1.png",
-            "icon": "",
-            "tags": [
-                "Rythm"
-            ],
-            "description": "Fat man."
-        }
-    }
+    "games": {}
 }

@@ -1,3 +1,9 @@
+/**
+ * Writes the game data from the add game window to the library.
+ * If the game name or path is empty, it will display an alert and return.
+ * If the write is successful, it will display an alert and update the game list.
+ * @throws {Error} If there is an error writing the game data.
+ */
 async function writeGameData() {
     const nameInput = document.getElementById('name');
     const pathInput = document.getElementById('exePathDisplay');
@@ -36,6 +42,10 @@ async function writeGameData() {
 }
 
 
+/**
+ * Adds a new tag to the list of tags in the add game window.
+ * When a tag is clicked, it is removed from the list.
+ */
 function addTag() {
     const tagInput = document.getElementById('tag');
     const tagContainer = document.getElementById('tag-container');
@@ -54,18 +64,29 @@ function addTag() {
     });
 }
 
+/**
+ * Opens the add game window.
+ */
 function openAddGame() {
     const addGameWindow = document.querySelector('.add-game-window');
     if (addGameWindow) addGameWindow.classList.add('active');
 }
 
+/**
+ * Closes the add game window.
+ */
 function closeAddGame() {
     const addGameWindow = document.querySelector('.add-game-window');
     if (addGameWindow) addGameWindow.classList.remove('active');
 }
 
+// Event Listeners -----------
+
 document.getElementById('addTag').addEventListener('click', addTag);
-document.getElementById('add-game-button').addEventListener('click', writeGameData);
+document.getElementById('add-game-button').addEventListener('click', () => {
+    writeGameData();
+    closeAddGame();
+});
 
 const selectExeBtn = document.getElementById('selectExeBtn');
 const exePathDisplay = document.getElementById('exePathDisplay');
@@ -104,6 +125,5 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (addGameBtn) {
         addGameBtn.addEventListener('click', openAddGame);
-        addGameBtn.addEventListener('click', closeAddGame);
     }
 });

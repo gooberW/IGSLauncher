@@ -6,6 +6,7 @@ const { pathToFileURL } = require('url');
 const gamesFilePath = path.join(__dirname, '../data/games.json');
 const dataDir = path.dirname(gamesFilePath);
 
+// this adds support for local resources (needed for images)
 protocol.registerSchemesAsPrivileged([
   { scheme: 'local-resource', privileges: { standard: true, secure: true, supportFetchAPI: true, bypassCSP: true } }
 ]);
@@ -14,6 +15,7 @@ if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir, { recursive: true });
 }
 
+// reads the games.json file
 ipcMain.handle('get-games-data', async () => {
     try {
         if (!fs.existsSync(gamesFilePath)) return { games: {} };
@@ -25,6 +27,7 @@ ipcMain.handle('get-games-data', async () => {
     }
 });
 
+// removes a game from the data
 ipcMain.handle('remove-game', async (event, gameName) => {
     try {
         let db = { games: {} };
@@ -43,6 +46,7 @@ ipcMain.handle('remove-game', async (event, gameName) => {
     }
 });
 
+// saves the game data in the JSON
 ipcMain.handle('save-game', async (event, gameData) => {
     try {
         let db = { games: {} };
@@ -67,6 +71,7 @@ ipcMain.handle('save-game', async (event, gameData) => {
     }
 });
 
+// opens a file dialog to select an executable with the specified filters (exe, etc...)
 ipcMain.handle('select-executable', async () => {
     const result = await dialog.showOpenDialog({
         properties: ['openFile'],
@@ -78,6 +83,7 @@ ipcMain.handle('select-executable', async () => {
     return result.canceled ? null : result.filePaths[0];
 });
 
+// opens a file dialog to select an image
 ipcMain.handle('select-image', async () => {
   const result = await dialog.showOpenDialog({
     properties: ['openFile'],
@@ -88,6 +94,7 @@ ipcMain.handle('select-image', async () => {
   return result.canceled ? null : result.filePaths[0];
 });
 
+// creates the main window
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 1000,
@@ -102,40 +109,41 @@ const createWindow = () => {
     win.loadFile(path.join(__dirname, '../index.html'));
 };
 
+// starts the app and handles the protocol
 app.whenReady().then(() => {
-protocol.handle('local-resource', async (request) => {
-  try {
-    const url = new URL(request.url);
+  protocol.handle('local-resource', async (request) => {
+    try {
+      const url = new URL(request.url);
 
-    let finalPath = decodeURIComponent(url.pathname);
+      let finalPath = decodeURIComponent(url.pathname);
 
 
-    if (process.platform === 'win32') {
-      finalPath = finalPath.replace(/^[/\\]+([a-zA-Z]:)/, '$1');
+      if (process.platform === 'win32') {
+        finalPath = finalPath.replace(/^[/\\]+([a-zA-Z]:)/, '$1');
+      }
+
+      finalPath = path.normalize(finalPath);
+
+      console.log("Extracted path:", finalPath);
+
+      if (!fs.existsSync(finalPath)) {
+        console.error("ERROR: File not found in:", finalPath);
+        return new Response('Not Found', { status: 404 });
+      }
+
+      const fileUrl = pathToFileURL(finalPath).toString();
+      return await net.fetch(fileUrl);
+
+    } catch (error) {
+      console.error(error);
+      return new Response('Error', { status: 500 });
     }
+  });
+  createWindow();
 
-    finalPath = path.normalize(finalPath);
-
-    console.log("Extracted path:", finalPath);
-
-    if (!fs.existsSync(finalPath)) {
-      console.error("ERROR: File not found in:", finalPath);
-      return new Response('Not Found', { status: 404 });
-    }
-
-    const fileUrl = pathToFileURL(finalPath).toString();
-    return await net.fetch(fileUrl);
-
-  } catch (error) {
-    console.error(error);
-    return new Response('Error', { status: 500 });
-  }
 });
 
-
-    createWindow();
-});
-
+// launches the game
 ipcMain.handle('launch-game', async (event, exePath) => {
   try {
     if (!exePath || !exePath.endsWith('.exe')) {
@@ -156,6 +164,7 @@ ipcMain.handle('launch-game', async (event, exePath) => {
   }
 });
 
+// closes the app when all windows are closed (not macOS)
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
 });
