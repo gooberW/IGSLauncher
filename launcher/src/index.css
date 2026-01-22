@@ -122,7 +122,8 @@ body {
     font-size: 14px;
     background-color: transparent;
     width: 100%;
-    font-family: var(--inconsolata)
+    font-family: var(--inconsolata);
+    padding: 0;
 }
 
 .search-bar input:focus {
@@ -245,7 +246,7 @@ body {
 
 #games {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
     padding: 20px;
     width: 100%;
@@ -265,6 +266,9 @@ body {
     border-radius: 5px;
     overflow: hidden;
     height: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .game-box img {
@@ -303,7 +307,7 @@ body {
     font-size: 14px;
 }
 
-button#add-game-button {
+button.add-game-button {
     color: var(--blue);
     border: none;
     cursor: pointer;
@@ -319,7 +323,7 @@ button#add-game-button {
     background-color: var(--white);
 }
 
-button#add-game-button:hover {
+button.add-game-button:hover {
     background-color: var(--red);
 }
 
@@ -385,7 +389,7 @@ button#add-game-button:hover {
     border: 1.5px solid var(--blue);
     border-radius: 5px;
     overflow: auto;
-    transition: all 0.5s ease-in-out;
+    transition: all 1s ease-in-out;
     max-height: 95vh;
 }
 
@@ -399,17 +403,33 @@ button#add-game-button:hover {
 }
 
 .add-game-window .input-group {
-    padding: 5px 10px;
+    padding: 0px 10px;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
 .add-game-window .input-group:last-child {
     padding: 10px;
 }
 
-.add-game-window .active {
+.add-game-window.active {
     width: fit-content;
     height: fit-content;
     visibility: visible;
+    transition: all 1s ease-in-out;
+}
+
+.add-game-window .row img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    rotate: 45deg;
+    transition: transform 0.2s ease-in-out;
+}
+
+.add-game-window .row img:hover {
+    transform: rotate(90deg);
 }
 
 input, textarea {
@@ -427,4 +447,62 @@ input, textarea {
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+
+.input-group button {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1.5px solid var(--blue);
+    background-color: var(--white);
+    color: var(--blue);
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    width: 38px;
+    min-width: 38px;
+    max-width: 38px;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+
+.input-group button:hover {
+    background-color: var(--red);
+}
+
+.add-tag {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.add-tag input {
+    width: 200px;
+}
+
+.row.tags {
+    gap:5px;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
+#tag-container .tag:hover {
+    background-color: var(--red);
+    cursor: pointer;
+}
+
+.browse-btn {
+    min-width: fit-content !important;
+    max-width: fit-content !important;
+    display: flex !important;
+    aspect-ratio: unset !important;
+    padding: 10px !important;
+}
+
+.browse-btn p{
+    font-family: var(--inconsolata);
+    font-size: 14px;
 }

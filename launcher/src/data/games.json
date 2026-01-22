@@ -1,32 +1,20 @@
 {
     "games": {
-        "Example Game": {
-            "path": "C:/Path/To/ExampleGame.exe",
-            "coverImage": "C:/Path/To/ExampleGameCover.png",
-            "icon": "C:/Path/To/ExampleGameIcon.png",
-            "tags": ["tag1", "tag2", "tag3"],
-            "description": "This is an example game."
+        "Nature Strikes Back": {
+            "path": "C:\\Users\\Utilizador\\Downloads\\NSB_demo_bug_fixes\\Nature Strikes Back.exe",
+            "coverImage": "C:\\Users\\Utilizador\\Downloads\\NSB_SPLASH.png",
+            "icon": "",
+            "tags": [],
+            "description": "Nature. Man."
         },
-        "Another Game": {
-            "path": "C:/Path/To/AnotherGame.exe",
-            "coverImage": "C:/Path/To/AnotherGameCover.png",
-            "icon": "C:/Path/To/AnotherGameIcon.png",
-            "tags": ["tag1", "tag2", "tag3"],
-            "description": "This is another example game."
-        },
-        "Anothernother Game": {
-            "path": "C:/Path/To/AnotherGame.exe",
-            "coverImage": "C:/Path/To/AnotherGameCover.png",
-            "icon": "C:/Path/To/AnotherGameIcon.png",
-            "tags": ["tag1", "tag2", "tag3"],
-            "description": "This is another example game."
-        },
-         "Anothernothernother Game": {
-            "path": "C:/Path/To/AnotherGame.exe",
-            "coverImage": "C:/Path/To/AnotherGameCover.png",
-            "icon": "C:/Path/To/AnotherGameIcon.png",
-            "tags": ["tag1", "tag2", "tag3"],
-            "description": "This is another example game."
+        "SLAM!": {
+            "path": "C:\\Users\\Utilizador\\Downloads\\SLAM-DEMO\\SLAM-DJ.exe",
+            "coverImage": "C:\\Users\\Utilizador\\Downloads\\Artboard 1.png",
+            "icon": "",
+            "tags": [
+                "Rythm"
+            ],
+            "description": "Fat man."
         }
     }
 }

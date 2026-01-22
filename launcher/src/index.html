@@ -50,33 +50,18 @@
             <h3>Game Name</h3>
           </div>
           <div class="row">
-            <button class="play-btn">Play Game</button>
+            <button id="sidebarPlay" class="play-btn">Play Game</button>
             <button class="play-btn">More</button>
           </div>
           <div class="row" style="border-bottom: 1.5px solid var(--blue);">
             <p>Tags</p>
           </div>
           <div id="tags" class="row">
-            <p class="tag">Action</p>
-            <p class="tag">Adventure</p>
           </div>
           <div class="row" style="border-bottom: 1.5px solid var(--blue);">
             <p>Game description</p>
           </div>
-          <div id="description"class="row" style="flex-direction: column; justify-content: start;">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tincidunt neque nec dapibus placerat. 
-              Aliquam ac sapien lectus. Aliquam nec semper sem, et aliquam neque. Praesent a tellus sed augue facilisis 
-              lacinia vel et est. Pellentesque molestie ante et ipsum tempor fringilla. Morbi et malesuada turpis, ut auctor justo. 
-              Curabitur sem leo, tincidunt sed placerat non, tempor quis quam. Sed suscipit magna eu ultricies hendrerit.
-              Praesent urna magna, viverra vitae turpis eu, semper dapibus sapien. Maecenas eu nisl a diam convallis dictum 
-              quis eu sem. Nulla eu felis non lorem mattis venenatis.
-            </p>
-            <p>
-              Cras sapien magna, tincidunt id ullamcorper et, varius ornare nunc. Pellentesque a fermentum nunc, in mollis ipsum. 
-              Morbi vitae nibh neque. Ut porta eros a orci vehicula, vitae pharetra elit egestas. Donec et consectetur ante. 
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis eu sapien leo. 
-              Nam varius enim sed urna facilisis luctus. Nam non vestibulum metus.
-            </p>
+          <div id="description"class="row" style="flex-direction: column; align-items: start;">
           </div>
 
         </div>
@@ -84,7 +69,7 @@
       </div>
 
       <div class="footer">
-        <button id="add-game-button">
+        <button class="add-game-button" id="add-game-menu-button">
           Add Game
         </button>
         IGS Launcher v0.1.0
@@ -95,37 +80,64 @@
       <div class="add-game-window">
         <div class="row">
           <p>Add Game</p>
-          <img src="assets/plus-lg.svg" style="rotate: 45deg; height: 20px;" id="closeAddGame" alt="IGS Launcher Icon" />
+          <img src="assets/plus-lg.svg" id="closeAddGame" title="Close Window" alt="Close" />
         </div>
         <div class="input-group">
           <label for="name">Game Name:</label>
           <input type="text" id="name" name="name" />
         </div>
         <div class="input-group">
-          <label for="path">Path:</label>
-          <input type="file" id="path" name="path" />
+          <label for="pathDisplay">Path (Executable):</label>
+          <div class="row" style="border:none; padding: 0; max-width: 200px; gap: 5px;">
+              <input type="text" id="exePathDisplay" placeholder="Select game executable..." readonly>
+              <button type="button" id="selectExeBtn" class="browse-btn">
+                <p>Browse</p>
+              </button>
+          </div>
         </div>
         <div class="input-group">
           <label for="cover">Cover Image:</label>
-          <input type="file" id="cover" name="cover" />
+          <div class="row" style="border:none; padding: 0; max-width: 200px; gap: 5px;">
+              <input type="text" id="coverPathDisplay" placeholder="Select game executable..." readonly>
+              <button type="button" id="selectCoverBtn" class="browse-btn">
+                <p>Browse</p>
+              </button>
+          </div>
         </div>
         <div class="input-group">
           <label for="icon">Icon:</label>
-          <input type="file" id="icon" name="icon" />
+          <div class="row" style="border:none; padding: 0; max-width: 200px; gap: 5px;">
+              <input type="text" id="iconPathDisplay" placeholder="Select game executable..." readonly>
+              <button type="button" id="selectIconBtn" class="browse-btn">
+                <p>Browse</p>
+              </button>
+          </div>
         </div>
         <div class="input-group">
           <label for="tags">Tags:</label>
-          <button id="addTag">+</button>
+          <div class="add-tag">
+            <input type="text" id="tag" name="tag" />
+            <button id="addTag" title="Add Tag">+</button>
+          </div>
+        </div>
+        <div id="tag-container" class="row tags" >
+          <!-- tags appear dinamically here -->
         </div>
         <div class="input-group desc">
           <label for="description">Description:</label>
-          <textarea id="description" name="description" cols="20" rows="10"></textarea>
+          <textarea id="descriptionArea" name="description" cols="20" rows="10"></textarea>
+        </div>
+        <div class="row" style="border: none;">
+          <button class="add-game-button" id="add-game-button">
+            Add Game
+          </button>
         </div>
       </div>
       
     </div>
   </body>
 
-  <script src="renderer.js"></script>
-  <script src="search.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/add-game.js"></script>
 </html>

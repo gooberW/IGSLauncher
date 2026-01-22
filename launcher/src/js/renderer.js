@@ -19,14 +19,14 @@ async function displayGames() {
 
         Object.entries(data.games).forEach(([name, info]) => {
             console.log("Adding game:", name);
-
+            const safeCoverPath = info.coverImage.replace(/\\/g, '/');
+            const coverSrc = `local-resource://${safeCoverPath}`;
             const gameBox = document.createElement('div');
             gameBox.className = 'game-box';
-
+            gameBox.style.backgroundImage = `url("${coverSrc}")`;
             gameBox.innerHTML = `
-                <img src="local-resource://${info.coverImage}" alt="${name}">
                 <div class="row">
-                    <button class="play-btn" title="Play ${name}">
+                    <button id="play-game"class="play-btn" title="Play ${name}">
                         <img src="assets/play-fill.svg" alt="Play ${name}">
                     </button>
                     <button id="info" class="play-btn" title="More info">
@@ -37,6 +37,17 @@ async function displayGames() {
 
             const infoButton = gameBox.querySelector('#info');
             infoButton.onclick = () => openSidebar(name);
+
+            const playButton = gameBox.querySelector('#play-game');
+
+            playButton.onclick = async () => {
+                const exePath = info.path;
+                const result = await window.electronAPI.launchGame(exePath);
+
+                if (!result.success) {
+                    alert(`Failed to launch game: ${result.error}`);
+                }
+            };
             container.appendChild(gameBox);
         });
     } catch (err) {
@@ -81,6 +92,12 @@ function openSidebar(gameName) {
         });
     }
 
+    const sidebarPlay = sidebar.querySelector('#sidebarPlay');
+    sidebarPlay.addEventListener('click', () => {
+        const exePath = gameInfo.path;
+        window.electronAPI.launchGame(exePath);
+    });
+
     const descContainer = sidebar.querySelector('#description');
     descContainer.innerHTML = `<p>${gameInfo.description || "No description available."}</p>`;
 
@@ -103,3 +120,4 @@ document.addEventListener('DOMContentLoaded', () => {
         closeBtn.addEventListener('click', closeSidebar);
     }
 });
+
