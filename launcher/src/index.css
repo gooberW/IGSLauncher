@@ -1,8 +1,7 @@
 :root {
-    --red: #E6192A;
-    --blue: #050522;
-    --white: #EDEDF5;
-    --black: #040405;
+    --accent-color: #E6192A;
+    --secondary-color: #050522;
+    --main-bg-color: #EDEDF5;
     --tango: 'TangoSans', sans-serif;
     --inconsolata: 'Inconsolata', monospace;
 }
@@ -13,12 +12,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--white);
-    border-left: 1.5px solid var(--blue);
+    background-color: var(--main-bg-color);
+    border-left: 1.5px solid var(--secondary-color);
 }
 
 ::-webkit-scrollbar-track {
-    background-color: var(--blue);
+    background-color: var(--secondary-color);
 }
 
 @font-face {
@@ -37,8 +36,8 @@ html {
 }
 
 ::selection {
-    background-color: var(--red);
-    color: var(--blue);
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
 }
 
 h1, h2, h3 {
@@ -79,9 +78,9 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: var(--white);
-    border-bottom: 1.5px solid var(--blue);
-    color: var(--blue);
+    background-color: var(--main-bg-color);
+    border-bottom: 1.5px solid var(--secondary-color);
+    color: var(--secondary-color);
     width: 100%;
     padding: 10px 20px;
     height: 75px;
@@ -90,7 +89,7 @@ body {
 .nav-bar .nav-item {
     padding: 10px;
     cursor: pointer;
-    color: var(--blue);
+    color: var(--secondary-color);
     transition: all 0.1s ease-in-out;
     align-items: baseline;
     margin: 0;
@@ -111,7 +110,7 @@ body {
 .search-bar{
     padding: 10px;
     display: flex;
-    border: 1.5px solid var(--blue);
+    border: 1.5px solid var(--secondary-color);
     border-radius: 5px;
     z-index: 6;
 }
@@ -131,7 +130,7 @@ body {
 }
 
 .search-bar input::placeholder{
-    color: var(--blue);
+    color: var(--secondary-color);
     opacity: 0.75;
 }
 
@@ -146,8 +145,8 @@ body {
   top: 110%;
   left: 0;
   width: 100%;
-  border: 1.5px solid var(--blue);
-  background: var(--white);
+  border: 1.5px solid var(--secondary-color);
+  background: var(--main-bg-color);
   z-index: 5;
   border-radius: 5px;
 }
@@ -158,11 +157,11 @@ body {
 }
 
 .suggestion-item:hover {
-  background-color: var(--red);
+  background-color: var(--accent-color);
 }
 
 .suggestion-item.active {
-    background-color: var(--red);
+    background-color: var(--accent-color);
 }
 
 
@@ -189,8 +188,8 @@ body {
     display: flex;
     flex-direction: column;
     width: 0;
-    background-color: var(--white);
-    border-left: 0 solid var(--blue);
+    background-color: var(--main-bg-color);
+    border-left: 0 solid var(--secondary-color);
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -198,7 +197,7 @@ body {
 .sidebar.active {
     width: 30vw;
     min-width: 300px;
-    border-left: 1.5px solid var(--blue);
+    border-left: 1.5px solid var(--secondary-color);
 }
 
 .sidebar p {
@@ -220,8 +219,8 @@ body {
 
 .tag {
     font-size: 14px;
-    background-color: var(--blue);
-    color: var(--white);
+    background-color: var(--secondary-color);
+    color: var(--main-bg-color);
     padding: 8px 10px;
     border-radius: 10px;
     transition: all 0.1s ease-in-out;
@@ -252,7 +251,7 @@ body {
     gap: 20px;
     padding: 20px;
     width: 100%;
-    background-color: var(--white);
+    background-color: var(--main-bg-color);
     flex-grow: 1;
     overflow-y: auto;
     grid-auto-rows: calc(300px * 4 / 3);
@@ -261,7 +260,7 @@ body {
 
 
 .game-box {
-    border: 1.5px solid var(--blue);
+    border: 1.5px solid var(--secondary-color);
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -291,15 +290,15 @@ body {
 .game-box .game-title {
     font-size: 22px;
     font-weight: normal;
-    color: var(--blue);
+    color: var(--secondary-color);
     margin: 0;
     max-width: 100%;
 }
 
 .footer {
     width: 100%;
-    background-color: var(--white);
-    border-top: 1.5px solid var(--blue);
+    background-color: var(--main-bg-color);
+    border-top: 1.5px solid var(--secondary-color);
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
@@ -310,10 +309,10 @@ body {
 }
 
 button.add-game-button {
-    color: var(--blue);
+    color: var(--secondary-color);
     border: none;
     cursor: pointer;
-    border: 1.5px solid var(--blue);
+    border: 1.5px solid var(--secondary-color);
     transition: all 0.1s ease-in-out;
     display: flex;
     flex-direction: row;
@@ -322,11 +321,11 @@ button.add-game-button {
     font-family: var(--tango);
     padding: 10px;
     border-radius: 5px ;
-    background-color: var(--white);
+    background-color: var(--main-bg-color);
 }
 
 button.add-game-button:hover {
-    background-color: var(--red);
+    background-color: var(--accent-color);
 }
 
 .settings {
@@ -350,9 +349,9 @@ button.add-game-button:hover {
 .play-btn {
     padding: 5px;
     border-radius: 5px;
-    background-color: var(--white);
-    color: var(--blue);
-    border: 1.5px solid var(--blue);
+    background-color: var(--main-bg-color);
+    color: var(--secondary-color);
+    border: 1.5px solid var(--secondary-color);
     cursor: pointer;
     transition: all 0.1s ease-in-out;
     font-family: var(--tango);
@@ -372,7 +371,7 @@ button.add-game-button:hover {
 }
 
 .play-btn:hover {
-    background-color: var(--red);
+    background-color: var(--accent-color);
 }
 
 .add-game-window {
@@ -387,8 +386,8 @@ button.add-game-button:hover {
     height: 0;
     width: 0;
     visibility: hidden;
-    background-color: var(--white);
-    border: 1.5px solid var(--blue);
+    background-color: var(--main-bg-color);
+    border: 1.5px solid var(--secondary-color);
     border-radius: 5px;
     overflow: auto;
     transition: all 1s ease-in-out;
@@ -400,7 +399,7 @@ button.add-game-button:hover {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1.5px solid var(--blue);
+    border-bottom: 1.5px solid var(--secondary-color);
     padding: 10px;
 }
 
@@ -437,9 +436,9 @@ button.add-game-button:hover {
 input, textarea {
     padding: 10px;
     border-radius: 5px;
-    border: 1.5px solid var(--blue);
+    border: 1.5px solid var(--secondary-color);
     font-size: 14px;
-    background-color: var(--white);
+    background-color: var(--main-bg-color);
     outline: none;
     width: 400px;
     display: flex;
@@ -455,9 +454,9 @@ input, textarea {
 .input-group button {
     padding: 5px;
     border-radius: 5px;
-    border: 1.5px solid var(--blue);
-    background-color: var(--white);
-    color: var(--blue);
+    border: 1.5px solid var(--secondary-color);
+    background-color: var(--main-bg-color);
+    color: var(--secondary-color);
     cursor: pointer;
     transition: all 0.1s ease-in-out;
     width: 38px;
@@ -472,7 +471,7 @@ input, textarea {
 }
 
 .input-group button:hover {
-    background-color: var(--red);
+    background-color: var(--accent-color);
 }
 
 .add-tag {
@@ -492,7 +491,7 @@ input, textarea {
 }
 
 #tag-container .tag:hover {
-    background-color: var(--red);
+    background-color: var(--accent-color);
     cursor: pointer;
 }
 
@@ -518,10 +517,10 @@ input, textarea {
 
 [data-title]:after {
     content: attr(data-title);
-    background-color: var(--blue);
+    background-color: var(--secondary-color);
     padding: 5px 8px;
     border-radius: 5px;
-    color: var(--white);
+    color: var(--main-bg-color);
     position: absolute;
     z-index: 99999;
     left: 50%;
@@ -562,9 +561,9 @@ input, textarea {
 
 .more-menu {
     border-radius: 5px;
-    border: 1.5px solid var(--blue);
-    background-color: var(--white);
-    color: var(--blue);
+    border: 1.5px solid var(--secondary-color);
+    background-color: var(--main-bg-color);
+    color: var(--secondary-color);
     transition: all 0.1s ease-in-out;
     opacity: 0;
     flex-direction: column;
@@ -593,14 +592,14 @@ input, textarea {
     font-size: 14px;
     outline: none;
     border: none;
-    background-color: var(--white);
+    background-color: var(--main-bg-color);
     font-family: var(--inconsolata);
-    border-bottom: 1.5px solid var(--blue);
+    border-bottom: 1.5px solid var(--secondary-color);
     width: 100%;
 }
 
 .more-item:hover {
-    background-color: var(--red);
+    background-color: var(--accent-color);
 }
 
 .more-item:last-child {
@@ -608,14 +607,14 @@ input, textarea {
 }
 
 .alert-box {
-    border: 1.5px solid var(--blue);
+    border: 1.5px solid var(--secondary-color);
     display: flex;
     flex-direction: column;
     border-radius: 5px;
     overflow: hidden;
     height: 100%;
-    background-color: var(--white);
-    color: var(--blue);
+    background-color: var(--main-bg-color);
+    color: var(--secondary-color);
     font-family: var(--inconsolata);
     font-size: 14px;
     position: absolute;
@@ -644,9 +643,9 @@ input, textarea {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--white);
-    color: var(--blue);
-    border-bottom: 1.5px solid var(--blue);
+    background-color: var(--main-bg-color);
+    color: var(--secondary-color);
+    border-bottom: 1.5px solid var(--secondary-color);
     height: fit-content;
 }
 
@@ -654,8 +653,8 @@ input, textarea {
     padding: 10px;
     display: flex;
     flex-direction: column;
-    background-color: var(--white);
-    color: var(--blue);
+    background-color: var(--main-bg-color);
+    color: var(--secondary-color);
     width: 100%;
     height: fit-content;
 }
@@ -667,19 +666,19 @@ input, textarea {
 }
 
 .alert-button {
-    border: 1.5px solid var(--blue);
+    border: 1.5px solid var(--secondary-color);
     border-radius: 5px;
     padding: 5px;
     cursor: pointer;
     transition: all 0.1s ease-in-out;
     font-family: var(--inconsolata);
     font-size: 14px;
-    background-color: var(--white);
-    color: var(--blue);
+    background-color: var(--main-bg-color);
+    color: var(--secondary-color);
     outline: none;
     width: 20%;
 }
 
 .alert-button:hover {
-    background-color: var(--red);
+    background-color: var(--accent-color);
 }
