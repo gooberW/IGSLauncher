@@ -1,11 +1,12 @@
 let gamesData = null;
 let currentGameName = null;
+import { showAlert, showConfirmation } from "./alert.js";
 
 /**
  * Displays all the games in the 'games' div.
  * @throws {Error} If there is an error loading the games.
  */
-async function displayGames() {
+export async function displayGames() {
     const container = document.getElementById('games'); 
 
     if (!container) {
@@ -46,7 +47,7 @@ async function displayGames() {
                 const result = await window.electronAPI.launchGame(exePath);
 
                 if (!result.success) {
-                    alert(`Failed to launch game: ${result.error}`);
+                    showAlert(`Failed to launch game: ${result.error}`);
                 }
             };
             container.appendChild(gameBox);
@@ -64,7 +65,7 @@ async function displayGames() {
 async function removeGame() {
     if (!currentGameName) return;
 
-    const confirmed = confirm(`Remove "${currentGameName}" from library?`);
+    const confirmed = await showConfirmation(`Remove "${currentGameName}" from library?`);
     if (!confirmed) return;
 
     const result = await window.electronAPI.removeGame(currentGameName);
@@ -74,7 +75,7 @@ async function removeGame() {
         if (sidebar) sidebar.classList.remove('active');
         displayGames();
     } else {
-        alert('Failed to remove game');
+        showAlert('Failed to remove game');
     }
 }
 
@@ -133,7 +134,6 @@ function closeSidebar() {
     const sidebar = document.querySelector('.sidebar');
     if (sidebar) sidebar.classList.remove('active');
 }
-
 
 // Event Listeners ----------- 
 

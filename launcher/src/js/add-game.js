@@ -1,3 +1,5 @@
+import { showAlert, showConfirmation } from "./alert.js";
+import { displayGames } from "./renderer.js";
 /**
  * Writes the game data from the add game window to the library.
  * If the game name or path is empty, it will display an alert and return.
@@ -26,14 +28,14 @@ async function writeGameData() {
     };
 
     if (!gameData.name || !gameData.details.path) {
-        alert("The game needs a name and a path.");
+        showAlert("The game needs a name and a path.");
         return;
     }
 
     try {
         const result = await window.electronAPI.writeGameData(gameData);
         if (result.success) {
-            alert("Game added successfully.");
+            showAlert("Game added successfully.");
             displayGames();
         }
     } catch (error) {

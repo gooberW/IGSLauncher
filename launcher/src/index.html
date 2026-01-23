@@ -148,9 +148,30 @@
       </div>
       
     </div>
+
+
+    <div id="alert" class="alert-box">
+      <div class="row">
+        <p id="alert-title">ISEL Game Studios</p>
+        <button id="alert-close" style="background: none; border: none;" data-title="Close Alert">
+          <img src="assets/plus-lg.svg" style="rotate: 45deg;" alt="X" />
+        </button>
+      </div>
+      <div class="message-container">
+        <p id="alert-message">
+          Alert! Alert! Alert!
+        </p>
+      </div>
+      <div class="row btn-row">
+        <button id="alert-ok" class="alert-button">Ok</button>
+        <button id="alert-cancel" class="alert-button">Cancel</button>
+      </div>
+    </div>
+
+
   </body>
 
-  <script src="js/renderer.js"></script>
-  <script src="js/search.js"></script>
-  <script src="js/add-game.js"></script>
+  <script type="module" src="js/renderer.js"></script>
+  <script type="module" src="js/search.js"></script>
+  <script type="module" src="js/add-game.js"></script>
 </html>
