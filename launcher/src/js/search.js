@@ -18,16 +18,21 @@ async function autoCompleteSearch(query) {
         return;
     }
 
-    const games = await loadGamesOnce();
+    const gamesData = await window.electronAPI.loadGames();
+    const gameNames = Object.keys(gamesData);
 
-    const matches = games.filter(name =>
-        name.toLowerCase().includes(query.toLowerCase())
-    );
+    console.log("Game names:", gameNames);
 
-    if (!matches.length) {
+    if (!gameNames.length) {
         suggestions.style.display = 'none';
         return;
     }
+
+    const matches = gameNames.filter(name =>
+        name.toLowerCase().includes(query.toLowerCase())
+    );
+
+    console.log("Matches:", matches);
 
     matches.forEach(name => {
         const item = document.createElement('div');
@@ -80,20 +85,6 @@ function handleKeydown(e) {
 
     items.forEach(item => item.classList.remove('active'));
     items[activeIndex].classList.add('active');
-}
-
-
-async function loadGamesOnce() {
-    if (gamesCache) return gamesCache;
-
-    try {
-        const data = await window.electronAPI.loadGames();
-        gamesCache = Object.keys(data.games);
-        return gamesCache;
-    } catch (err) {
-        console.error("Error loading games:", err);
-        return [];
-    }
 }
 
 searchInput.addEventListener('input', (e) => {
