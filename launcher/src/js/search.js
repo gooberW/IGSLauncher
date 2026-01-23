@@ -19,8 +19,8 @@ async function autoCompleteSearch(query) {
     }
 
     const gamesData = await window.electronAPI.loadGames();
-    const gameNames = Object.keys(gamesData);
 
+    const gameNames = Object.keys(gamesData.games);
     console.log("Game names:", gameNames);
 
     if (!gameNames.length) {
