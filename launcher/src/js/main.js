@@ -94,6 +94,14 @@ ipcMain.handle('select-image', async () => {
   return result.canceled ? null : result.filePaths[0];
 });
 
+ipcMain.handle('change-page', async (event, page) => {
+    const win = BrowserWindow.getFocusedWindow();
+    if (win) {
+        const pagePath = path.join(__dirname, '..', page);
+        await win.loadFile(pagePath);
+    }
+});
+
 // creates the main window
 const createWindow = () => {
     const win = new BrowserWindow({

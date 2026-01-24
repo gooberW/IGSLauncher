@@ -67,3 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const homeBtn = document.getElementById('homeBtn');
+        if (homeBtn) {
+            homeBtn.addEventListener('click', () => {
+                window.electronAPI.changePage('index.html');
+            });
+        }
+
+        console.log("Home button:", homeBtn);
+});

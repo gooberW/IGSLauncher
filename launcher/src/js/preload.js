@@ -6,5 +6,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     selectExecutable: () => ipcRenderer.invoke('select-executable'),
     selectImage: () => ipcRenderer.invoke('select-image'),
     launchGame: (exePath) => ipcRenderer.invoke('launch-game', exePath),
-    removeGame: (gameName) => ipcRenderer.invoke('remove-game', gameName)
+    removeGame: (gameName) => ipcRenderer.invoke('remove-game', gameName),
+    changePage: (page) => ipcRenderer.invoke('change-page', page)
 });

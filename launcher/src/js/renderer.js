@@ -2,6 +2,8 @@ let gamesData = null;
 let currentGameName = null;
 import { showAlert, showConfirmation } from "./alert.js";
 
+
+
 /**
  * Displays all the games in the 'games' div.
  * @throws {Error} If there is an error loading the games.
@@ -167,4 +169,18 @@ document.addEventListener('DOMContentLoaded', () => {
         removeBtn.addEventListener('click', removeGame);
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const settingsBtn = document.getElementById('settingsBtn');
+    console.log("Settings button:", settingsBtn);
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', async () => {
+            console.log("Opening settings...");
+            await window.electronAPI.changePage('settings.html');
+        });
+    }
+
+    
+});
+
 
