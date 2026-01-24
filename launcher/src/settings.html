@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; img-src 'self' local-resource: data:; style-src 'self' 'unsafe-inline';"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <link rel="stylesheet" href="index.css"></link>
+    <title>IGS Launcher</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="nav-bar">
+        <div class="icon"> 
+          <div class="icon icon-igs"></div>
+        </div>
+        
+        <div id="home" class="settings">
+          <button id="homeBtn" data-title="Go Back" style="background: none; border: none;">
+            <div class="icon icon-settings"></div>
+          </button>
+        </div>
+      </div>
+
+      <div class="settings-area">
+        <div class="row">General Settings</div>
+        <div class="row">Appearance</div>
+        <div class="settings-item">
+          <label for="bg-color">Background Color:</label>
+          <input type="color" id="bg-color" name="bg-color" data-var="--main-bg-color"/>
+          <button id="bg-color-reset" data-var="--main-bg-color" class="reset-btn">Reset</button>
+        </div>
+        <div class="settings-item">
+          <label for="sec-color">Secondary Color:</label>
+          <input type="color" id="sec-color" name="sec-color" data-var="--secondary-color"/>
+          <button id="sec-color-reset" data-var="--secondary-color" class="reset-btn">Reset</button>
+        </div>
+        <div class="settings-item">
+          <label for="acc-color">Accent Color:</label>
+          <input type="color" id="acc-color" name="acc-color" data-var="--accent-color"/>
+          <button id="acc-color-reset" data-var="--accent-color" class="reset-btn">Reset</button>
+        </div>
+      </div>
+
+
+      <div class="footer">
+        IGS Launcher v0.1.0
+      </div>
+    </div>
+
+
+    <div id="alert" class="alert-box">
+      <div class="row">
+        <p id="alert-title">ISEL Game Studios</p>
+        <button id="alert-close" style="background: none; border: none;" data-title="Close Alert">
+          <img src="assets/plus-lg.svg" style="rotate: 45deg;" alt="X" />
+        </button>
+      </div>
+      <div class="message-container">
+        <p id="alert-message">
+          Alert! Alert! Alert!
+        </p>
+      </div>
+      <div class="row btn-row">
+        <button id="alert-ok" class="alert-button">Ok</button>
+        <button id="alert-cancel" class="alert-button">Cancel</button>
+      </div>
+    </div>
+
+
+  </body>
+
+  <script type="module" src="js/settings.js"></script>
+</html>

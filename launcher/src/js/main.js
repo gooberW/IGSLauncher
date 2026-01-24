@@ -106,7 +106,7 @@ const createWindow = () => {
         }
     });
 
-    win.loadFile(path.join(__dirname, '../index.html'));
+    win.loadFile(path.join(__dirname, '../settings.html'));
 };
 
 // starts the app and handles the protocol

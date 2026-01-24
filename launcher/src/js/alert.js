@@ -3,6 +3,7 @@ export function showAlert(message) {
     document.getElementById("alert").classList.add("active");
     document.getElementById("alert-ok").addEventListener("click", closeAlert);
     document.getElementById("alert-cancel").hidden = true;
+    document.getElementById("alert-close").addEventListener("click", closeAlert);
 }
 
 export function showConfirmation(message) {
@@ -11,6 +12,7 @@ export function showConfirmation(message) {
         document.getElementById("alert").classList.add("active");
         document.getElementById("alert-cancel").hidden = false;
 
+        const closeBtn = document.getElementById("alert-close");
         const okBtn = document.getElementById("alert-ok");
         const cancelBtn = document.getElementById("alert-cancel");
 
@@ -31,6 +33,7 @@ export function showConfirmation(message) {
 
         okBtn.addEventListener("click", onOk);
         cancelBtn.addEventListener("click", onCancel);
+        closeBtn.addEventListener("click", onCancel);
     });
 }
 
