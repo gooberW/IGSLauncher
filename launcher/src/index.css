@@ -3,6 +3,7 @@
     --secondary-color: #050522;
     --main-bg-color: #EDEDF5;
     --text-color: #050522;
+    --tooltip-bg-color: #050522;
     --tango: 'TangoSans', sans-serif;
     --inconsolata: 'Inconsolata', monospace;
 }
@@ -314,7 +315,7 @@ body {
 
 .tag {
     font-size: 14px;
-    background-color: var(--secondary-color);
+    background-color: var(--text-color);
     color: var(--main-bg-color);
     padding: 8px 10px;
     border-radius: 10px;
@@ -441,6 +442,7 @@ button.add-game-button:hover {
     width: 40vw;
     min-width: 400px;
     overflow: hidden;
+    margin-bottom: 10px;
 }
 
 .settings img {
@@ -625,7 +627,7 @@ input, textarea {
 
 [data-title]:after {
     content: attr(data-title);
-    background-color: var(--secondary-color);
+    background-color: var(--text-color);
     padding: 5px 8px;
     border-radius: 5px;
     color: var(--main-bg-color);
@@ -683,6 +685,7 @@ input, textarea {
     transform: translateX(-50%) translateY(-10px);
     transition: transform 0.1s ease;
     pointer-events: none;
+    overflow: hidden;
 
 }
 
@@ -924,4 +927,35 @@ input, textarea {
     border: none;
     border-radius:0px;
 }
+
+.theme-btn {
+    width: 33%;
+    height: 60px;
+    border: 1.5px solid var(--secondary-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.theme-btn:hover, .theme-btn.active {
+    border-color: var(--accent-color);
+    border-width: 2px;
+}
+
+.theme-btn[data-title]:after {
+    bottom: 50%;
+    left: 50%;
+    font-size: 14px;
+    text-wrap: nowrap;
+    transform: translateY(50%) translateX(-50%) scale(1);
+    background-color: var(--accent-color);
+}
+
+.theme-btn[data-title].active::after {
+    visibility: visible !important;
+    opacity: 1;
+    pointer-events: none;
+}
+
+
 

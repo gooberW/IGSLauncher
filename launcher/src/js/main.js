@@ -27,6 +27,22 @@ ipcMain.handle('get-games-data', async () => {
     }
 });
 
+const themesFilePath = path.join(__dirname, '../data/themes.json');
+
+ipcMain.handle('get-themes', async () => {
+    try {
+        if (!fs.existsSync(themesFilePath)) return { themes: {} };
+
+        const jsonData = fs.readFileSync(themesFilePath, 'utf-8');
+        return JSON.parse(jsonData);
+    } catch (error) {
+        console.error("[Main.js] Error loading themes JSON:", error);
+        return { themes: {} };
+    }
+});
+
+
+
 // removes a game from the data
 ipcMain.handle('remove-game', async (event, gameName) => {
     try {
@@ -195,20 +211,42 @@ app.whenReady().then(() => {
 });
 
 // launches the game
+let activeGames = new Map();
+
 ipcMain.handle('launch-game', async (event, exePath) => {
   try {
-    if (!exePath || !exePath.endsWith('.exe')) {
-      throw new Error('Invalid executable');
-    }
-
     const finalPath = path.normalize(exePath);
 
-    spawn(finalPath, [], {
-      detached: true,
-      stdio: 'ignore'
-    }).unref();
+    if (activeGames.has(finalPath)) {
+        const process = activeGames.get(finalPath);
+        try {
+            process.kill(0); 
+            console.log("The game is already running.");
+            return { success: false, error: "Game is already running." };
+        } catch (e) {
+            activeGames.delete(finalPath);
+        }
+    }
 
+    const gameDir = path.dirname(finalPath);
+
+    const gameProcess = spawn(`"${finalPath}"`, [], {
+      detached: true,
+      stdio: 'ignore',
+      shell: true,
+      cwd: gameDir
+    });
+
+    activeGames.set(finalPath, gameProcess);
+    
+    gameProcess.on('exit', () => {
+        activeGames.delete(finalPath);
+        console.log("Game closed. Removed from active list.");
+    });
+
+    gameProcess.unref();
     return { success: true };
+
   } catch (err) {
     console.error('Launch error:', err);
     return { success: false, error: err.message };

@@ -1,0 +1,22 @@
+{
+    "themes": {
+        "default": {
+            "main-bg-color": "#EDEDF5",
+            "secondary-color": "#050522",
+            "accent-color": "#E6192A",
+            "text-color": "#050522"
+        },
+        "dark": {
+            "main-bg-color": "#000000",
+            "secondary-color": "#171717",
+            "accent-color": "#3d088c",
+            "text-color": "#878787"
+        },
+        "pink": {
+            "main-bg-color": "#ffd2f5",
+            "secondary-color": "#5f1437",
+            "accent-color": "#ff3b28",
+            "text-color": "#5f1437"
+        }
+    }
+}

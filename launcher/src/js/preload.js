@@ -8,5 +8,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     launchGame: (exePath) => ipcRenderer.invoke('launch-game', exePath),
     removeGame: (gameName) => ipcRenderer.invoke('remove-game', gameName),
     changePage: (page) => ipcRenderer.invoke('change-page', page),
-    updateGame: (oldName, newName, newData) => ipcRenderer.invoke('update-game', oldName, newName, newData)
+    updateGame: (oldName, newName, newData) => ipcRenderer.invoke('update-game', oldName, newName, newData),
+    getThemes: () => ipcRenderer.invoke('get-themes')
 });
