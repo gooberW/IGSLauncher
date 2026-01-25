@@ -1,5 +1,6 @@
 let gamesData = null;
 let currentGameName = null;
+import { openEditGame } from "./add-game.js";
 import { showAlert, showConfirmation } from "./alert.js";
 
 
@@ -82,21 +83,11 @@ async function removeGame() {
 }
 
 /**
- * Opens the settings window.
- * 
- * @todo Implement this function.
- */
-async function openSettings() {
-    // TODO
-    // this will open the settings window.
-}
-
-/**
  * Displays the sidebar with the game info for the game that was clicked.
  * @remarks The game info will be retrieved from the data object.
  * @todo Implement this function.
  */
-function openSidebar(gameName) {
+export function openSidebar(gameName) {
     const gameInfo = gamesData[gameName];
     const sidebar = document.querySelector('.sidebar');
     currentGameName = gameName;
@@ -132,7 +123,7 @@ function openSidebar(gameName) {
  * Closes the sidebar.
  * @todo Implement this function.
  */
-function closeSidebar() {
+export function closeSidebar() {
     const sidebar = document.querySelector('.sidebar');
     if (sidebar) sidebar.classList.remove('active');
 }
@@ -169,6 +160,13 @@ document.addEventListener('DOMContentLoaded', () => {
         removeBtn.addEventListener('click', removeGame);
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const removeBtn = document.getElementById('editGameBtn');
+    if (removeBtn) {
+        removeBtn.addEventListener('click', () => openEditGame(currentGameName, gamesData[currentGameName]));
+    }
+})
 
 document.addEventListener('DOMContentLoaded', () => {
     const settingsBtn = document.getElementById('settingsBtn');

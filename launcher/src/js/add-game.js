@@ -1,5 +1,8 @@
 import { showAlert, showConfirmation } from "./alert.js";
-import { displayGames } from "./renderer.js";
+import { displayGames, closeSidebar } from "./renderer.js";
+
+let editingGameName = null; // null = add mode, otherwise edit mode
+
 /**
  * Writes the game data from the add game window to the library.
  * If the game name or path is empty, it will display an alert and return.
@@ -7,41 +10,70 @@ import { displayGames } from "./renderer.js";
  * @throws {Error} If there is an error writing the game data.
  */
 async function writeGameData() {
-    const nameInput = document.getElementById('name');
-    const pathInput = document.getElementById('exePathDisplay');
-    const coverInput = document.getElementById('coverPathDisplay');
-    const iconInput = document.getElementById('iconPathDisplay');
-    const tagsContainer = document.getElementById('tag-container');
-    const descInput = document.getElementById('descriptionArea');
+    const name = document.getElementById('name').value.trim();
+    const path = document.getElementById('exePathDisplay').value;
+    const coverImage = document.getElementById('coverPathDisplay').value;
+    const icon = document.getElementById('iconPathDisplay').value;
+    const description = document.getElementById('descriptionArea').value;
 
-    const tags = Array.from(tagsContainer.children).map(tag => tag.textContent.trim());
-    
-    const gameData = {
-        name: nameInput.value,
-        details: {
-            path: pathInput.value,
-            coverImage: coverInput.value,
-            icon: iconInput.value,
-            tags: tags,
-            description: descInput ? descInput.value : ""
-        }
-    };
+    const tags = Array.from(
+        document.getElementById('tag-container').children
+    ).map(tag => tag.textContent.trim());
 
-    if (!gameData.name || !gameData.details.path) {
+    if (!name || !path) {
         showAlert("The game needs a name and a path.");
         return;
     }
 
+    const gameData = {
+        path,
+        coverImage,
+        icon,
+        tags,
+        description
+    };
+
+    if (
+        editingGameName &&
+        name !== editingGameName &&
+        gamesData[name]
+    ) {
+        showAlert("A game with this name already exists.");
+        return;
+    }
+
+
     try {
-        const result = await window.electronAPI.writeGameData(gameData);
-        if (result.success) {
-            showAlert("Game added successfully.");
-            displayGames();
+        let result;
+
+        if (editingGameName) {
+            result = await window.electronAPI.updateGame(
+                editingGameName,
+                name,
+                gameData
+            );
+        } else {
+            result = await window.electronAPI.writeGameData({
+                name,
+                details: gameData
+            });
         }
-    } catch (error) {
-        console.error("Error writing game data:", error);
+
+        if (result.success) {
+            let alertMessage = editingGameName ? "Game updated successfully." : "Game added successfully.";
+            showAlert(alertMessage);
+            displayGames();
+            closeSidebar();
+            closeAddGame();
+            resetForm();
+            editingGameName = null;
+        }
+    } catch (err) {
+        console.error(err);
     }
 }
+
+
 
 
 /**
@@ -74,13 +106,57 @@ function openAddGame() {
     if (addGameWindow) addGameWindow.classList.add('active');
 }
 
+export function openEditGame(gameName, gameData) {
+    editingGameName = gameName;
+
+    document.getElementById('addGameTitle').innerText = "Edit Game";
+
+    document.getElementById('name').value = gameName;
+    document.getElementById('exePathDisplay').value = gameData.path || "";
+    document.getElementById('coverPathDisplay').value = gameData.coverImage || "";
+    document.getElementById('iconPathDisplay').value = gameData.icon || "";
+    document.getElementById('descriptionArea').value = gameData.description || "";
+
+    const tagContainer = document.getElementById('tag-container');
+    tagContainer.innerHTML = "";
+
+    (gameData.tags || []).forEach(tagText => {
+        const tag = document.createElement('p');
+        tag.className = 'tag';
+        tag.innerText = tagText;
+
+        tag.addEventListener('click', () => {
+            tagContainer.removeChild(tag);
+        });
+
+        tagContainer.appendChild(tag);
+    });
+
+    openAddGame();
+}
+
+
 /**
  * Closes the add game window.
  */
 function closeAddGame() {
     const addGameWindow = document.querySelector('.add-game-window');
     if (addGameWindow) addGameWindow.classList.remove('active');
+    resetForm();
 }
+
+function resetForm() {
+    document.getElementById('name').value = "";
+    document.getElementById('exePathDisplay').value = "";
+    document.getElementById('coverPathDisplay').value = "";
+    document.getElementById('iconPathDisplay').value = "";
+    document.getElementById('descriptionArea').value = "";
+    document.getElementById('tag-container').innerHTML = "";
+
+    document.getElementById('addGameTitle').innerText = "Add Game";
+
+}
+
 
 // Event Listeners -----------
 

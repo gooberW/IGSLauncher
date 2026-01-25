@@ -3,6 +3,8 @@ const suggestions = document.getElementById('suggestions');
 let gamesCache = null;
 let activeIndex = -1;
 
+import { openSidebar } from "./renderer.js";
+
 /**
  * Adds suggestions to the search bar based on the games in the library.
  * Suggestions are added as div elements with the class 'suggestion'.

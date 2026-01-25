@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "--main-bg-color": "#EDEDF5",
         "--secondary-color": "#050522",
         "--accent-color": "#E6192A",
+        "--text-color": "#050522"
     };
 
     document.querySelectorAll('input[type="color"][data-var]')

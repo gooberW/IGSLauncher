@@ -21,6 +21,7 @@
         <div class="icon icon-igs"></div>
         <div class="search-container">
           <div id="search" class="search-bar">
+            <div class="icon icon-search"></div>
             <input id="searchInput" type="text" placeholder="Search for a game..." />
           </div>
 
@@ -63,12 +64,12 @@
             </div>
  
           </div>
-          <div class="row" style="border-bottom: 1.5px solid var(--blue);">
+          <div class="row" style="border-bottom: 1.5px solid var(--secondary-color);">
             <p>Tags</p>
           </div>
           <div id="tags" class="row">
           </div>
-          <div class="row" style="border-bottom: 1.5px solid var(--blue);">
+          <div class="row" style="border-bottom: 1.5px solid var(--secondary-color);">
             <p>Game description</p>
           </div>
           <div id="description"class="row" style="flex-direction: column; align-items: start;">
@@ -89,7 +90,7 @@
 
       <div class="add-game-window">
         <div class="row">
-          <p>Add Game</p>
+          <p id="addGameTitle">Add Game</p>
           <button id="closeAddGame" style="background: none; border: none;" data-title="Close Window">
               <div class="icon icon-cross"></div>
             </button>
@@ -100,7 +101,7 @@
         </div>
         <div class="input-group">
           <label for="pathDisplay">Path (Executable):</label>
-          <div class="row" style="border:none; padding: 0; max-width: 200px; gap: 5px;">
+          <div class="row" style="border:none; padding: 0; max-width: 400px; gap: 5px;">
               <input type="text" id="exePathDisplay" placeholder="Select game executable..." readonly>
               <button type="button" id="selectExeBtn" class="browse-btn">
                 <p>Browse</p>
@@ -109,7 +110,7 @@
         </div>
         <div class="input-group">
           <label for="cover">Cover Image:</label>
-          <div class="row" style="border:none; padding: 0; max-width: 200px; gap: 5px;">
+          <div class="row" style="border:none; padding: 0; max-width: 400px; gap: 5px;">
               <input type="text" id="coverPathDisplay" placeholder="Select game executable..." readonly>
               <button type="button" id="selectCoverBtn" class="browse-btn">
                 <p>Browse</p>
@@ -118,7 +119,7 @@
         </div>
         <div class="input-group">
           <label for="icon">Icon:</label>
-          <div class="row" style="border:none; padding: 0; max-width: 200px; gap: 5px;">
+          <div class="row" style="border:none; padding: 0; max-width: 400px; gap: 5px;">
               <input type="text" id="iconPathDisplay" placeholder="Select game executable..." readonly>
               <button type="button" id="selectIconBtn" class="browse-btn">
                 <p>Browse</p>

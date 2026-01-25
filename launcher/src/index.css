@@ -2,6 +2,7 @@
     --accent-color: #E6192A;
     --secondary-color: #050522;
     --main-bg-color: #EDEDF5;
+    --text-color: #050522;
     --tango: 'TangoSans', sans-serif;
     --inconsolata: 'Inconsolata', monospace;
 }
@@ -35,20 +36,28 @@ html {
     height: 100%;
 }
 
+label, input, textarea, button {
+    font-family: var(--inconsolata);
+    color: var(--text-color);
+}
+
 ::selection {
     background-color: var(--accent-color);
-    color: var(--secondary-color);
+   color: var(--text-color);
 }
 
 h1, h2, h3 {
     font-family: var(--tango);
     font-weight: normal;
+   color: var(--text-color);
 }
 
 p {
     display: flex;
     align-items: center;
     margin: 0;
+   color: var(--text-color);
+    font-family: var(--inconsolata);
 }
 
 body {
@@ -81,18 +90,18 @@ body {
     align-items: center;
     background-color: var(--main-bg-color);
     border-bottom: 1.5px solid var(--secondary-color);
-    color: var(--secondary-color);
+   color: var(--text-color);
     width: 100%;
     padding: 10px 20px;
     min-height: 60px;
     max-height: 60px;
-    gap: 10px;
+    gap: 20px;
 }
 
 .nav-bar .nav-item {
     padding: 10px;
     cursor: pointer;
-    color: var(--secondary-color);
+   color: var(--text-color);
     transition: all 0.1s ease-in-out;
     align-items: baseline;
     margin: 0;
@@ -116,6 +125,7 @@ body {
     border: 1.5px solid var(--secondary-color);
     border-radius: 5px;
     z-index: 6;
+    gap: 10px;
 }
 
 .search-bar input {
@@ -126,6 +136,7 @@ body {
     width: 100%;
     font-family: var(--inconsolata);
     padding: 0;
+    color: var(--text-color);
 }
 
 .search-bar input:focus {
@@ -133,13 +144,14 @@ body {
 }
 
 .search-bar input::placeholder{
-    color: var(--secondary-color);
+   color: var(--text-color);
     opacity: 0.75;
 }
 
 .search-container{
     position: relative;
-    width: 20vw;
+    width: 30vw;
+    max-width: 450px;
     min-width: 200px;
 }
 
@@ -171,7 +183,7 @@ body {
 .icon {
     width: 22px;
     height: 22px;
-    background-color: var(--secondary-color);
+    background-color: var(--text-color);
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
     -webkit-mask-size: contain;
@@ -179,8 +191,9 @@ body {
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: contain;
-    fill: var(--secondary-color);
+    fill: var(--text-color);
     transition: transform 0.3s ease, background-color 0.1s ease;
+    overflow: visible ;
 }
 
 .icon:hover {
@@ -230,6 +243,24 @@ body {
 .icon-info {
     -webkit-mask-image: url("assets/info-lg.svg");
     mask-image: url("assets/info-lg.svg");
+}
+
+.icon-search {
+    -webkit-mask-image: url("assets/search.svg");
+    mask-image: url("assets/search.svg");
+    height: 20px;
+    width: 20px;
+}
+
+.icon-reset {
+    -webkit-mask-image: url("assets/reset-arrow.svg");
+    mask-image: url("assets/reset-arrow.svg");
+    cursor: unset ! important;
+    transition: transform 0.5s ease;
+}
+
+.icon-reset:hover {
+    transform: rotate(-360deg);
 }
 
 .main-area {
@@ -304,7 +335,7 @@ body {
 
 #games {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, 300px);
     gap: 20px;
     padding: 20px;
     width: 100%;
@@ -348,7 +379,7 @@ body {
 .game-box .game-title {
     font-size: 22px;
     font-weight: normal;
-    color: var(--secondary-color);
+   color: var(--text-color);
     margin: 0;
     max-width: 100%;
 }
@@ -364,10 +395,11 @@ body {
     flex-direction: row;
     gap: 10px;
     font-size: 14px;
+   color: var(--text-color);
 }
 
 button.add-game-button {
-    color: var(--secondary-color);
+   color: var(--text-color);
     border: none;
     cursor: pointer;
     border: 1.5px solid var(--secondary-color);
@@ -408,7 +440,7 @@ button.add-game-button:hover {
     padding: 5px;
     border-radius: 5px;
     background-color: var(--main-bg-color);
-    color: var(--secondary-color);
+   color: var(--text-color);
     border: 1.5px solid var(--secondary-color);
     cursor: pointer;
     transition: all 0.1s ease-in-out;
@@ -514,7 +546,7 @@ input, textarea {
     border-radius: 5px;
     border: 1.5px solid var(--secondary-color);
     background-color: var(--main-bg-color);
-    color: var(--secondary-color);
+   color: var(--text-color);
     cursor: pointer;
     transition: all 0.1s ease-in-out;
     width: 38px;
@@ -598,11 +630,12 @@ input, textarea {
 }
 
 #settingsBtn[data-title]:after, #homeBtn[data-title]:after {
-    bottom: -2em;
+    left:-120%;
+    bottom: 0;
 }
 
 #closeSidebar[data-title]:after, #closeAddGame[data-title]:after {
-    left:-125%;
+    left:-150%;
     bottom: 0;
 }
 
@@ -622,16 +655,16 @@ input, textarea {
     border-radius: 5px;
     border: 1.5px solid var(--secondary-color);
     background-color: var(--main-bg-color);
-    color: var(--secondary-color);
+    color: var(--text-color);
     transition: all 0.1s ease-in-out;
     opacity: 0;
     flex-direction: column;
     position: absolute;
     top: 120%;
     left: 50%;
-    transform: translateX(-50%) scale(0.8);
-    min-width: 100%;
+    transform: translateX(-50%) translateY(-10px);
     transition: transform 0.1s ease;
+    pointer-events: none;
 
 }
 
@@ -639,7 +672,9 @@ input, textarea {
     display: flex;
     opacity: 1;
     transition: transform 0.1s ease;
-    transform: translateX(-50%) scale(1);
+    transform: translateX(-50%) translateY(0px);
+    min-width: 100%;
+    pointer-events: auto;
 }
 
 .more-item {
@@ -655,6 +690,7 @@ input, textarea {
     font-family: var(--inconsolata);
     border-bottom: 1.5px solid var(--secondary-color);
     width: 100%;
+   color: var(--text-color);
 }
 
 .more-item:hover {
@@ -673,7 +709,7 @@ input, textarea {
     overflow: hidden;
     height: 100%;
     background-color: var(--main-bg-color);
-    color: var(--secondary-color);
+   color: var(--text-color);
     font-family: var(--inconsolata);
     font-size: 14px;
     position: absolute;
@@ -703,7 +739,7 @@ input, textarea {
     justify-content: space-between;
     align-items: center;
     background-color: var(--main-bg-color);
-    color: var(--secondary-color);
+   color: var(--text-color);
     border-bottom: 1.5px solid var(--secondary-color);
     height: fit-content;
 }
@@ -713,7 +749,7 @@ input, textarea {
     display: flex;
     flex-direction: column;
     background-color: var(--main-bg-color);
-    color: var(--secondary-color);
+   color: var(--text-color);
     width: 100%;
     height: fit-content;
 }
@@ -733,7 +769,7 @@ input, textarea {
     font-family: var(--inconsolata);
     font-size: 14px;
     background-color: var(--main-bg-color);
-    color: var(--secondary-color);
+   color: var(--text-color);
     outline: none;
     width: 20%;
 }
@@ -758,7 +794,7 @@ input, textarea {
     justify-content: space-between;
     align-items: center;
     background-color: var(--main-bg-color);
-    color: var(--secondary-color);
+   color: var(--text-color);
     border-bottom: 1.5px solid var(--secondary-color);
     height: fit-content;
     font-family: var(--tango);
@@ -770,7 +806,7 @@ input, textarea {
     flex-direction: row;
     align-items: center;
     background-color: var(--main-bg-color);
-    color: var(--secondary-color);
+   color: var(--text-color);
     height: fit-content;
     font-family: var(--inconsolata);
     font-size: 14px;
@@ -780,7 +816,7 @@ input, textarea {
 
 .settings-item input[type="color"] {
     width: 50px;
-    height: 25px;
+    height: 34px;
     padding: 0;
     margin: 0;
     border-radius: 5px;
@@ -792,14 +828,18 @@ input, textarea {
 }
 
 .reset-btn {
-    width: 50px;
-    height: 25px;
+    width: fit-content;
+    height: fit-content;
     padding: 5px;
     border-radius: 5px;
     border: 1.5px solid var(--secondary-color);
     background: none;
-    color: var(--secondary-color);
+   color: var(--text-color);
     font-family: var(--inconsolata);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .reset-btn:hover {
@@ -810,6 +850,18 @@ input, textarea {
 .reset-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+.reset-btn:disabled .icon:hover {
+    transform: none;
+}
+
+.reset-btn[data-title]:after {
+    bottom: 50%;
+    left: 120%;
+    font-size: 14px;
+    text-wrap: nowrap;
+    transform: translateY(50%) translateX(0) scale(1);
 }
 
 .reset-btn:disabled:hover {

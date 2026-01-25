@@ -71,6 +71,49 @@ ipcMain.handle('save-game', async (event, gameData) => {
     }
 });
 
+// updates an existing game (handles renaming)
+ipcMain.handle('update-game', async (event, oldName, newName, newData) => {
+    try {
+        let db = { games: {} };
+        if (fs.existsSync(gamesFilePath)) {
+            const fileData = fs.readFileSync(gamesFilePath, 'utf-8');
+            db = JSON.parse(fileData);
+        }
+
+        // Check the game exists
+        if (!db.games[oldName]) {
+            return { success: false, error: 'Game not found' };
+        }
+
+        // Prevent overwriting another game when renaming
+        if (oldName !== newName && db.games[newName]) {
+            return { success: false, error: 'A game with this name already exists' };
+        }
+
+        // Remove old entry if renaming
+        if (oldName !== newName) {
+            delete db.games[oldName];
+        }
+
+        // Update / save the game
+        db.games[newName] = {
+            path: newData.path,
+            coverImage: newData.coverImage,
+            icon: newData.icon,
+            tags: newData.tags,
+            description: newData.description
+        };
+
+        fs.writeFileSync(gamesFilePath, JSON.stringify(db, null, 4));
+
+        return { success: true };
+    } catch (err) {
+        console.error('[Main.js] Error updating game:', err);
+        return { success: false, error: err.message };
+    }
+});
+
+
 // opens a file dialog to select an executable with the specified filters (exe, etc...)
 ipcMain.handle('select-executable', async () => {
     const result = await dialog.showOpenDialog({
