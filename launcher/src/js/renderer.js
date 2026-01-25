@@ -31,10 +31,10 @@ export async function displayGames() {
             gameBox.innerHTML = `
                 <div class="row">
                     <button id="play-game" class="play-btn" data-title="Play" >
-                        <img src="assets/play-fill.svg" alt="Play">
+                        <div class="icon icon-play"></div>
                     </button>
                     <button id="info" class="play-btn" data-title="More info">
-                        <img src="assets/info-lg.svg" alt="More Info">
+                        <div class="icon icon-info"></div>
                     </button>
                 </div>
             `;

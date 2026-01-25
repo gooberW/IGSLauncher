@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="js/theme.js"></script>
     <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
@@ -17,9 +18,7 @@
   <body>
     <div id="app">
       <div class="nav-bar">
-        <div class="icon">
-          <img src="assets/icon_blue.png" alt="IGS Launcher Icon"  />
-        </div>
+        <div class="icon icon-igs"></div>
         <div class="search-container">
           <div id="search" class="search-bar">
             <input id="searchInput" type="text" placeholder="Search for a game..." />
@@ -47,7 +46,7 @@
         <div class="sidebar">
           <div class="row" style="justify-content: end;">
             <button id="closeSidebar" style="background: none; border: none;" data-title="Close Sidebar">
-              <img src="assets/plus-lg.svg" alt="X" />
+              <div class="icon icon-cross"></div>
             </button>
           </div>
           <div id="gameName" class="row">
@@ -92,7 +91,7 @@
         <div class="row">
           <p>Add Game</p>
           <button id="closeAddGame" style="background: none; border: none;" data-title="Close Window">
-              <img src="assets/plus-lg.svg" alt="X" />
+              <div class="icon icon-cross"></div>
             </button>
         </div>
         <div class="input-group">
@@ -154,7 +153,7 @@
       <div class="row">
         <p id="alert-title">ISEL Game Studios</p>
         <button id="alert-close" style="background: none; border: none;" data-title="Close Alert">
-          <img src="assets/plus-lg.svg" style="rotate: 45deg;" alt="X" />
+          <div class="icon icon-cross"></div>
         </button>
       </div>
       <div class="message-container">
@@ -173,5 +172,5 @@
 
   <script type="module" src="js/renderer.js"></script>
   <script type="module" src="js/search.js"></script>
-  <script type="module" src="js/add-game.js"></script>
+  <script type="module" src="js/add-game.js"></script>  
 </html>

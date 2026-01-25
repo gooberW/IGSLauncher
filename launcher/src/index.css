@@ -86,6 +86,7 @@ body {
     padding: 10px 20px;
     min-height: 60px;
     max-height: 60px;
+    gap: 10px;
 }
 
 .nav-bar .nav-item {
@@ -168,8 +169,8 @@ body {
 
 
 .icon {
-    width: 26px;
-    height: 26px;
+    width: 22px;
+    height: 22px;
     background-color: var(--secondary-color);
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
@@ -179,23 +180,56 @@ body {
     mask-position: center;
     mask-size: contain;
     fill: var(--secondary-color);
+    transition: transform 0.3s ease, background-color 0.1s ease;
+}
+
+.icon:hover {
+    cursor: pointer;
 }
 
 .icon-igs {
     -webkit-mask-image: url("assets/IGS_Icon.svg");
     mask-image: url("assets/IGS_Icon.svg");
+    width: 30px;
+    min-height: 30px;
+}
+
+.icon-igs:hover {
+    transform: scale(1.1);
 }
 
 .icon-settings {
     -webkit-mask-image: url("assets/gear-fill.svg");
     mask-image: url("assets/gear-fill.svg");
-    transition: all 0.3s ease-in-out;
+}
+
+.icon-cross {
+    -webkit-mask-image: url("assets/plus-lg.svg");
+    mask-image: url("assets/plus-lg.svg");
+    transform: rotate(45deg);
+}
+
+.icon-cross:hover {
+    transform: rotate(135deg);
+}
+
+.icon-plus {
+    -webkit-mask-image: url("assets/plus-lg.svg");
+    mask-image: url("assets/plus-lg.svg");
 }
 
 .icon-settings:hover {
-    background-color: var(--accent-color);
-    transform: rotate(180deg);
-    cursor: pointer;
+    transform: rotate(180deg) scale(1.1);
+}
+
+.icon-play {
+    -webkit-mask-image: url("assets/play-fill.svg");
+    mask-image: url("assets/play-fill.svg");
+}
+
+.icon-info {
+    -webkit-mask-image: url("assets/info-lg.svg");
+    mask-image: url("assets/info-lg.svg");
 }
 
 .main-area {
@@ -293,6 +327,7 @@ body {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    max-width: 300px;
 }
 
 .game-box img {
@@ -568,7 +603,7 @@ input, textarea {
 
 #closeSidebar[data-title]:after, #closeAddGame[data-title]:after {
     left:-125%;
-    bottom: -50%;
+    bottom: 0;
 }
 
 #addTag[data-title]:after {

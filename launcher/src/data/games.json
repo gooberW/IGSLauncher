@@ -1,3 +1,11 @@
 {
-    "games": {}
+    "games": {
+        "NSB": {
+            "path": "C:\\Users\\Utilizador\\Downloads\\NSB_demo_bug_fixes\\Nature Strikes Back.exe",
+            "coverImage": "",
+            "icon": "",
+            "tags": [],
+            "description": ""
+        }
+    }
 }

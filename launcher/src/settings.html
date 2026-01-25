@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="js/theme.js"></script>
     <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
@@ -17,9 +18,7 @@
   <body>
     <div id="app">
       <div class="nav-bar">
-        <div class="icon"> 
-          <div class="icon icon-igs"></div>
-        </div>
+        <div class="icon icon-igs"></div>
         
         <div id="home" class="settings">
           <button id="homeBtn" data-title="Go Back" style="background: none; border: none;">
@@ -50,6 +49,9 @@
 
 
       <div class="footer">
+        <button class="add-game-button" id="add-game-menu-button" style="visibility: hidden;">
+          Add Game
+        </button>
         IGS Launcher v0.1.0
       </div>
     </div>

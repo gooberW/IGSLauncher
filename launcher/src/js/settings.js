@@ -1,23 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     const root = document.documentElement;
-    const styles = getComputedStyle(root);
+    const defaultTheme = {
+        "--main-bg-color": "#EDEDF5",
+        "--secondary-color": "#050522",
+        "--accent-color": "#E6192A",
+    };
 
-    // cache default values
-    const defaultTheme = {};
-    document.querySelectorAll('input[type="color"][data-var]')
-        .forEach(input => {
-            const cssVar = input.dataset.var;
-            defaultTheme[cssVar] = styles.getPropertyValue(cssVar).trim();
-        });
-
-    // restores saved values
-    Object.keys(localStorage).forEach(key => {
-        if (key.startsWith("--")) {
-            root.style.setProperty(key, localStorage.getItem(key));
-        }
-    });
-
-    // color pickers and stuff
     document.querySelectorAll('input[type="color"][data-var]')
         .forEach(input => {
             const cssVar = input.dataset.var;
@@ -25,17 +13,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 `.reset-btn[data-var="${cssVar}"]`
             );
 
-            // fills picker from current value
-            input.value = getComputedStyle(root)
+            const currentValue = getComputedStyle(root)
                 .getPropertyValue(cssVar)
                 .trim();
 
-            // disables reset button if already default
+            input.value = currentValue;
+
             if (resetBtn) {
-                resetBtn.disabled = input.value === defaultTheme[cssVar];
+                resetBtn.disabled = currentValue === defaultTheme[cssVar];
             }
+
             input.addEventListener("input", e => {
                 const value = e.target.value;
+
                 root.style.setProperty(cssVar, value);
                 localStorage.setItem(cssVar, value);
 
@@ -45,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-    // reset buttons
     document.querySelectorAll(".reset-btn").forEach(btn => {
         btn.addEventListener("click", () => {
             const cssVar = btn.dataset.var;
@@ -67,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const homeBtn = document.getElementById('homeBtn');
