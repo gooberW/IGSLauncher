@@ -117,6 +117,8 @@ export function openEditGame(gameName, gameData) {
     document.getElementById('iconPathDisplay').value = gameData.icon || "";
     document.getElementById('descriptionArea').value = gameData.description || "";
 
+    const addGameBtn = document.getElementById('add-game-button');
+    addGameBtn.innerText = "Save Changes";
     const tagContainer = document.getElementById('tag-container');
     tagContainer.innerHTML = "";
 
@@ -154,6 +156,9 @@ function resetForm() {
     document.getElementById('tag-container').innerHTML = "";
 
     document.getElementById('addGameTitle').innerText = "Add Game";
+
+    const addGameBtn = document.getElementById('add-game-button');
+    addGameBtn.innerText = "Add Game";
 
 }
 

@@ -169,6 +169,13 @@ body {
 .suggestion-item {
   padding: 10px;
   cursor: pointer;
+  font-size: 14px;
+   color: var(--text-color);
+}
+
+::placeholder {
+   color: var(--text-color);
+    opacity: 0.75;
 }
 
 .suggestion-item:hover {
@@ -423,6 +430,17 @@ button.add-game-button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.settings-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1.5px solid var(--secondary-color);
+    border-radius: 5px;
+    width: 40vw;
+    min-width: 400px;
+    overflow: hidden;
 }
 
 .settings img {
@@ -785,6 +803,7 @@ input, textarea {
     height: 100%;
     overflow: auto;
     flex-direction: column;
+    align-items: center;
 }
 
 .settings-area .row {
@@ -796,9 +815,27 @@ input, textarea {
     background-color: var(--main-bg-color);
    color: var(--text-color);
     border-bottom: 1.5px solid var(--secondary-color);
+    border-top: 1.5px solid var(--secondary-color);
     height: fit-content;
     font-family: var(--tango);
     font-size: 14px;
+    width: 100%;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-area .row:first-child {
+    border-top: none;
+}
+
+.settings-area .row p{
+    width: 40vw;
+    min-width: 400px;
+    overflow: hidden;
+    display: flex;
+    font: 20px;
+    font-family: var(--tango);
 }
 
 .settings-item {
@@ -812,6 +849,11 @@ input, textarea {
     font-size: 14px;
     padding: 10px;
     gap: 10px;
+    border-bottom: 1.5px solid var(--secondary-color);
+    justify-content: space-between;
+}
+.settings-item:last-child {
+    border-bottom: none;
 }
 
 .settings-item input[type="color"] {
@@ -858,7 +900,7 @@ input, textarea {
 
 .reset-btn[data-title]:after {
     bottom: 50%;
-    left: 120%;
+    left: -380%;
     font-size: 14px;
     text-wrap: nowrap;
     transform: translateY(50%) translateX(0) scale(1);

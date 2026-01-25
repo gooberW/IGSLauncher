@@ -5,13 +5,14 @@
             "coverImage": "C:\\Users\\Utilizador\\Downloads\\nsb_banner_portrait.png",
             "icon": "",
             "tags": [
-                "Shooter"
+                "Shooter",
+                "3D"
             ],
-            "description": ""
+            "description": "Game."
         },
         "SLAM!": {
             "path": "C:\\Users\\Utilizador\\Downloads\\SLAM-DEMO\\SLAM-DJ.exe",
-            "coverImage": "C:\\Users\\Utilizador\\Downloads\\Artboard 6.png",
+            "coverImage": "C:\\Users\\Utilizador\\Downloads\\Artboard 3.png",
             "icon": "",
             "tags": [
                 "Sumo",
