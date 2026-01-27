@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const root = document.documentElement;
-
     const clearActiveTheme = () => {
-        localStorage.removeItem("activeTheme");
+        localStorage.setItem("activeTheme", "custom");
         document.querySelectorAll(".theme-btn")
             .forEach(b => b.classList.remove("active"));
     };
@@ -10,8 +9,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const data = await window.electronAPI.getThemes();
     const themes = data.themes || {};
 
-    if (!themes["default"]) {
-        console.error("[Settings] No 'default' theme found in themes JSON.");
+    if (!themes.default) {
+        console.error("[Settings] No 'default' theme found.");
         return;
     }
 
@@ -20,43 +19,72 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!theme) return;
 
         Object.entries(theme).forEach(([key, value]) => {
-            root.style.setProperty(`--${key}`, value);
-            localStorage.setItem(`--${key}`, value);
+            const cssVar = `--${key}`;
 
-            // color inputs
-            const input = document.querySelector(`input[type="color"][data-var="--${key}"]`);
+            root.style.setProperty(cssVar, value);
+            localStorage.setItem(cssVar, value);
+
+            const input = document.querySelector(
+                `input[type="color"][data-var="${cssVar}"]`
+            );
             if (input) input.value = value;
 
-            // reset buttons
-            const resetBtn = document.querySelector(`.reset-btn[data-var="--${key}"]`);
-            if (resetBtn && themes["default"][key] !== undefined) {
-                resetBtn.disabled = value === themes["default"][key];
+            const resetBtn = document.querySelector(
+                `.reset-btn[data-var="${cssVar}"]`
+            );
+            if (resetBtn) {
+                resetBtn.disabled = value === themes.default[key];
             }
         });
     };
 
+    Object.keys(themes.default).forEach(key => {
+        const cssVar = `--${key}`;
+        const storedValue = localStorage.getItem(cssVar);
+
+        if (storedValue) {
+            root.style.setProperty(cssVar, storedValue);
+
+            const input = document.querySelector(
+                `input[type="color"][data-var="${cssVar}"]`
+            );
+            if (input) input.value = storedValue;
+
+            const resetBtn = document.querySelector(
+                `.reset-btn[data-var="${cssVar}"]`
+            );
+            if (resetBtn) {
+                resetBtn.disabled = storedValue === themes.default[key];
+            }
+        }
+    });
+
+    const activeTheme = localStorage.getItem("activeTheme");
+    if (activeTheme && themes[activeTheme] && activeTheme !== "custom") {
+        applyTheme(activeTheme);
+        const btn = document.querySelector(
+            `.theme-btn[data-theme="${activeTheme}"]`
+        );
+        if (btn) btn.classList.add("active");
+    }
+
     document.querySelectorAll('input[type="color"][data-var]').forEach(input => {
         const cssVar = input.dataset.var;
-        const key = cssVar.replace("--", "").trim();
-        const resetBtn = document.querySelector(`.reset-btn[data-var="${cssVar}"]`);
-
-        const storedValue = (localStorage.getItem(cssVar) || getComputedStyle(root).getPropertyValue(cssVar)).trim();
-        input.value = storedValue;
-        root.style.setProperty(cssVar, storedValue);
-
-        if (themes["default"][key] !== undefined && resetBtn) {
-            resetBtn.disabled = storedValue === themes["default"][key];
-        }
+        const key = cssVar.replace("--", "");
+        const resetBtn = document.querySelector(
+            `.reset-btn[data-var="${cssVar}"]`
+        );
 
         input.addEventListener("input", e => {
-            const value = e.target.value.trim();
+            const value = e.target.value;
+
             root.style.setProperty(cssVar, value);
             localStorage.setItem(cssVar, value);
 
             clearActiveTheme();
 
-            if (themes["default"][key] !== undefined && resetBtn) {
-                resetBtn.disabled = value === themes["default"][key];
+            if (resetBtn) {
+                resetBtn.disabled = value === themes.default[key];
             }
         });
     });
@@ -64,16 +92,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelectorAll(".reset-btn").forEach(btn => {
         btn.addEventListener("click", () => {
             const cssVar = btn.dataset.var;
-            const key = cssVar.replace("--", "").trim();
-            const defaultValue = themes["default"][key];
-            if (!defaultValue) return;
+            const key = cssVar.replace("--", "");
+            const defaultValue = themes.default[key];
 
             root.style.setProperty(cssVar, defaultValue);
-            localStorage.removeItem(cssVar);
+            localStorage.setItem(cssVar, defaultValue);
 
             clearActiveTheme();
 
-            const input = document.querySelector(`input[type="color"][data-var="${cssVar}"]`);
+            const input = document.querySelector(
+                `input[type="color"][data-var="${cssVar}"]`
+            );
             if (input) input.value = defaultValue;
 
             btn.disabled = true;
@@ -83,40 +112,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelectorAll(".theme-btn").forEach(btn => {
         btn.addEventListener("click", () => {
             const themeName = btn.dataset.theme;
-            if (!themeName || !themes[themeName]) return;
+            if (!themes[themeName]) return;
 
             applyTheme(themeName);
-
             localStorage.setItem("activeTheme", themeName);
 
-            document.querySelectorAll(".theme-btn").forEach(b => b.classList.remove("active"));
+            document.querySelectorAll(".theme-btn")
+                .forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
         });
     });
 
-
-    document.querySelectorAll(".theme-btn").forEach(b => b.classList.remove("active"));
-
-    const savedTheme = localStorage.getItem("activeTheme") || "default";
-
-    if (themes[savedTheme]) {
-        applyTheme(savedTheme);
-        const btn = document.querySelector(`.theme-btn[data-theme="${savedTheme}"]`);
-        if (btn) btn.classList.add("active");
-    }
-
-    if (savedTheme) {
-        applyTheme(savedTheme);
-        const btn = document.querySelector(`.theme-btn[data-theme="${savedTheme}"]`);
-        if (btn) btn.classList.add("active");
-    }
-
-
-
     const homeBtn = document.getElementById("homeBtn");
-    homeBtn.addEventListener("click", () => {
-        window.electronAPI.changePage("index.html");
-    });
+    if (homeBtn) {
+        homeBtn.addEventListener("click", () => {
+            window.electronAPI.changePage("index.html");
+        });
+    }
 });
-
-
