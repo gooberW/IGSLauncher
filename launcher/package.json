@@ -1,25 +1,54 @@
 {
   "name": "igslauncher",
-  "version": "1.0.0",
+  "productName": "IGS Launcher",
+  "author": "ISEL Game Studios, Gabriel Teixeira",
+  "version": "0.0.1",
   "description": "",
   "main": "src/js/main.js",
+  "type": "commonjs",
+
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "electron-builder"
   },
+
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gooberW/IGSLauncher.git"
+    "url": "https://github.com/gooberW/IGSLauncher.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+
   "bugs": {
     "url": "https://github.com/gooberW/IGSLauncher/issues"
   },
+
   "homepage": "https://github.com/gooberW/IGSLauncher#readme",
+
   "devDependencies": {
-    "electron": "^40.0.0"
+    "electron": "^40.0.0",
+    "electron-builder": "^24.13.3"
+  },
+
+  "build": {
+    "appId": "com.iselgamestudios.igslauncher",
+
+    "files": [
+      "src/**/*"
+    ],
+
+    "directories": {
+      "buildResources": "src/assets"
+    },
+
+    "win": {
+      "icon": "src/assets/icon.ico"
+    },
+
+    "mac": {
+      "icon": "src/assets/icon.icns"
+    },
+
+    "linux": {
+      "icon": "src/assets/icon.png"
+    }
   }
 }

@@ -14,6 +14,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
+    const themeContainer = document.getElementById("themeContainer");
+    themeContainer.innerHTML = "";
+
+    Object.entries(themes).forEach(([themeName, themeValues]) => {
+        if (!themeValues) return;
+
+        const btn = document.createElement("div");
+        btn.className = "theme-btn";
+        btn.dataset.theme = themeName;
+        btn.dataset.title = themeName.charAt(0).toUpperCase() + themeName.slice(1);
+
+        const bgColor = themeValues["main-bg-color"];
+        if (bgColor) {
+            btn.style.backgroundColor = bgColor;
+        }
+
+        themeContainer.appendChild(btn);
+    });
+
+
     const applyTheme = themeName => {
         const theme = themes[themeName];
         if (!theme) return;

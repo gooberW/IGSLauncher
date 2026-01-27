@@ -17,6 +17,18 @@
     <title>IGS Launcher</title>
   </head>
   <body>
+    <div class="row title-bar">
+      <div class=""></div>
+      <div class="title">
+        <icon class="icon icon-igs"></icon>
+        <p>IGS Launcher</p>
+      </div>
+      <div class="icons">
+        <button id="minimizeBtn"><div class="icon icon-minimize"></div></button>
+        <button id="maximizeBtn"><div class="icon icon-maximize"></div></button>
+        <button id="closeBtn"><div class="icon icon-cross"></div></button>
+      </div>
+    </div>
     <div id="app">
       <div class="nav-bar">
         <div class="icon icon-igs"></div>
@@ -75,16 +87,8 @@
           </div>
         </div>
         <div class="settings-section">
-          <div class="settings-item">
-            <div id="defaultThemeBtn" class="theme-btn" data-theme="default" style="background-color: #EDEDF5;"
-              data-title="Default">
-            </div>
-            <div id="darkThemeBtn" class="theme-btn" data-theme="dark" style="background-color: #000000;"
-              data-title="Dark">
-            </div>
-            <div id="pinkThemeBtn" class="theme-btn" data-theme="pink" style="background-color: #ffd2f5;"
-              data-title="Pink">
-            </div>
+          <div class="settings-item" id="themeContainer">
+            <!-- Theme buttons will be added dynamically here (settings.js) -->
           </div>
         </div>
         
@@ -95,7 +99,7 @@
         <button class="add-game-button" id="add-game-menu-button" style="visibility: hidden;">
           Add Game
         </button>
-        IGS Launcher v0.1.0
+        IGS Launcher v0.0.1
       </div>
     </div>
 
@@ -122,4 +126,5 @@
   </body>
 
   <script type="module" src="js/settings.js"></script>
+  <script type="module" src="js/frame.js"></script>
 </html>

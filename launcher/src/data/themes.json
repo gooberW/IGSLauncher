@@ -8,8 +8,8 @@
         },
         "dark": {
             "main-bg-color": "#000000",
-            "secondary-color": "#171717",
-            "accent-color": "#131313",
+            "secondary-color": "#242424",
+            "accent-color": "#0a0a0a",
             "text-color": "#878787"
         },
         "pink": {
@@ -17,6 +17,12 @@
             "secondary-color": "#5f1437",
             "accent-color": "#ff3b28",
             "text-color": "#5f1437"
+        },
+        "blue": {
+            "main-bg-color": "#050522",
+            "secondary-color": "#1c1c63",
+            "accent-color": "#060548",
+            "text-color": "#c8befe"
         }
     }
 }

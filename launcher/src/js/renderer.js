@@ -128,6 +128,8 @@ export function closeSidebar() {
     if (sidebar) sidebar.classList.remove('active');
 }
 
+
+
 // Event Listeners ----------- 
 
 document.addEventListener('DOMContentLoaded', displayGames);
@@ -180,5 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
 });
+
+
 
 

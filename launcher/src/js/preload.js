@@ -9,5 +9,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     removeGame: (gameName) => ipcRenderer.invoke('remove-game', gameName),
     changePage: (page) => ipcRenderer.invoke('change-page', page),
     updateGame: (oldName, newName, newData) => ipcRenderer.invoke('update-game', oldName, newName, newData),
-    getThemes: () => ipcRenderer.invoke('get-themes')
+    getThemes: () => ipcRenderer.invoke('get-themes'),
+    closeApp: () => ipcRenderer.invoke('close-window'),
+    minimizeApp: () => ipcRenderer.invoke('minimize-window'),
+    toggleMaximize: () => ipcRenderer.invoke("toggle-window-maximize")
 });

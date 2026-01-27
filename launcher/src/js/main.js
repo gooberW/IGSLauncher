@@ -166,6 +166,7 @@ const createWindow = () => {
     const win = new BrowserWindow({
         width: 1000,
         height: 700,
+        frame: false,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             contextIsolation: true,
@@ -253,7 +254,32 @@ ipcMain.handle('launch-game', async (event, exePath) => {
   }
 });
 
+ipcMain.handle('minimize-window', () => {
+    const win = BrowserWindow.getFocusedWindow();
+    if (win) win.minimize();
+});
+
+ipcMain.handle('close-window', () => {
+    const win = BrowserWindow.getFocusedWindow();
+    if (win) win.close();
+});
+
+ipcMain.handle('toggle-window-maximize', (event) => {
+    const win = BrowserWindow.getFocusedWindow();
+    if (!win) return false;
+
+    if (win.isMaximized()) {
+        win.unmaximize();
+        return false;
+    } else {
+        win.maximize();
+        return true;
+    }
+});
+
+
 // closes the app when all windows are closed (not macOS)
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
 });
+
