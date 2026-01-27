@@ -104,7 +104,16 @@ function addTag() {
 function openAddGame() {
     const addGameWindow = document.querySelector('.add-game-window');
     if (addGameWindow) addGameWindow.classList.add('active');
+    centerAddGameWindow();
 }
+
+function centerAddGameWindow() {
+    const rect = addGameWindow.getBoundingClientRect();
+
+    addGameWindow.style.left = `${(window.innerWidth - rect.width) / 2}px`;
+    addGameWindow.style.top = `${(window.innerHeight - rect.height) / 2}px`;
+}
+
 
 export function openEditGame(gameName, gameData) {
     editingGameName = gameName;
@@ -209,4 +218,33 @@ document.addEventListener('DOMContentLoaded', () => {
     if (addGameBtn) {
         addGameBtn.addEventListener('click', openAddGame);
     }
+});
+
+const addGameWindow = document.querySelector(".add-game-window");
+const dragHandle = addGameWindow.querySelector(".drag-bar");
+
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+dragHandle.addEventListener("mousedown", (e) => {
+    isDragging = true;
+
+    const rect = addGameWindow.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+
+    document.body.style.userSelect = "none";
+});
+
+document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+
+    addGameWindow.style.left = `${e.clientX - offsetX}px`;
+    addGameWindow.style.top = `${e.clientY - offsetY}px`;
+});
+
+document.addEventListener("mouseup", () => {
+    isDragging = false;
+    document.body.style.userSelect = "";
 });
