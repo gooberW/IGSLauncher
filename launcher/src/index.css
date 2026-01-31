@@ -291,6 +291,27 @@ body {
     cursor: pointer;
 }
 
+.icon-sort {
+    -webkit-mask-image: url("assets/arrow-down-up.svg");
+    mask-image: url("assets/arrow-down-up.svg");
+    height: 16px !important;
+    width: 16px !important;
+}
+
+.icon-filter-fill {
+    -webkit-mask-image: url("assets/funnel-fill.svg");
+    mask-image: url("assets/funnel-fill.svg");
+    height: 16px !important;
+    width: 16px !important;
+}
+
+.icon-filter {
+    -webkit-mask-image: url("assets/funnel.svg");
+    mask-image: url("assets/funnel.svg");
+    height: 16px !important;
+    width: 16px !important;
+}
+
 .icon-minimize {
     -webkit-mask-image: url("assets/dash-lg.svg");
     mask-image: url("assets/dash-lg.svg");
@@ -1094,6 +1115,29 @@ input, textarea {
     visibility: visible !important;
     opacity: 1;
     pointer-events: none;
+}
+
+#filterBtn.play-btn {
+    width: 42px !important;
+}
+
+#filterBtn[data-title]:after {
+    left: 180%;
+    bottom: 0;
+    transform: translateX(-50%) scale(1);
+}
+
+.nav-bar .play-btn {
+    align-items: center;
+    justify-content: center;
+    height: 42px !important;
+    padding: 10px !important;
+    min-width: 42px !important; 
+    max-width: 80px !important;
+}
+
+btn-search:hover {
+    background-color: var(--accent-color);
 }
 
 
