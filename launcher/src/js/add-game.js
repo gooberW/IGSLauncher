@@ -108,8 +108,8 @@ function openAddGame() {
 }
 
 function centerAddGameWindow() {
+    const addGameWindow = document.querySelector('.add-game-window');
     const rect = addGameWindow.getBoundingClientRect();
-
     addGameWindow.style.left = `${(window.innerWidth - rect.width) / 2}px`;
     addGameWindow.style.top = `${(window.innerHeight - rect.height) / 2}px`;
 }
@@ -174,77 +174,77 @@ function resetForm() {
 
 // Event Listeners -----------
 
-document.getElementById('addTag').addEventListener('click', addTag);
-document.getElementById('add-game-button').addEventListener('click', () => {
-    writeGameData();
-    closeAddGame();
-});
-
-const selectExeBtn = document.getElementById('selectExeBtn');
-const exePathDisplay = document.getElementById('exePathDisplay');
-
-selectExeBtn.addEventListener('click', async () => {
-    const filePath = await window.electronAPI.selectExecutable();
-    if (filePath) {
-        exePathDisplay.value = filePath;
-    }
-});
-
-document.getElementById('selectCoverBtn').addEventListener('click', async () => {
-    const filePath = await window.electronAPI.selectImage();
-    if (filePath) {
-        document.getElementById('coverPathDisplay').value = filePath;
-    }
-});
-
-document.getElementById('selectIconBtn').addEventListener('click', async () => {
-    const filePath = await window.electronAPI.selectImage();
-    if (filePath) {
-        document.getElementById('iconPathDisplay').value = filePath;
-    }
-});
-
 document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('addTag').addEventListener('click', addTag);
+
+    document.getElementById('add-game-button').addEventListener('click', () => {
+        writeGameData();
+        closeAddGame();
+    });
+
+    const selectExeBtn = document.getElementById('selectExeBtn');
+    const exePathDisplay = document.getElementById('exePathDisplay');
+
+    selectExeBtn.addEventListener('click', async () => {
+        const filePath = await window.electronAPI.selectExecutable();
+        if (filePath) {
+            exePathDisplay.value = filePath;
+        }
+    });
+
+    document.getElementById('selectCoverBtn').addEventListener('click', async () => {
+        const filePath = await window.electronAPI.selectImage();
+        if (filePath) {
+            document.getElementById('coverPathDisplay').value = filePath;
+        }
+    });
+
+    document.getElementById('selectIconBtn').addEventListener('click', async () => {
+        const filePath = await window.electronAPI.selectImage();
+        if (filePath) {
+            document.getElementById('iconPathDisplay').value = filePath;
+        }
+    });
+        const addGameBtn = document.getElementById('add-game-menu-button');
+
     const closeBtn = document.getElementById('closeAddGame');
     
     if (closeBtn) {
         closeBtn.addEventListener('click', closeAddGame);
     }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const addGameBtn = document.getElementById('add-game-menu-button');
     
     if (addGameBtn) {
         addGameBtn.addEventListener('click', openAddGame);
     }
+
+    const addGameWindow = document.querySelector(".add-game-window");
+    const dragHandle = addGameWindow.querySelector(".drag-bar");
+
+    let isDragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    dragHandle.addEventListener("mousedown", (e) => {
+        isDragging = true;
+
+        const rect = addGameWindow.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+
+        document.body.style.userSelect = "none";
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+
+        addGameWindow.style.left = `${e.clientX - offsetX}px`;
+        addGameWindow.style.top = `${e.clientY - offsetY}px`;
+    });
+
+    document.addEventListener("mouseup", () => {
+        isDragging = false;
+        document.body.style.userSelect = "";
+    });
 });
 
-const addGameWindow = document.querySelector(".add-game-window");
-const dragHandle = addGameWindow.querySelector(".drag-bar");
 
-let isDragging = false;
-let offsetX = 0;
-let offsetY = 0;
-
-dragHandle.addEventListener("mousedown", (e) => {
-    isDragging = true;
-
-    const rect = addGameWindow.getBoundingClientRect();
-    offsetX = e.clientX - rect.left;
-    offsetY = e.clientY - rect.top;
-
-    document.body.style.userSelect = "none";
-});
-
-document.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
-
-    addGameWindow.style.left = `${e.clientX - offsetX}px`;
-    addGameWindow.style.top = `${e.clientY - offsetY}px`;
-});
-
-document.addEventListener("mouseup", () => {
-    isDragging = false;
-    document.body.style.userSelect = "";
-});

@@ -114,9 +114,17 @@ export function openSidebar(gameName) {
     });
 
     const descContainer = sidebar.querySelector('#description');
-    descContainer.innerHTML = `<p>${gameInfo.description || "No description available."}</p>`;
+    const formattedDesc = formatDescription(gameInfo.description || "No description available.");
+    descContainer.innerHTML = formattedDesc;
 
     sidebar.classList.add('active');
+}
+
+function formatDescription(text) {
+    return text
+        .split(/\n\s*\n/)
+        .map(p => `<p>${p.replace(/\n/g, "<br>")}</p>`)
+        .join("");
 }
 
 /**
@@ -128,61 +136,61 @@ export function closeSidebar() {
     if (sidebar) sidebar.classList.remove('active');
 }
 
-
-
-// Event Listeners ----------- 
-
-document.addEventListener('DOMContentLoaded', displayGames);
-
-const moreBtn = document.getElementById('moreBtn');
-const moreMenu = document.getElementById('moreMenu');
-
-moreBtn.addEventListener('click', (event) => {
+function toggleMoreMenu(event) {
     event.stopPropagation();
     moreMenu.classList.toggle('active');
-});
+}
 
-document.addEventListener('click', (event) => {
+function closeMoreMenu(event) {
+    if (!event) {
+        moreMenu.classList.remove('active');
+        return;
+    }
+
     if (!moreMenu.contains(event.target) && !moreBtn.contains(event.target)) {
         moreMenu.classList.remove('active');
     }
-});
+}
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
+    displayGames();
+
+    // Sidebar / menu buttons
+    const moreBtn = document.getElementById('moreBtn');
+    const moreMenu = document.getElementById('moreMenu');
     const closeBtn = document.getElementById('closeSidebar');
-    
+    const removeGameBtn = document.getElementById('removeGameBtn');
+    const editGameBtn = document.getElementById('editGameBtn');
+    const settingsBtn = document.getElementById('settingsBtn');
+
+    if (moreBtn) {
+        moreBtn.addEventListener('click', toggleMoreMenu);
+    }
+    document.addEventListener('click', closeMoreMenu);
+
     if (closeBtn) {
         closeBtn.addEventListener('click', closeSidebar);
     }
-});
 
-document.addEventListener('DOMContentLoaded', () => {
-    const removeBtn = document.getElementById('removeGameBtn');
-    if (removeBtn) {
-        removeBtn.addEventListener('click', removeGame);
+    if (removeGameBtn) {
+        removeGameBtn.addEventListener('click', removeGame);
     }
-});
 
-document.addEventListener('DOMContentLoaded', () => {
-    const removeBtn = document.getElementById('editGameBtn');
-    if (removeBtn) {
-        removeBtn.addEventListener('click', () => openEditGame(currentGameName, gamesData[currentGameName]));
-    }
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-    const settingsBtn = document.getElementById('settingsBtn');
-    console.log("Settings button:", settingsBtn);
-    if (settingsBtn) {
-        settingsBtn.addEventListener('click', async () => {
-            console.log("Opening settings...");
-            await window.electronAPI.changePage('settings.html');
+    if (editGameBtn) {
+        editGameBtn.addEventListener('click', () => {
+            openEditGame(currentGameName, gamesData[currentGameName]);
+            closeMoreMenu();
         });
     }
 
-    
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', async () => {
+            await window.electronAPI.changePage('settings.html');
+        });
+    }
 });
-
 
 
 
