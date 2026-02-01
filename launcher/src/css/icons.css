@@ -1,0 +1,147 @@
+.icon {
+    width: 22px;
+    height: 22px;
+    background-color: var(--text-color);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    fill: var(--text-color);
+    transition: transform 0.3s ease, background-color 0.1s ease;
+    overflow: visible ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon:hover {
+    cursor: pointer;
+}
+
+.icon-pin-fill {
+    -webkit-mask-image: url("../assets/pin-angle-fill.svg");
+    mask-image: url("../assets/pin-angle-fill.svg");
+}
+
+.icon-pin {
+    -webkit-mask-image: url("../assets/pin-angle.svg");
+    mask-image: url("../assets/pin-angle.svg");
+}
+
+
+.icon-sort {
+    -webkit-mask-image: url("../assets/arrow-down-up.svg");
+    mask-image: url("../assets/arrow-down-up.svg");
+    height: 16px !important;
+    width: 16px !important;
+}
+
+.icon-filter-fill {
+    -webkit-mask-image: url("../assets/funnel-fill.svg");
+    mask-image: url("../assets/funnel-fill.svg");
+    height: 16px !important;
+    width: 16px !important;
+}
+
+.icon-filter {
+    -webkit-mask-image: url("../assets/funnel.svg");
+    mask-image: url("../assets/funnel.svg");
+    height: 16px !important;
+    width: 16px !important;
+}
+
+.icon-minimize {
+    -webkit-mask-image: url("../assets/dash-lg.svg");
+    mask-image: url("../assets/dash-lg.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.icon-maximize {
+    -webkit-mask-image: url("../assets/square.svg");
+    mask-image: url("../assets/square.svg");
+    width: 10px;
+    height: 10px;
+}
+
+.icon-restore {
+    -webkit-mask-image: url("../assets/square-double.svg");
+    mask-image: url("../assets/square-double.svg");
+    width: 12px;
+    height: 12px;
+}
+
+.icon-palette {
+    -webkit-mask-image: url("../assets/palette-fill.svg");
+    mask-image: url("../assets/palette-fill.svg");
+    cursor: unset !important;
+    width: 18px;
+}
+
+.icon-igs {
+    -webkit-mask-image: url("../assets/IGS_Icon.svg");
+    mask-image: url("../assets/IGS_Icon.svg");
+    width: 35px;
+    min-height: 35px;
+}
+
+.icon-igs:hover {
+    transform: scale(1.1);
+}
+
+.icon-settings {
+    -webkit-mask-image: url("../assets/gear-fill.svg");
+    mask-image: url("../assets/gear-fill.svg");
+    width: 25px;
+    height: 25px;
+}
+
+.icon-cross {
+    -webkit-mask-image: url("../assets/plus-lg.svg");
+    mask-image: url("../assets/plus-lg.svg");
+    transform: rotate(45deg);
+}
+
+.icon-cross:hover {
+    transform: rotate(135deg);
+}
+
+.icon-plus {
+    -webkit-mask-image: url("../assets/plus-lg.svg");
+    mask-image: url("../assets/plus-lg.svg");
+}
+
+.icon-settings:hover {
+    transform: rotate(180deg) scale(1.1);
+}
+
+.icon-play {
+    -webkit-mask-image: url("../assets/play-fill.svg");
+    mask-image: url("../assets/play-fill.svg");
+}
+
+.icon-info {
+    -webkit-mask-image: url("../assets/info-lg.svg");
+    mask-image: url("../assets/info-lg.svg");
+}
+
+.icon-search {
+    -webkit-mask-image: url("../assets/search.svg");
+    mask-image: url("../assets/search.svg");
+    height: 20px;
+    width: 20px;
+}
+
+.icon-reset {
+    -webkit-mask-image: url("../assets/reset-arrow.svg");
+    mask-image: url("../assets/reset-arrow.svg");
+    cursor: unset ! important;
+    transition: transform 0.5s ease;
+}
+
+.icon-reset:hover {
+    transform: rotate(-360deg);
+}

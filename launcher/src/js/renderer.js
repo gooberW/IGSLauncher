@@ -1,5 +1,5 @@
 let gamesData = null;
-let currentGameName = null;
+let currentGame = null;
 import { openEditGame } from "./add-game.js";
 import { showAlert, showConfirmation } from "./alert.js";
 
@@ -20,10 +20,10 @@ export async function displayGames() {
     try {
         const data = await window.electronAPI.loadGames(); 
         container.innerHTML = '';
-        gamesData = data.games;
+        gamesData = data;
 
-        Object.entries(data.games).forEach(([name, info]) => {
-            console.log("Adding game:", name);
+        Object.entries(data).forEach(([id, info]) => {
+            console.log("Adding game:", info.title);
             const safeCoverPath = info.coverImage.replace(/\\/g, '/');
             const coverSrc = `local-resource://${safeCoverPath}`;
             const gameBox = document.createElement('div');
@@ -31,19 +31,26 @@ export async function displayGames() {
             gameBox.style.backgroundImage = `url("${coverSrc}")`;
             gameBox.innerHTML = `
                 <div class="row">
-                    <button id="play-game" class="play-btn" data-title="Play" >
+                    <button id="play-game-${id}" class="play-btn" data-title="Play" >
                         <div class="icon icon-play"></div>
                     </button>
-                    <button id="info" class="play-btn" data-title="More info">
+                    <button id="info-${id}" class="play-btn" data-title="More info">
                         <div class="icon icon-info"></div>
                     </button>
                 </div>
             `;
 
-            const infoButton = gameBox.querySelector('#info');
-            infoButton.onclick = () => openSidebar(name);
+            // no futuro se calahar adiciona-se o pin
+            /*
+            <div class="row top">
+                <div id="pin-${id}" class="icon icon-pin" data-title="Pin Game"></div>
+            </div>
+            */
 
-            const playButton = gameBox.querySelector('#play-game');
+            const infoButton = gameBox.querySelector(`#info-${id}`);
+            infoButton.onclick = () => openSidebar(id);
+
+            const playButton = gameBox.querySelector(`#play-game-${id}`);
 
             playButton.onclick = async () => {
                 const exePath = info.path;
@@ -66,15 +73,17 @@ export async function displayGames() {
  * If the removal is successful, it also closes the sidebar and updates the game list.
  */
 async function removeGame() {
-    if (!currentGameName) return;
+    if (!currentGame) return;
 
-    const confirmed = await showConfirmation(`Remove "${currentGameName}" from library?`);
+    const gameInfo = gamesData[currentGame];
+    const gameName = gameInfo ? gameInfo.title : "Unknown Game";
+    const confirmed = await showConfirmation(`Remove "${gameName}" from library?`);
     if (!confirmed) return;
 
-    const result = await window.electronAPI.removeGame(currentGameName);
+    const result = await window.electronAPI.removeGame(currentGame);
     const sidebar = document.querySelector('.sidebar');
     if (result.success) {
-        currentGameName = null;
+        currentGame = null;
         if (sidebar) sidebar.classList.remove('active');
         displayGames();
     } else {
@@ -87,10 +96,12 @@ async function removeGame() {
  * @remarks The game info will be retrieved from the data object.
  * @todo Implement this function.
  */
-export function openSidebar(gameName) {
-    const gameInfo = gamesData[gameName];
+export function openSidebar(id) {
+    const gameInfo = gamesData[id];
     const sidebar = document.querySelector('.sidebar');
-    currentGameName = gameName;
+    currentGame = id;
+
+    const gameName = gameInfo ? gameInfo.title : "Unknown Game";
 
     if (!gameInfo || !sidebar) return;
 
@@ -180,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (editGameBtn) {
         editGameBtn.addEventListener('click', () => {
-            openEditGame(currentGameName, gamesData[currentGameName]);
+            openEditGame(currentGame, gamesData[currentGame]);
             closeMoreMenu();
         });
     }

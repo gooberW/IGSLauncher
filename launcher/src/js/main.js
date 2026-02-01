@@ -41,18 +41,16 @@ ipcMain.handle('get-themes', async () => {
     }
 });
 
-
-
 // removes a game from the data
-ipcMain.handle('remove-game', async (event, gameName) => {
+ipcMain.handle('remove-game', async (event, gameID) => {
     try {
-        let db = { games: {} };
+        let db = { };
         if (fs.existsSync(gamesFilePath)) {
             const fileData = fs.readFileSync(gamesFilePath, 'utf-8');
             db = JSON.parse(fileData);
         }
 
-        delete db.games[gameName];
+        delete db[gameID];
 
         fs.writeFileSync(gamesFilePath, JSON.stringify(db, null, 4));
         return { success: true };
@@ -65,13 +63,27 @@ ipcMain.handle('remove-game', async (event, gameName) => {
 // saves the game data in the JSON
 ipcMain.handle('save-game', async (event, gameData) => {
     try {
-        let db = { games: {} };
+        let db = {};
         if (fs.existsSync(gamesFilePath)) {
             const fileData = fs.readFileSync(gamesFilePath, 'utf-8');
             db = JSON.parse(fileData);
         }
 
-        db.games[gameData.name] = {
+        // generates a new ID if not provided
+        let gameID = gameData.id;
+        if (!gameID) {
+            // gets all existing game IDs and converts them to numbers
+            const existingIDs = Object.keys(db).map(id => parseInt(id));
+            
+            // find the highest ID (0 if there are no games yet)
+            const highestID = existingIDs.length > 0 ? Math.max(...existingIDs) : 0;
+            
+            // assign the next available ID
+            gameID = (highestID + 1).toString();
+}
+
+        db[gameID] = {
+            title: gameData.details.title,
             path: gameData.details.path,
             coverImage: gameData.details.coverImage,
             icon: gameData.details.icon,
@@ -80,39 +92,28 @@ ipcMain.handle('save-game', async (event, gameData) => {
         };
 
         fs.writeFileSync(gamesFilePath, JSON.stringify(db, null, 4));
-        return { success: true };
+        return { success: true, id: gameID };
     } catch (error) {
         console.error("[Main.js] Error saving game data:", error);
         return { success: false, error: error.message };
     }
 });
 
-// updates an existing game (handles renaming)
-ipcMain.handle('update-game', async (event, oldName, newName, newData) => {
+// updates an existing game
+ipcMain.handle('update-game', async (event, gameID, newData) => {
     try {
-        let db = { games: {} };
+        let db = {};
         if (fs.existsSync(gamesFilePath)) {
             const fileData = fs.readFileSync(gamesFilePath, 'utf-8');
             db = JSON.parse(fileData);
         }
 
-        // Check the game exists
-        if (!db.games[oldName]) {
+        if (!db[gameID]) {
             return { success: false, error: 'Game not found' };
         }
 
-        // Prevent overwriting another game when renaming
-        if (oldName !== newName && db.games[newName]) {
-            return { success: false, error: 'A game with this name already exists' };
-        }
-
-        // Remove old entry if renaming
-        if (oldName !== newName) {
-            delete db.games[oldName];
-        }
-
-        // Update / save the game
-        db.games[newName] = {
+        db[gameID] = {
+            title: newData.title,
             path: newData.path,
             coverImage: newData.coverImage,
             icon: newData.icon,

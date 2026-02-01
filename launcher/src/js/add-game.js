@@ -1,7 +1,7 @@
 import { showAlert, showConfirmation } from "./alert.js";
 import { displayGames, closeSidebar } from "./renderer.js";
 
-let editingGameName = null; // null = add mode, otherwise edit mode
+let editingGame = null; // null = add mode, otherwise stores { id, data }
 
 /**
  * Writes the game data from the add game window to the library.
@@ -10,7 +10,7 @@ let editingGameName = null; // null = add mode, otherwise edit mode
  * @throws {Error} If there is an error writing the game data.
  */
 async function writeGameData() {
-    const name = document.getElementById('name').value.trim();
+    const title = document.getElementById('title').value.trim();
     const path = document.getElementById('exePathDisplay').value;
     const coverImage = document.getElementById('coverPathDisplay').value;
     const icon = document.getElementById('iconPathDisplay').value;
@@ -20,12 +20,13 @@ async function writeGameData() {
         document.getElementById('tag-container').children
     ).map(tag => tag.textContent.trim());
 
-    if (!name || !path) {
-        showAlert("The game needs a name and a path.");
+    if (!title || !path) {
+        showAlert("The game needs a title and a path.");
         return;
     }
 
     const gameData = {
+        title,
         path,
         coverImage,
         icon,
@@ -33,40 +34,30 @@ async function writeGameData() {
         description
     };
 
-    if (
-        editingGameName &&
-        name !== editingGameName &&
-        gamesData[name]
-    ) {
-        showAlert("A game with this name already exists.");
-        return;
-    }
-
-
     try {
         let result;
 
-        if (editingGameName) {
+        if (editingGame) {
+            // Editing existing game
             result = await window.electronAPI.updateGame(
-                editingGameName,
-                name,
+                editingGame.id,
                 gameData
             );
         } else {
+            // Adding new game - wrap in details object
             result = await window.electronAPI.writeGameData({
-                name,
                 details: gameData
             });
         }
 
         if (result.success) {
-            let alertMessage = editingGameName ? "Game updated successfully." : "Game added successfully.";
+            let alertMessage = editingGame ? "Game updated successfully." : "Game added successfully.";
             showAlert(alertMessage);
             displayGames();
             closeSidebar();
             closeAddGame();
             resetForm();
-            editingGameName = null;
+            editingGame = null; // Fixed variable name
         }
     } catch (err) {
         console.error(err);
@@ -115,12 +106,12 @@ function centerAddGameWindow() {
 }
 
 
-export function openEditGame(gameName, gameData) {
-    editingGameName = gameName;
+export function openEditGame(gameID, gameData) {
+    editingGame = { id: gameID, data: gameData }; // Store both ID and data
 
     document.getElementById('addGameTitle').innerText = "Edit Game";
 
-    document.getElementById('name').value = gameName;
+    document.getElementById('title').value = gameData.title || "";
     document.getElementById('exePathDisplay').value = gameData.path || "";
     document.getElementById('coverPathDisplay').value = gameData.coverImage || "";
     document.getElementById('iconPathDisplay').value = gameData.icon || "";
@@ -154,10 +145,11 @@ function closeAddGame() {
     const addGameWindow = document.querySelector('.add-game-window');
     if (addGameWindow) addGameWindow.classList.remove('active');
     resetForm();
+    editingGame = null; // Reset editing state
 }
 
 function resetForm() {
-    document.getElementById('name').value = "";
+    document.getElementById('title').value = "";
     document.getElementById('exePathDisplay').value = "";
     document.getElementById('coverPathDisplay').value = "";
     document.getElementById('iconPathDisplay').value = "";
@@ -168,7 +160,6 @@ function resetForm() {
 
     const addGameBtn = document.getElementById('add-game-button');
     addGameBtn.innerText = "Add Game";
-
 }
 
 
@@ -179,8 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('add-game-button').addEventListener('click', () => {
         writeGameData();
-        closeAddGame();
-    });
+    }); // Removed closeAddGame() - it's called inside writeGameData after success
 
     const selectExeBtn = document.getElementById('selectExeBtn');
     const exePathDisplay = document.getElementById('exePathDisplay');
@@ -216,35 +206,4 @@ document.addEventListener('DOMContentLoaded', () => {
     if (addGameBtn) {
         addGameBtn.addEventListener('click', openAddGame);
     }
-
-    const addGameWindow = document.querySelector(".add-game-window");
-    const dragHandle = addGameWindow.querySelector(".drag-bar");
-
-    let isDragging = false;
-    let offsetX = 0;
-    let offsetY = 0;
-
-    dragHandle.addEventListener("mousedown", (e) => {
-        isDragging = true;
-
-        const rect = addGameWindow.getBoundingClientRect();
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
-
-        document.body.style.userSelect = "none";
-    });
-
-    document.addEventListener("mousemove", (e) => {
-        if (!isDragging) return;
-
-        addGameWindow.style.left = `${e.clientX - offsetX}px`;
-        addGameWindow.style.top = `${e.clientY - offsetY}px`;
-    });
-
-    document.addEventListener("mouseup", () => {
-        isDragging = false;
-        document.body.style.userSelect = "";
-    });
 });
-
-

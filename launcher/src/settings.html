@@ -12,8 +12,9 @@
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
-    <link rel="stylesheet" href="fonts.css"></link>
-    <link rel="stylesheet" href="index.css"></link>
+    <link rel="stylesheet" href="css/fonts.css"></link>
+    <link rel="stylesheet" href="css/index.css"></link>
+    <link rel="stylesheet" href="css/icons.css"></link>
     <title>IGS Launcher</title>
   </head>
   <body>
@@ -32,66 +33,70 @@
     <div id="app">
       <div class="nav-bar">
         <div class="icon icon-igs"></div>
-        
-        <div id="home" class="settings">
-          <button id="homeBtn" data-title="Go Back" style="background: none; border: none;">
-            <div class="icon icon-settings"></div>
-          </button>
-        </div>
       </div>
 
-      <div class="settings-area">
-        <div class="row"><p>General Settings</p></div>
-        <div class="settings-section" style="margin-bottom: 10px;">
-          <div class="settings-item">
-            <p>Nothing to see here yet</p>
+      <div class="main-area">
+        <div class="dash">
+          <div class="nav">
+            <div id="home" class="settings">
+            <button id="homeBtn" data-title="Go Back" style="background: none; border: none;">
+              <div class="icon icon-settings"></div>
+            </button>
+          </div>
+          </div>
+          <div class="settings-area">
+            <div class="row"><p>General Settings</p></div>
+            <div class="settings-section" style="margin-bottom: 10px;">
+              <div class="settings-item">
+                <p>Nothing to see here yet</p>
+              </div>
+            </div>
+            <div class="row"><div class="icon icon-palette"></div><p>Appearance</p></div>
+            <div class="settings-section">
+              <div class="settings-item">
+                <label for="bg-color">Background Color</label>
+                <div style="display: flex; align-items: center; gap: 10px; flex-direction: row;">
+                  <input type="color" id="bg-color" name="bg-color" data-var="--main-bg-color"/>
+                  <button id="bg-color-reset" data-var="--main-bg-color" class="reset-btn" data-title="Reset">
+                    <div class="icon icon-reset"></div>
+                  </button>
+                </div>
+              </div>
+              <div class="settings-item">
+                <label for="sec-color">Secondary Color</label>
+                <div style="display: flex; align-items: center; gap: 10px; flex-direction: row;">
+                  <input type="color" id="sec-color" name="sec-color" data-var="--secondary-color"/>
+                  <button id="sec-color-reset" data-var="--secondary-color" class="reset-btn" data-title="Reset"> 
+                    <div class="icon icon-reset"></div>
+                  </button>
+                </div>
+              </div>
+              <div class="settings-item">
+                <label for="text-color">Text Color</label>
+                <div style="display: flex; align-items: center; gap: 10px; flex-direction: row;">
+                  <input type="color" id="text-color" name="text-color" data-var="--text-color"/>
+                  <button id="text-color-reset" data-var="--text-color" class="reset-btn" data-title="Reset">
+                    <div class="icon icon-reset"></div>
+                  </button>
+                </div>
+              </div>
+              <div class="settings-item">
+                <label for="acc-color">Accent Color</label>
+                <div style="display: flex; align-items: center; gap: 10px; flex-direction: row;">
+                  <input type="color" id="acc-color" name="acc-color" data-var="--accent-color"/>
+                  <button id="acc-color-reset" data-var="--accent-color" class="reset-btn" data-title="Reset">
+                    <div class="icon icon-reset"></div>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="settings-section">
+              <div class="settings-item" id="themeContainer">
+                <!-- Theme buttons will be added dynamically here (settings.js) -->
+              </div>
+            </div>
           </div>
         </div>
-        <div class="row"><div class="icon icon-palette"></div><p>Appearance</p></div>
-        <div class="settings-section">
-          <div class="settings-item">
-            <label for="bg-color">Background Color</label>
-            <div style="display: flex; align-items: center; gap: 10px; flex-direction: row;">
-              <input type="color" id="bg-color" name="bg-color" data-var="--main-bg-color"/>
-              <button id="bg-color-reset" data-var="--main-bg-color" class="reset-btn" data-title="Reset">
-                <div class="icon icon-reset"></div>
-              </button>
-            </div>
-          </div>
-          <div class="settings-item">
-            <label for="sec-color">Secondary Color</label>
-            <div style="display: flex; align-items: center; gap: 10px; flex-direction: row;">
-              <input type="color" id="sec-color" name="sec-color" data-var="--secondary-color"/>
-              <button id="sec-color-reset" data-var="--secondary-color" class="reset-btn" data-title="Reset"> 
-                <div class="icon icon-reset"></div>
-              </button>
-            </div>
-          </div>
-          <div class="settings-item">
-            <label for="text-color">Text Color</label>
-            <div style="display: flex; align-items: center; gap: 10px; flex-direction: row;">
-              <input type="color" id="text-color" name="text-color" data-var="--text-color"/>
-              <button id="text-color-reset" data-var="--text-color" class="reset-btn" data-title="Reset">
-                <div class="icon icon-reset"></div>
-              </button>
-            </div>
-          </div>
-          <div class="settings-item">
-            <label for="acc-color">Accent Color</label>
-            <div style="display: flex; align-items: center; gap: 10px; flex-direction: row;">
-              <input type="color" id="acc-color" name="acc-color" data-var="--accent-color"/>
-              <button id="acc-color-reset" data-var="--accent-color" class="reset-btn" data-title="Reset">
-                <div class="icon icon-reset"></div>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="settings-section">
-          <div class="settings-item" id="themeContainer">
-            <!-- Theme buttons will be added dynamically here (settings.js) -->
-          </div>
-        </div>
-        
       </div>
 
 

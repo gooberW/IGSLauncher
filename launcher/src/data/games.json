@@ -1,15 +1,14 @@
 {
-    "games": {
-        "NSB": {
-            "path": "C:\\Users\\Utilizador\\Downloads\\NSB_testing\\Nature Strikes Back.exe",
-            "coverImage": "C:\\Users\\Utilizador\\Downloads\\nsb_banner_portrait.png",
-            "icon": "",
-            "tags": [
-                "Shooter",
-                "3D",
-                "Retro"
-            ],
-            "description": "Players take on the role of \"MAN\", defending a city overrun by plant-monster hybrids born from nature's revenge.\n\nAfter years of human impact on the environment, nature finally decides to fight back."
-        }
+    "1": {
+        "title": "Nature Strikes Back",
+        "path": "C:\\Users\\Utilizador\\Downloads\\NSB_testing\\Nature Strikes Back.exe",
+        "coverImage": "C:\\Users\\Utilizador\\Downloads\\nsb_banner_portrait.png",
+        "icon": "",
+        "tags": [
+            "Shooter",
+            "3D",
+            "Retro"
+        ],
+        "description": "Players take on the role of \"MAN\", defending a city overrun by plant-monster hybrids born from nature's revenge.\n\nAfter years of human impact on the environment, nature finally decides to fight back."
     }
 }
