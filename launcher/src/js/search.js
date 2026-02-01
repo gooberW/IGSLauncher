@@ -41,10 +41,12 @@ async function autoCompleteSearch(query) {
         item.className = 'suggestion-item';
         item.textContent = name;
 
+        let matchID = Object.keys(gamesData).find(key => gamesData[key].title === name);
+
         item.addEventListener('click', () => {
             searchInput.value = '';
             suggestions.style.display = 'none';
-            openSidebar(name);
+            openSidebar(matchID);
         });
 
         suggestions.appendChild(item);

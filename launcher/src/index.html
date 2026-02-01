@@ -19,10 +19,8 @@
   </head>
   <body>
     <div class="row title-bar">
-      <div class=""></div>
       <div class="title">
         <icon class="icon icon-igs"></icon>
-        <p>IGS Launcher</p>
       </div>
       <div class="icons">
         <button id="minimizeBtn"><div class="icon icon-minimize"></div></button>
@@ -31,45 +29,37 @@
       </div>
     </div>
     <div id="app">
-      <div class="nav-bar">
-        <div class="icon icon-igs"></div>
-        <div class="search-container">
-          <div id="search" class="search-bar">
-            
-            <input id="searchInput" type="text" placeholder="Search for a game..." />
-            <div class="icon icon-search"></div>
-          </div>
-
-        <!-- autocomplete -->
-          <div id="suggestions" class="suggestions">
-          </div>
-
+      <div class="nav">
+        <div id="settings" class="settings">
+          <button id="settingsBtn" data-title="Settings" style="background: none; border: none;">
+            <div class="icon icon-settings"></div>
+          </button>
         </div>
-        <div id="sortBtn" class="play-btn" style="gap: 5px;">
-          <div class="icon icon-sort"></div>
-          <p>Sort</p>
-        </div>
-        <div id="filterBtn" class="play-btn" data-title="Filter">
-          <div class="icon icon-filter"></div>
-        </div>
-        
       </div>
 
       <div class="main-area">
-        <div class="dash">
-          <div class="nav">
-            <div id="settings" class="settings">
-              <button id="settingsBtn" data-title="Settings" style="background: none; border: none;">
-                <div class="icon icon-settings"></div>
-              </button>
+        <div id="searchRow" class="row">
+          <div class="search-container">
+            <div id="search" class="search-bar">
+              <input id="searchInput" type="text" placeholder="Search for a game..." />
+              <div class="icon icon-search"></div>
+            </div>
+              <!-- autocomplete -->
+            <div id="suggestions" class="suggestions">
             </div>
           </div>
-          <div id="games" class="games">
+          <div id="sortBtn" class="play-btn" style="gap: 5px;">
+            <div class="icon icon-sort"></div>
+            <p>Sort</p>
+          </div>
+          <div id="filterBtn" class="play-btn" data-title="Filter">
+            <div class="icon icon-filter"></div>
+          </div>
+        </div>
+        <div id="games" class="games">
             <!-- games appear dinamically here (renderer.js) -->
           </div>
         </div>
-        
-        
 
         <!-- the sidebar appears when the "i" icon is clicked on a game.-->
          <!-- the data must be related to the game clicked -->
@@ -107,6 +97,13 @@
         </div>
         
       </div>
+      </div>
+      
+          
+        
+        
+
+        
 
       <div class="footer">
         <button class="add-game-button" id="add-game-menu-button">

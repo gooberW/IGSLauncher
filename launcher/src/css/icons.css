@@ -56,15 +56,15 @@
 .icon-minimize {
     -webkit-mask-image: url("../assets/dash-lg.svg");
     mask-image: url("../assets/dash-lg.svg");
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
 }
 
 .icon-maximize {
     -webkit-mask-image: url("../assets/square.svg");
     mask-image: url("../assets/square.svg");
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
 }
 
 .icon-restore {
