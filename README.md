@@ -10,6 +10,10 @@ Using the application, users must be able to:
 
 - Add and remove games from the library;
 
+- Edit games already in the library;
+
+- Search, filter and sort games;
+
 - Save the game library to a JSON file, making it easily transferable;
 
-- Change grid styles and switch between dark and light modes to improve usability.
+- Fully customizable themes and color schemes.
