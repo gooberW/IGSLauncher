@@ -5,7 +5,7 @@
     --text-color: #050522;
     --tooltip-bg-color: #050522;
     --selected-color: #E6192A;
-    --border: 0.12rem solid var(--secondary-color);
+    --border: 1px solid var(--secondary-color);
 }
 
 ::-webkit-scrollbar {
@@ -184,9 +184,10 @@ body {
 #app {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    height: 100vh;
+    align-items: stretch;
+    flex: 1;
     width: 100%;
+    min-height: 0;
 }
 
 .nav-bar {
@@ -252,11 +253,11 @@ body {
     opacity: 0.75;
 }
 
-.search-container{
+.search-container {
     position: relative;
-    width: 30vw;
-    max-width: 450px;
-    min-width: 200px;
+    flex: 1;
+    max-width: 400px;
+    min-width: 100px;
 }
 
 .main-area #searchRow .play-btn {
@@ -304,11 +305,12 @@ body {
 .main-area {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    flex: 1;
+    min-width: 0;
     height: 100%;
     overflow-y: hidden;
     justify-content: center;
-    border-radius: 5px 0 0 0 ;
+    border-radius: 10px 0 0 0 ;
     border-left: var(--border);
     border-top: var(--border);
     padding: 10px;
@@ -337,18 +339,20 @@ body {
     display: flex;
     flex-direction: column;
     width: 0;
+    flex-shrink: 0;
     background-color: var(--main-bg-color);
     border-left: 0 solid var(--secondary-color);
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
     border-top: var(--border);
     height: 100%;
+    transition: width 0.3s ease;
 }
 
 .sidebar.active {
     width: 30vw;
     min-width: 300px;
     border-left: var(--border);
+    overflow-y: auto;
 }
 
 .sidebar p {

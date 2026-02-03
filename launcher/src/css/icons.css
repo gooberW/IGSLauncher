@@ -70,8 +70,9 @@
 .icon-restore {
     -webkit-mask-image: url("../assets/square-double.svg");
     mask-image: url("../assets/square-double.svg");
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
+    rotate: 180deg;
 }
 
 .icon-palette {
