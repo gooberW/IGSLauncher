@@ -2,7 +2,7 @@
   "name": "igslauncher",
   "productName": "IGS Launcher",
   "author": "ISEL Game Studios, Gabriel Teixeira",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "src/js/main.js",
   "type": "commonjs",
