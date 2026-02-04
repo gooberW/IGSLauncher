@@ -85,7 +85,7 @@ body {
     flex-direction: row;
     align-items: center;
     padding: 10px;
-    gap: 5px;
+    gap: 10px;
 }
 
 .title .icon {
@@ -313,14 +313,18 @@ body {
     border-radius: 10px 0 0 0 ;
     border-left: var(--border);
     border-top: var(--border);
-    padding: 10px;
-    gap: 20px;
 }
 
 .main-area .row {
     display: flex;
     flex-direction: row;
     gap: 10px;
+    
+}
+
+.main-area #searchRow {
+    padding: 10px;
+    border-bottom: var(--border);
 }
 
 .nav {
@@ -410,6 +414,9 @@ body {
     overflow-y: auto;
     grid-auto-rows: calc(300px * 4 / 3);
     align-items: start;
+
+    padding: 10px;
+
     
 }
 
@@ -822,7 +829,7 @@ input, textarea {
     overflow: auto;
     flex-direction: column;
     align-items: center;
-    border-radius: 5px 0 0 0;
+    border-radius: 10px 0 0 0;
     border-left: var(--border);
     border-top: var(--border);
 }
@@ -975,4 +982,56 @@ btn-search:hover {
 
 .nav button {
     padding: 0;
+}
+
+#settingsBtn, #homeBtn {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+}
+
+#goBackBtn,
+#goForwardBtn {
+    -webkit-app-region: no-drag;
+    position: relative;
+    background-color: transparent;
+    padding: 5px;
+    border-radius: 50%;
+    border: none;
+}
+
+#goBackBtn::before,
+#goForwardBtn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    transform: scale(0.85);
+    opacity: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    z-index: 0;
+}
+
+#goBackBtn.enabled:hover::before,
+#goForwardBtn.enabled:hover::before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+#goBackBtn .icon,
+#goForwardBtn .icon {
+    position: relative;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+#goBackBtn.enabled .icon,
+#goForwardBtn.enabled .icon {
+    opacity: 1;
+}
+
+#goBackBtn.enabled:hover,
+#goForwardBtn.enabled:hover {
+    cursor: pointer;
 }

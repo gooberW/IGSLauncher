@@ -154,13 +154,50 @@ ipcMain.handle('select-image', async () => {
   return result.canceled ? null : result.filePaths[0];
 });
 
-ipcMain.handle('change-page', async (event, page) => {
-    const win = BrowserWindow.getFocusedWindow();
-    if (win) {
-        const pagePath = path.join(__dirname, '..', page);
-        await win.loadFile(pagePath);
-    }
-});
+let history = ["./index.html"]
+let historyIndex = 0
+
+ipcMain.handle('change-page', async (event, page, addToHistory = true) => {
+  const win = BrowserWindow.getFocusedWindow()
+  if (!win) return
+
+  if (addToHistory) {
+    history = history.slice(0, historyIndex + 1)
+    history.push(page)
+    historyIndex = history.length - 1
+  }
+
+  const pagePath = path.join(__dirname, '..', page)
+  await win.loadFile(pagePath)
+
+  return { history, historyIndex }
+})
+
+ipcMain.handle('get-history', () => {
+  return { history, historyIndex }
+})
+
+ipcMain.handle('navigate-history', async (event, direction) => {
+  const win = BrowserWindow.getFocusedWindow()
+  if (!win) return
+
+  if (direction === 'back' && historyIndex > 0) {
+    historyIndex--
+  }
+
+  if (direction === 'forward' && historyIndex < history.length - 1) {
+    historyIndex++
+  }
+
+  const page = history[historyIndex]
+  const pagePath = path.join(__dirname, '..', page)
+
+  await win.loadFile(pagePath)
+
+  return { history, historyIndex }
+})
+
+
 
 // creates the main window
 const createWindow = () => {

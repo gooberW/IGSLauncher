@@ -1,80 +1,39 @@
-/*NAVIGATION (arrows at the top)*/
-let history = []
-let historyIndex = -1
+/* NAVIGATION (arrows at the top) */
 
-function updateButtons () {
+async function updateButtons () {
   const goBackBtn = document.getElementById('goBackBtn')
   const goForwardBtn = document.getElementById('goForwardBtn')
 
+  const { history, historyIndex } = await window.electronAPI.getHistory()
+
   if (historyIndex > 0) {
-    goBackBtn.classList.add('enabled')
+    goBackBtn?.classList.add('enabled')
   } else {
-    goBackBtn.classList.remove('enabled')
+    goBackBtn?.classList.remove('enabled')
   }
 
   if (historyIndex < history.length - 1) {
-    goForwardBtn.classList.add('enabled')
+    goForwardBtn?.classList.add('enabled')
   } else {
-    goForwardBtn.classList.remove('enabled')
+    goForwardBtn?.classList.remove('enabled')
   }
 
   console.log('History:', history, 'Index:', historyIndex)
 }
 
 export async function navigateTo (page, addToHistory = true) {
-  if (addToHistory) {
-    // removes forward history when navigating to new page
-    history = history.slice(0, historyIndex + 1)
-    history.push(page)
-    historyIndex = history.length - 1
-  }
-
-  await window.electronAPI.changePage(page)
-  updateButtons()
+  await window.electronAPI.changePage(page, addToHistory)
+  await updateButtons()
 }
 
-// Initialize history with current page
-function initializeHistory(currentPage) {
-  if (history.length === 0) {
-    history.push(currentPage)
-    historyIndex = 0
-    updateButtons()
-  }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  // Initialize history with the current page
-  // You can get the current page from window.location or pass it as needed
-  const currentPage = window.location.pathname.split('/').pop() || './index.html'
-  initializeHistory(`./${currentPage}`)
+document.addEventListener('DOMContentLoaded', async () => {
+  // Sync buttons with main-process history
+  await updateButtons()
 
   const settingsBtn = document.getElementById('settingsBtn')
-
   if (settingsBtn) {
-    settingsBtn.addEventListener('click', async () => {
-      await navigateTo('./settings.html')
-    })
-  }
-
-  // Navigation buttons
-  const goBackBtn = document.getElementById('goBackBtn')
-  const goForwardBtn = document.getElementById('goForwardBtn')
-
-  if (goForwardBtn) {
-    goForwardBtn.addEventListener('click', async () => {
-      if (historyIndex < history.length - 1) {
-        historyIndex++
-        await navigateTo(history[historyIndex], false)
-      }
-    })
-  }
-
-  if (goBackBtn) {
-    goBackBtn.addEventListener('click', async () => {
-      if (historyIndex > 0) {
-        historyIndex--
-        await navigateTo(history[historyIndex], false)
-      }
+    settingsBtn.addEventListener('click', () => {
+      navigateTo('./settings.html')
     })
   }
 
@@ -84,4 +43,20 @@ document.addEventListener('DOMContentLoaded', () => {
       navigateTo('./index.html')
     })
   }
+
+  const goBackBtn = document.getElementById('goBackBtn')
+  if (goBackBtn) {
+  goBackBtn.addEventListener('click', async () => {
+    await window.electronAPI.navigateHistory('back')
+    await updateButtons()
+  })
+}
+const goForwardBtn = document.getElementById('goForwardBtn')
+if (goForwardBtn) {
+  goForwardBtn.addEventListener('click', async () => {
+    await window.electronAPI.navigateHistory('forward')
+    await updateButtons()
+  })
+}
+
 })
