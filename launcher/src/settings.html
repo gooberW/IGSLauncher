@@ -15,12 +15,16 @@
     <link rel="stylesheet" href="css/fonts.css"></link>
     <link rel="stylesheet" href="css/index.css"></link>
     <link rel="stylesheet" href="css/icons.css"></link>
+    <link rel="stylesheet" href="css/tooltips.css"></link>
     <title>IGS Launcher</title>
   </head>
   <body>
     <div class="row title-bar">
       <div class="title">
         <icon class="icon icon-igs"></icon>
+        <icon id="goBackBtn"class="icon icon-arrow-left" data-title="Go Back"></icon>
+        <icon id="goForwardBtn" class="icon icon-arrow-right" data-title="Go Forward"></icon>
+        <p>Settings</p>
       </div>
       <div class="icons">
         <button id="minimizeBtn"><div class="icon icon-minimize"></div></button>
@@ -30,11 +34,8 @@
     </div>
     <div id="app">
       <div class="nav">
-        <div id="home" class="settings">
-          <button id="homeBtn" data-title="Go Back" style="background: none; border: none;">
-            <div class="icon icon-settings"></div>
-          </button>
-        </div>
+        <button id="homeBtn" data-title="Collection"><div class="icon icon-library"></div></button>
+        <button id="settingsBtn" data-title="Settings"><div class="icon icon-settings"></div></button>
       </div>
           <div class="settings-area">
             <div class="row"><p>General Settings</p></div>
@@ -122,6 +123,7 @@
 
   </body>
 
-  <script type="module" src="js/settings.js"></script>
+  <script type="module" src="js/settings.js" defer></script>
   <script type="module" src="js/frame.js"></script>
+  <script type="module" src="js/navigation.js"></script>
 </html>

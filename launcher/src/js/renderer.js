@@ -163,18 +163,15 @@ function closeMoreMenu(event) {
     }
 }
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
-    displayGames();
 
+    displayGames();
     // Sidebar / menu buttons
     const moreBtn = document.getElementById('moreBtn');
     const moreMenu = document.getElementById('moreMenu');
     const closeBtn = document.getElementById('closeSidebar');
     const removeGameBtn = document.getElementById('removeGameBtn');
     const editGameBtn = document.getElementById('editGameBtn');
-    const settingsBtn = document.getElementById('settingsBtn');
 
     if (moreBtn) {
         moreBtn.addEventListener('click', toggleMoreMenu);
@@ -195,13 +192,4 @@ document.addEventListener('DOMContentLoaded', () => {
             closeMoreMenu();
         });
     }
-
-    if (settingsBtn) {
-        settingsBtn.addEventListener('click', async () => {
-            await window.electronAPI.changePage('settings.html');
-        });
-    }
-});
-
-
-
+})

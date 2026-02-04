@@ -682,54 +682,6 @@ input, textarea {
     font-size: 14px;
 }
 
-[data-title]:hover:after {
-    opacity: 1;
-    transition: all 0.1s ease 0.5s;
-    transform: translateX(-50%) scale(1);
-    visibility: visible;
-}
-
-[data-title]:after {
-    content: attr(data-title);
-    background-color: var(--accent-color);
-    border: var(--border);
-    padding: 5px 8px;
-    border-radius: 5px;
-    color: var(--text-color);
-    position: absolute;
-    z-index: 99999;
-    left: 50%;
-    bottom: 3em;
-    opacity: 0;
-    visibility: hidden;
-    width: fit-content;
-    transition: scale 0.1s ease;
-    transform: translateX(-50%) scale(0.8);
-}
-
-[data-title] {
-    position: relative;
-    font-family: var(--normal-font);
-    font-size: 14px;
-    text-wrap: nowrap;
-}
-
-#settingsBtn[data-title]:after, #homeBtn[data-title]:after {
-    left: 270%;
-    bottom: 0;
-}
-
-#closeSidebar[data-title]:after, #closeAddGame[data-title]:after {
-    left:-150%;
-    bottom: 0;
-}
-
-#addTag[data-title]:after {
-    bottom: 3.3em;
-    font-size: 14px;
-    text-wrap: nowrap;
-}
-
 .more-container {
     position: relative;
     width: 45%;
@@ -970,14 +922,6 @@ input, textarea {
     transform: none;
 }
 
-.reset-btn[data-title]:after {
-    bottom: 50%;
-    left: -380%;
-    font-size: 14px;
-    text-wrap: nowrap;
-    transform: translateY(50%) translateX(0) scale(1);
-}
-
 .reset-btn:disabled:hover {
     background-color: transparent;
     cursor: not-allowed;
@@ -1014,27 +958,6 @@ input, textarea {
 .theme-btn:hover, .theme-btn.active {
     border-color: var(--selected-color);
     border-width: 2px;
-}
-
-.theme-btn[data-title]:after {
-    bottom: 50%;
-    left: 50%;
-    font-size: 14px;
-    text-wrap: nowrap;
-    transform: translateY(50%) translateX(-50%) scale(1);
-    background-color: var(--selected-color);
-}
-
-.theme-btn[data-title].active::after {
-    visibility: visible !important;
-    opacity: 1;
-    pointer-events: none;
-}
-
-#filterBtn[data-title]:after {
-    left: 180%;
-    bottom: 50%;
-    transform: translateY(50%) translateX(-50%) scale(1);
 }
 
 .nav-bar .play-btn {

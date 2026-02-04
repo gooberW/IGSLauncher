@@ -146,3 +146,38 @@
 .icon-reset:hover {
     transform: rotate(-360deg);
 }
+
+.icon-library {
+    -webkit-mask-image: url("../assets/collection-fill.svg");
+    mask-image: url("../assets/collection-fill.svg");
+}
+
+.icon-library:hover {
+    transform: scale(1.1);
+}
+
+.icon-arrow-left {
+    -webkit-mask-image: url("../assets/arrow-left.svg");
+    mask-image: url("../assets/arrow-left.svg");
+    width: 18px;
+    height: 18px;
+    opacity: 0.4;
+
+    pointer-events: none;
+}
+
+.icon-arrow-right {
+    -webkit-mask-image: url("../assets/arrow-right.svg");
+    mask-image: url("../assets/arrow-right.svg");
+    width: 18px;
+    height: 18px;
+    opacity: 0.4;
+
+    pointer-events: none;
+}
+
+.icon-arrow-left.enabled, .icon-arrow-right.enabled {
+    opacity: 1;
+    pointer-events: all;
+    cursor: pointer;
+}

@@ -15,12 +15,16 @@
     <link rel="stylesheet" href="css/fonts.css"></link>
     <link rel="stylesheet" href="css/index.css"></link>
     <link rel="stylesheet" href="css/icons.css"></link>
+    <link rel="stylesheet" href="css/tooltips.css"></link>
     <title>IGS Launcher</title>
   </head>
   <body>
     <div class="row title-bar">
       <div class="title">
         <icon class="icon icon-igs"></icon>
+        <icon id="goBackBtn"class="icon icon-arrow-left" data-title="Go Back"></icon>
+        <icon id="goForwardBtn" class="icon icon-arrow-right" data-title="Go Forward"></icon>
+        <p>Collection</p>
       </div>
       <div class="icons">
         <button id="minimizeBtn"><div class="icon icon-minimize"></div></button>
@@ -30,15 +34,12 @@
     </div>
     <div id="app">
       <div class="nav">
-        <div id="settings" class="settings">
-          <button id="settingsBtn" data-title="Settings" style="background: none; border: none;">
-            <div class="icon icon-settings"></div>
-          </button>
-        </div>
+        <button id="homeBtn" data-title="Collection"><div class="icon icon-library"></div></button>
+        <button id="settingsBtn" data-title="Settings"><div class="icon icon-settings"></div></button>
       </div>
 
-      <div class="main-area">
-        <div id="searchRow" class="row">
+      <div class="main-area" style="background-color: transparent;">
+        <div id="searchRow" class="row" >
           <div class="search-container">
             <div id="search" class="search-bar">
               <input id="searchInput" type="text" placeholder="Search for a game..." />
@@ -115,7 +116,7 @@
       </div>
 
       <div class="add-game-window">
-        <div class="row drag-bar">
+        <div class="row">
           <p id="addGameTitle">Add Game</p>
           <button id="closeAddGame" style="background: none; border: none;" data-title="Close Window">
               <div class="icon icon-cross"></div>
@@ -201,4 +202,5 @@
   <script type="module" src="js/frame.js"></script>
   <script type="module" src="js/search.js"></script>
   <script type="module" src="js/add-game.js"></script>  
+  <script type="module" src="js/navigation.js"></script>
 </html>
