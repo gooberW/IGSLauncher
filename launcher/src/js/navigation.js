@@ -30,9 +30,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Sync buttons with main-process history
   await updateButtons()
 
+  let currentPage = await window.electronAPI.getCurrentPage()
+
   const settingsBtn = document.getElementById('settingsBtn')
   if (settingsBtn) {
     settingsBtn.addEventListener('click', () => {
+        if (currentPage === './settings.html') return
       navigateTo('./settings.html')
     })
   }
@@ -40,6 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const homeBtn = document.getElementById('homeBtn')
   if (homeBtn) {
     homeBtn.addEventListener('click', () => {
+        if (currentPage === './index.html') return
       navigateTo('./index.html')
     })
   }

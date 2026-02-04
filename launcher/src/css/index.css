@@ -129,7 +129,7 @@ body {
     background-color: var(--accent-color);
     transform: scale(0.85);
     opacity: 0;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, opacity 0.1s ease;
 
     z-index: 0;
 }
@@ -353,7 +353,7 @@ body {
 }
 
 .sidebar.active {
-    width: 30vw;
+    width: 25vw;
     min-width: 300px;
     border-left: var(--border);
     overflow-y: auto;
@@ -1006,10 +1006,10 @@ btn-search:hover {
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    background-color: var(--secondary-color);
+    background-color: var(--accent-color);
     transform: scale(0.85);
     opacity: 0;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    transition: transform 0.2s ease, opacity 0.1s ease;
     z-index: 0;
 }
 

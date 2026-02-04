@@ -14,5 +14,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getThemes: () => ipcRenderer.invoke('get-themes'),
     closeApp: () => ipcRenderer.invoke('close-window'),
     minimizeApp: () => ipcRenderer.invoke('minimize-window'),
-    toggleMaximize: () => ipcRenderer.invoke("toggle-window-maximize")
+    toggleMaximize: () => ipcRenderer.invoke("toggle-window-maximize"),
+    getCurrentPage: () => ipcRenderer.invoke('get-current-page')
 });

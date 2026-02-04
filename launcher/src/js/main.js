@@ -197,6 +197,9 @@ ipcMain.handle('navigate-history', async (event, direction) => {
   return { history, historyIndex }
 })
 
+ipcMain.handle("get-current-page" , () => {
+    return history[historyIndex] || null
+})
 
 
 // creates the main window
