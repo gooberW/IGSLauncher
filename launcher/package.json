@@ -6,47 +6,36 @@
   "description": "",
   "main": "src/js/main.js",
   "type": "commonjs",
-
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
   },
-
   "repository": {
     "type": "git",
     "url": "https://github.com/gooberW/IGSLauncher.git"
   },
-
   "bugs": {
     "url": "https://github.com/gooberW/IGSLauncher/issues"
   },
-
   "homepage": "https://github.com/gooberW/IGSLauncher#readme",
-
   "devDependencies": {
     "electron": "^40.0.0",
-    "electron-builder": "^24.13.3"
+    "electron-builder": "^26.7.0"
   },
-
   "build": {
     "appId": "com.iselgamestudios.igslauncher",
-
     "files": [
       "src/**/*"
     ],
-
     "directories": {
       "buildResources": "src/assets"
     },
-
     "win": {
       "icon": "src/assets/icon.ico"
     },
-
     "mac": {
       "icon": "src/assets/icon.icns"
     },
-
     "linux": {
       "icon": "src/assets/icon.png"
     }

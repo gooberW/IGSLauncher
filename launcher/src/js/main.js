@@ -3,17 +3,32 @@ const fs = require('fs');
 const { spawn } = require('child_process');
 const path = require('path');
 const { pathToFileURL } = require('url');
-const gamesFilePath = path.join(__dirname, '../data/games.json');
-const dataDir = path.dirname(gamesFilePath);
+
+const userDataDir = path.join(app.getPath('userData'), 'data');
+const gamesFilePath = path.join(userDataDir, 'games.json');
+const themesFilePath = path.join(userDataDir, 'themes.json');
+
 
 // this adds support for local resources (needed for images)
 protocol.registerSchemesAsPrivileged([
   { scheme: 'local-resource', privileges: { standard: true, secure: true, supportFetchAPI: true, bypassCSP: true } }
 ]);
 
-if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
+
+function ensureUserDataFiles() {
+  if (!fs.existsSync(userDataDir)) {
+    fs.mkdirSync(userDataDir, { recursive: true });
+  }
+
+  if (!fs.existsSync(gamesFilePath)) {
+    fs.writeFileSync(gamesFilePath, '{}');
+  }
+
+  if (!fs.existsSync(themesFilePath)) {
+    fs.writeFileSync(themesFilePath, '{}');
+  }
 }
+
 
 // reads the games.json file
 ipcMain.handle('get-games-data', async () => {
@@ -26,8 +41,6 @@ ipcMain.handle('get-games-data', async () => {
         return { games: {} };
     }
 });
-
-const themesFilePath = path.join(__dirname, '../data/themes.json');
 
 ipcMain.handle('get-themes', async () => {
     try {
@@ -248,6 +261,7 @@ app.whenReady().then(() => {
       return new Response('Error', { status: 500 });
     }
   });
+  ensureUserDataFiles();
   createWindow();
 
 });
