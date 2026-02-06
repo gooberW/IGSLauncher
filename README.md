@@ -4,7 +4,7 @@ This project aims to help ISEL Game Studios keep their games available on a port
 The application is designed to be simple and intuitive, allowing even users with little technical experience to use it easily. 
 It will be developed using Electron with web technologies, and is intended to be easy to maintain and upgrade over time
 
-### **Main Objectives**
+## **Main Objectives**
 
 Using the application, users must be able to:
 

@@ -58,6 +58,9 @@ async function writeGameData() {
             closeAddGame();
             resetForm();
             editingGame = null; // Fixed variable name
+        }else {
+            console.error(result.error);
+            showAlert(result.error);
         }
     } catch (err) {
         console.error(err);
@@ -170,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('add-game-button').addEventListener('click', () => {
         writeGameData();
-    }); // Removed closeAddGame() - it's called inside writeGameData after success
+    });
 
     const selectExeBtn = document.getElementById('selectExeBtn');
     const exePathDisplay = document.getElementById('exePathDisplay');
@@ -195,8 +198,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('iconPathDisplay').value = filePath;
         }
     });
-        const addGameBtn = document.getElementById('add-game-menu-button');
-
+    
+    const addGameBtn = document.getElementById('add-game-menu-button');
     const closeBtn = document.getElementById('closeAddGame');
     
     if (closeBtn) {
