@@ -38,13 +38,11 @@ async function writeGameData() {
         let result;
 
         if (editingGame) {
-            // Editing existing game
             result = await window.electronAPI.updateGame(
                 editingGame.id,
                 gameData
             );
         } else {
-            // Adding new game - wrap in details object
             result = await window.electronAPI.writeGameData({
                 details: gameData
             });
@@ -57,7 +55,7 @@ async function writeGameData() {
             closeSidebar();
             closeAddGame();
             resetForm();
-            editingGame = null; // Fixed variable name
+            editingGame = null;
         }else {
             console.error(result.error);
             showAlert(result.error);
@@ -98,19 +96,10 @@ function addTag() {
 function openAddGame() {
     const addGameWindow = document.querySelector('.add-game-window');
     if (addGameWindow) addGameWindow.classList.add('active');
-    centerAddGameWindow();
 }
-
-function centerAddGameWindow() {
-    const addGameWindow = document.querySelector('.add-game-window');
-    const rect = addGameWindow.getBoundingClientRect();
-    addGameWindow.style.left = `${(window.innerWidth - rect.width) / 2}px`;
-    addGameWindow.style.top = `${(window.innerHeight - rect.height) / 2}px`;
-}
-
 
 export function openEditGame(gameID, gameData) {
-    editingGame = { id: gameID, data: gameData }; // Store both ID and data
+    editingGame = { id: gameID, data: gameData };
 
     document.getElementById('addGameTitle').innerText = "Edit Game";
 
@@ -148,7 +137,7 @@ function closeAddGame() {
     const addGameWindow = document.querySelector('.add-game-window');
     if (addGameWindow) addGameWindow.classList.remove('active');
     resetForm();
-    editingGame = null; // Reset editing state
+    editingGame = null;
 }
 
 function resetForm() {

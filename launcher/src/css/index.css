@@ -569,6 +569,10 @@ button.add-game-button:hover {
     border-radius: 5px;
     overflow: auto;
     max-height: 95vh;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    transition: transform 0.1s ease-out;
 }
 
 .drag-bar {
@@ -597,8 +601,10 @@ button.add-game-button:hover {
 }
 
 .add-game-window.active {
+    transform: translate(-50%, -50%) scale(1);
     width: fit-content;
     height: fit-content;
+    max-height: 80vh;
     visibility: visible;
 }
 
@@ -607,7 +613,6 @@ button.add-game-button:hover {
     height: 20px;
     cursor: pointer;
     rotate: 45deg;
-    transition: transform 0.2s ease-in-out;
 }
 
 .add-game-window .row img:hover {

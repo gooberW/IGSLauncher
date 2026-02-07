@@ -6,7 +6,7 @@ const { pathToFileURL } = require('url');
 
 const userDataDir = path.join(app.getPath('userData'), 'data');
 const gamesFilePath = path.join(userDataDir, 'games.json');
-const themesFilePath = path.join(userDataDir, 'themes.json');
+const themesFilePath = path.join(__dirname, '../data/themes.json');
 
 
 // this adds support for local resources (needed for images)
