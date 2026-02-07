@@ -160,6 +160,15 @@ function resetForm() {
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('addTag').addEventListener('click', addTag);
 
+    const tagInput = document.getElementById('tag');
+
+    tagInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            addTag();
+        }
+    });
+
     document.getElementById('add-game-button').addEventListener('click', () => {
         writeGameData();
     });

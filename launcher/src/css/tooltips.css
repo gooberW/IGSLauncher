@@ -59,8 +59,13 @@
     left: -380%;
     font-size: 14px;
     text-wrap: nowrap;
+    transform: translateY(50%) translateX(0) scale(0.8);
+}
+
+.reset-btn[data-title]:hover:after {
     transform: translateY(50%) translateX(0) scale(1);
 }
+
 
 .theme-btn[data-title]:after {
     bottom: 50%;

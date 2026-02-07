@@ -1040,3 +1040,40 @@ btn-search:hover {
 #goForwardBtn.enabled:hover {
     cursor: pointer;
 }
+
+.filter-tag input {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: var(--border);
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
+    font-family: var(--normal-font);
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.1s ease;
+    max-width: fit-content;
+    height: 100%;
+}
+
+.filter-tag input:hover {
+    cursor: text;
+}
+
+.filter-tag {
+    transform: scale(0.8);
+    visibility: hidden;
+    transition: all 0.1s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 0;
+}
+
+.filter-tag.active {
+    transform: scale(1);
+    width: fit-content;
+    visibility: visible
+}
