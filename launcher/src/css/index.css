@@ -1075,5 +1075,6 @@ btn-search:hover {
 .filter-tag.active {
     transform: scale(1);
     width: fit-content;
-    visibility: visible
+    visibility: visible;
+    transition: all 0.1s ease;
 }
