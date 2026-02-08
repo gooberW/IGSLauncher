@@ -192,4 +192,13 @@ document.addEventListener('DOMContentLoaded', () => {
             closeMoreMenu();
         });
     }
+
+    const filterBtn = document.getElementById('filterBtn');
+    const input = document.getElementById('filterTag');
+
+    filterBtn.addEventListener('click', () => {
+        filterBtn.classList.toggle('active');
+        input.focus();
+    });
+
 })

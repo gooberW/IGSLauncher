@@ -88,6 +88,10 @@ body {
     gap: 10px;
 }
 
+.title p {
+    font-weight: 700;
+}
+
 .title .icon {
     cursor: unset !important;
 }
@@ -1077,4 +1081,30 @@ btn-search:hover {
     width: fit-content;
     visibility: visible;
     transition: all 0.1s ease;
+}
+
+.filter {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: var(--border);
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
+    font-family: var(--normal-font);
+    font-size: 14px;
+    transition: all 0.2s ease;
+    max-height: 42px;
+}
+
+.filter input {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+
+    max-width: 150px;
+    overflow: hidden;
 }

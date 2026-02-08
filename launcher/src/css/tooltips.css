@@ -85,7 +85,6 @@
 }
 
 #filterBtn[data-title]:after {
-    left: 180%;
-    bottom: 50%;
-    transform: translateY(50%) translateX(-50%) scale(1);
+    bottom: -95%;
+    transform: translateX(-50%) scale(1);
 }
