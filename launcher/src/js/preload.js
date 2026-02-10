@@ -15,5 +15,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     closeApp: () => ipcRenderer.invoke('close-window'),
     minimizeApp: () => ipcRenderer.invoke('minimize-window'),
     toggleMaximize: () => ipcRenderer.invoke("toggle-window-maximize"),
-    getCurrentPage: () => ipcRenderer.invoke('get-current-page')
+    getCurrentPage: () => ipcRenderer.invoke('get-current-page'),
+    getInstallSize: (exePath) => ipcRenderer.invoke('get-install-size', exePath)
 });

@@ -15,6 +15,8 @@ async function writeGameData() {
     const coverImage = document.getElementById('coverPathDisplay').value;
     const icon = document.getElementById('iconPathDisplay').value;
     const description = document.getElementById('descriptionArea').value;
+    const developers = document.getElementById('developersInput').value.trim(); // ← added trim()
+    const publishers = document.getElementById('publishersInput').value.trim(); // ← added trim()
 
     const tags = Array.from(
         document.getElementById('tag-container').children
@@ -30,6 +32,8 @@ async function writeGameData() {
         path,
         coverImage,
         icon,
+        developers,
+        publishers,
         tags,
         description
     };
@@ -38,11 +42,13 @@ async function writeGameData() {
         let result;
 
         if (editingGame) {
+            // ppdate existing game
             result = await window.electronAPI.updateGame(
                 editingGame.id,
                 gameData
             );
         } else {
+            // add new game
             result = await window.electronAPI.writeGameData({
                 details: gameData
             });
@@ -56,17 +62,16 @@ async function writeGameData() {
             closeAddGame();
             resetForm();
             editingGame = null;
-        }else {
-            console.error(result.error);
-            showAlert(result.error);
+            console.log("Saved game data:", gameData);
+        } else {
+            console.error("Save failed:", result.error);
+            showAlert("Failed to save game: " + result.error);
         }
     } catch (err) {
-        console.error(err);
+        console.error("Exception while saving:", err);
+        showAlert("An error occurred while saving the game.");
     }
 }
-
-
-
 
 /**
  * Adds a new tag to the list of tags in the add game window.
@@ -108,6 +113,8 @@ export function openEditGame(gameID, gameData) {
     document.getElementById('coverPathDisplay').value = gameData.coverImage || "";
     document.getElementById('iconPathDisplay').value = gameData.icon || "";
     document.getElementById('descriptionArea').value = gameData.description || "";
+    document.getElementById('developersInput').value = gameData.developers || "";
+    document.getElementById('publishersInput').value = gameData.publishers || "";
 
     const addGameBtn = document.getElementById('add-game-button');
     addGameBtn.innerText = "Save Changes";
@@ -129,7 +136,6 @@ export function openEditGame(gameID, gameData) {
     openAddGame();
 }
 
-
 /**
  * Closes the add game window.
  */
@@ -147,13 +153,14 @@ function resetForm() {
     document.getElementById('iconPathDisplay').value = "";
     document.getElementById('descriptionArea').value = "";
     document.getElementById('tag-container').innerHTML = "";
+    document.getElementById('developers').value = "";
+    document.getElementById('publishers').value = "";
 
     document.getElementById('addGameTitle').innerText = "Add Game";
 
     const addGameBtn = document.getElementById('add-game-button');
     addGameBtn.innerText = "Add Game";
 }
-
 
 // Event Listeners -----------
 

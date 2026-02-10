@@ -69,4 +69,6 @@
 :root {
     --normal-font: 'Geist', sans-serif;
     --mono-font: 'Geist Mono', monospace;
+    --bold-weight: 700;
+    --normal-weight: 400;
 }

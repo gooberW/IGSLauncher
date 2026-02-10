@@ -24,8 +24,10 @@ export async function displayGames() {
 
         Object.entries(data).forEach(([id, info]) => {
             console.log("Adding game:", info.title);
-            const safeCoverPath = info.coverImage.replace(/\\/g, '/');
-            const coverSrc = `local-resource://${safeCoverPath}`;
+            const coverSrc = info.coverImage
+                ? `local-resource://${info.coverImage.replace(/\\/g, '/')}`
+                : '';
+
             const gameBox = document.createElement('div');
             gameBox.className = 'game-box';
             gameBox.style.backgroundImage = `url("${coverSrc}")`;
@@ -96,39 +98,84 @@ async function removeGame() {
  * @remarks The game info will be retrieved from the data object.
  * @todo Implement this function.
  */
-export function openSidebar(id) {
+export async function openSidebar(id) {
     const gameInfo = gamesData[id];
     const sidebar = document.querySelector('.sidebar');
     currentGame = id;
 
-    const gameName = gameInfo ? gameInfo.title : "Unknown Game";
-
     if (!gameInfo || !sidebar) return;
 
-    sidebar.querySelector('h3').innerText = gameName;
+    sidebar.querySelector('h3').innerText = gameInfo.title || "Unknown Game";
 
     const tagsContainer = sidebar.querySelector('#tags');
-    tagsContainer.innerHTML = ''; 
-    if (gameInfo.tags) {
-        gameInfo.tags.forEach(tag => {
-            const p = document.createElement('p');
-            p.className = 'tag';
-            p.innerText = tag;
-            tagsContainer.appendChild(p);
-        });
-    }
-
-    const sidebarPlay = sidebar.querySelector('#sidebarPlay');
-    sidebarPlay.addEventListener('click', () => {
-        const exePath = gameInfo.path;
-        window.electronAPI.launchGame(exePath);
+    tagsContainer.innerHTML = '';
+    (gameInfo.tags || []).forEach(tag => {
+        const p = document.createElement('p');
+        p.className = 'tag';
+        p.innerText = tag;
+        tagsContainer.appendChild(p);
     });
 
+    const sidebarPlay = sidebar.querySelector('#sidebarPlay');
+    sidebarPlay.onclick = () => {
+        window.electronAPI.launchGame(gameInfo.path);
+    };
+
+    sidebar.querySelector('#publishers').innerText =
+        gameInfo.publishers || "Unknown Publisher";
+
+    sidebar.querySelector('#developers').innerText =
+        gameInfo.developers || "Unknown Developer";
+
+    const installSizeElement = sidebar.querySelector('#installSize');
+    installSizeElement.innerText = "Calculating...";
+
+    try {
+        console.log("Game path:", gameInfo.path);
+        console.log("window.electronAPI exists?", !!window.electronAPI);
+        console.log("window.electronAPI.getInstallSize exists?", !!window.electronAPI?.getInstallSize);
+        
+        if (!window.electronAPI || !window.electronAPI.getInstallSize) {
+            throw new Error("electronAPI.getInstallSize is not defined");
+        }
+        
+        if (!gameInfo.path) {
+            throw new Error("No executable path found");
+        }
+        
+        const result = await window.electronAPI.getInstallSize(gameInfo.path);
+        console.log("Install size result:", result);
+        
+        if (result && result.success) {
+            installSizeElement.innerText = formatBytes(result.size);
+        } else {
+            console.error("Install size calculation failed:", result?.error || "Unknown error");
+            installSizeElement.innerText = "Unknown";
+        }
+    } catch (error) {
+        console.error("Exception caught:", error);
+        console.error("Error name:", error.name);
+        console.error("Error message:", error.message);
+        console.error("Error stack:", error.stack);
+        installSizeElement.innerText = "Error";
+    }
+
     const descContainer = sidebar.querySelector('#description');
-    const formattedDesc = formatDescription(gameInfo.description || "No description available.");
-    descContainer.innerHTML = formattedDesc;
+    descContainer.innerHTML = formatDescription(
+        gameInfo.description || "No description available."
+    );
 
     sidebar.classList.add('active');
+}
+
+
+function formatBytes(bytes) {
+    console.log(bytes);
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return `${(bytes / Math.pow(k, i)).toFixed(2)} ${sizes[i]}`;
 }
 
 function formatDescription(text) {
@@ -200,5 +247,27 @@ document.addEventListener('DOMContentLoaded', () => {
         filterBtn.classList.toggle('active');
         input.focus();
     });
+
+    /* TESTING
+    const tooltipText = document.getElementById("hoverTooltipText");
+    const tooltip = document.getElementById("hoverTooltip");
+
+    document.addEventListener("mouseenter", (e) => {
+    const target = e.target.closest("[data-title]");
+    if (!target) return;
+
+    tooltipText.textContent = target.dataset.title;
+    tooltip.classList.add("visible");
+    }, true);
+
+    document.addEventListener("mouseleave", (e) => {
+    const target = e.target.closest("[data-title]");
+    if (!target) return;
+
+    tooltip.classList.remove("visible");
+    tooltipText.textContent = "";
+    }, true);
+
+    */
 
 })

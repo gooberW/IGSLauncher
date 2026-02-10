@@ -72,7 +72,7 @@
          <!-- the data must be related to the game clicked -->
         <div class="sidebar">
           <div class="row" style="justify-content: end;">
-            <button id="closeSidebar" style="background: none; border: none;" data-title="Close Sidebar">
+            <button id="closeSidebar" class="closeBtn" data-title="Close Sidebar">
               <div class="icon icon-cross"></div>
             </button>
           </div>
@@ -90,6 +90,15 @@
             </div>
  
           </div>
+          <div class="row game-info">
+            <p>Install Size</p><p class="value" id="installSize"></p>
+          </div>
+          <div class="row game-info">
+            <p>Developer(s)</p><p class="value" id="developers"></p>
+          </div>
+          <div class="row game-info">
+            <p>Publisher(s)</p><p class="value" id="publishers"></p>
+          </div>
           <div class="row" style="border-bottom: 1.5px solid var(--secondary-color);">
             <p>Tags</p>
           </div>
@@ -98,7 +107,7 @@
           <div class="row" style="border-bottom: 1.5px solid var(--secondary-color);">
             <p>Game description</p>
           </div>
-          <div id="description"class="row" style="flex-direction: column; align-items: start;">
+          <div id="description" class="row" style="flex-direction: column; align-items: start;">
           </div>
 
         </div>
@@ -116,7 +125,10 @@
         <button class="add-game-button" id="add-game-menu-button">
           Add Game
         </button>
-        IGS Launcher v0.0.2
+        <div class="hover-tooltip" id="hoverTooltip">
+          <!-- this will show the data titles of anything that is being hovered instead of a tooltip (like FL studio) -->
+           <p id="hoverTooltipText"></p>
+        </div>
       </div>
 
       </div>
@@ -124,7 +136,7 @@
       <div class="add-game-window">
         <div class="row">
           <p id="addGameTitle">Add Game</p>
-          <button id="closeAddGame" style="background: none; border: none;" data-title="Close Window">
+          <button id="closeAddGame" class="closeBtn" data-title="Close Window">
               <div class="icon icon-cross"></div>
             </button>
         </div>
@@ -160,6 +172,14 @@
           </div>
         </div>
         <div class="input-group">
+          <label for="developers">Developer(s):</label>
+          <input type="text" id="developersInput" name="developers" />
+        </div>
+        <div class="input-group">
+          <label for="publishers">Publisher(s):</label>
+          <input type="text" id="publishersInput" name="publishers" />
+        </div>
+        <div class="input-group">
           <label for="tags">Tags:</label>
           <div class="add-tag">
             <input type="text" id="tag" name="tag" />
@@ -186,7 +206,7 @@
     <div id="alert" class="alert-box">
       <div class="row drag-bar">
         <p id="alert-title">ISEL Game Studios</p>
-        <button id="alert-close" style="background: none; border: none;" data-title="Close Alert">
+        <button id="alert-close" class="closeBtn" data-title="Close Alert">
           <div class="icon icon-cross"></div>
         </button>
       </div>

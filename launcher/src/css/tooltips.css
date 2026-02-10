@@ -21,6 +21,9 @@
     width: fit-content;
     transition: scale 0.1s ease;
     transform: translateX(-50%) scale(0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 [data-title] {
@@ -31,21 +34,26 @@
 }
 
 #settingsBtn[data-title]:after, #homeBtn[data-title]:after {
-    left: 130%;
-    transform: translateX(0) translateY(-50%) scale(0.8);
-    bottom: -50%;
+    left: 110%;
+    transform: translateX(0) translateY(50%) scale(0.8);
+    bottom: 50%;
     z-index: 99;
-
-    font-size: 14px;
 }
 
 #settingsBtn[data-title]:hover:after, #homeBtn[data-title]:hover:after {
-    transform: translateX(0) translateY(-50%) scale(1);
+    transform: translateX(0) translateY(50%) scale(1);
 }
 
 #closeSidebar[data-title]:after, #closeAddGame[data-title]:after {
-    left:-150%;
-    bottom: 0;
+    left: -110%;
+    bottom: 50%;
+    transform: translateX(0) translateY(50%) scale(0.8);
+    visibility: hidden;
+}
+
+#closeSidebar[data-title]:hover:after, #closeAddGame[data-title]:hover:after {
+    transform: translateX(0) translateY(50%) scale(1);
+    visibility: hidden;
 }
 
 #addTag[data-title]:after {
@@ -85,6 +93,39 @@
 }
 
 #filterBtn[data-title]:after {
-    bottom: -95%;
-    transform: translateX(-50%) scale(1);
+    bottom: 50%;
+    left: 105%;
+    transform: translateX(0) translateY(50%) scale(0.8);
 }
+
+#filterBtn[data-title]:hover:after {
+    transform: translateX(0) translateY(50%) scale(1);
+}
+
+
+
+/*TESTING
+
+.hover-tooltip {
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: var(--accent-color);
+    border: var(--border);
+    color: var(--text-color);
+    display: inline-block;
+    opacity: 0;
+    transform: scale(0.85);
+}
+
+.hover-tooltip.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.hover-tooltip p {
+    font-size: 14px;
+    margin: 0;
+}
+
+*/

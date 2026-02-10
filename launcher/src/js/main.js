@@ -33,12 +33,12 @@ function ensureUserDataFiles() {
 // reads the games.json file
 ipcMain.handle('get-games-data', async () => {
     try {
-        if (!fs.existsSync(gamesFilePath)) return { games: {} };
+        if (!fs.existsSync(gamesFilePath)) return { };
         const jsonData = fs.readFileSync(gamesFilePath, 'utf-8');
         return JSON.parse(jsonData);
     } catch (error) {
         console.error("[Main.js] Error loading games data:", error);
-        return { games: {} };
+        return { };
     }
 });
 
@@ -100,6 +100,8 @@ ipcMain.handle('save-game', async (event, gameData) => {
             path: gameData.details.path,
             coverImage: gameData.details.coverImage,
             icon: gameData.details.icon,
+            developers: gameData.details.developers,
+            publishers: gameData.details.publishers,
             tags: gameData.details.tags,
             description: gameData.details.description
         };
@@ -130,6 +132,8 @@ ipcMain.handle('update-game', async (event, gameID, newData) => {
             path: newData.path,
             coverImage: newData.coverImage,
             icon: newData.icon,
+            developers: newData.developers,
+            publishers: newData.publishers,
             tags: newData.tags,
             description: newData.description
         };
@@ -154,6 +158,95 @@ ipcMain.handle('select-executable', async () => {
         ]
     });
     return result.canceled ? null : result.filePaths[0];
+});
+
+// calculates the size of the game installation folder
+ipcMain.handle('get-install-size', async (event, exePath) => {
+    try {
+        if (typeof exePath !== 'string' || exePath.trim() === '') {
+            return { success: false, error: 'Invalid executable path' };
+        }
+
+        const normalizedPath = path.normalize(exePath);
+        
+        // verifies the executable exists
+        if (!fs.existsSync(normalizedPath)) {
+            return { success: false, error: 'Executable not found' };
+        }
+
+        // gets the directory containing the executable
+        const gameDir = path.dirname(normalizedPath);
+        
+        // recursively calculates directory size
+        async function getDirectorySize(dirPath, maxDepth = 10, currentDepth = 0) {
+            let totalSize = 0;
+            
+            // prevents infinite recursion and excessive depth
+            if (currentDepth > maxDepth) {
+                console.warn(`Max depth reached at: ${dirPath}`);
+                return totalSize;
+            }
+            
+            try {
+                const items = await fs.promises.readdir(dirPath, { withFileTypes: true });
+                
+                // processes files and directories
+                const promises = items.map(async (item) => {
+                    const itemPath = path.join(dirPath, item.name);
+                    
+                    try {
+                        if (item.isDirectory()) {
+                            // skips common large/unnecessary directories
+                            const skipDirs = ['node_modules', '.git', '__pycache__', 'cache', 'temp'];
+                            if (skipDirs.includes(item.name.toLowerCase())) {
+                                return 0;
+                            }
+                            return await getDirectorySize(itemPath, maxDepth, currentDepth + 1);
+                        } else if (item.isFile()) {
+                            const stats = await fs.promises.stat(itemPath);
+                            return stats.size;
+                        } else if (item.isSymbolicLink()) {
+                            // skips symbolic links to avoid circular references
+                            return 0;
+                        }
+                    } catch (err) {
+                        // skips files/dirs we can't access (permissions, etc)
+                        console.warn(`Could not access: ${itemPath}`, err.message);
+                        return 0;
+                    }
+                    
+                    return 0;
+                });
+                
+                const sizes = await Promise.all(promises);
+                totalSize = sizes.reduce((sum, size) => sum + size, 0);
+                
+            } catch (err) {
+                console.error(`Error reading directory ${dirPath}:`, err.message);
+            }
+            
+            return totalSize;
+        }
+        
+        console.log(`Calculating install size for: ${gameDir}`);
+        const startTime = Date.now();
+        
+        const totalSize = await getDirectorySize(gameDir);
+        
+        const endTime = Date.now();
+        console.log(`Size calculation completed in ${endTime - startTime}ms: ${totalSize} bytes`);
+
+        return {
+            success: true,
+            size: totalSize
+        };
+    } catch (error) {
+        console.error('[Main.js] Error getting installation size:', error);
+        return {
+            success: false,
+            error: error.message
+        };
+    }
 });
 
 // opens a file dialog to select an image
