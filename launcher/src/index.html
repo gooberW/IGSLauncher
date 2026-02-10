@@ -55,6 +55,7 @@
             <div class="icon icon-sort"></div>
             <p>Sort</p>
           </div>
+          
           <div id="filterBtn" class="filter" data-title="Filter">
             <div class="icon icon-filter"></div>
             <input type="text" id="filterTag" placeholder="Select a tag">
@@ -63,6 +64,12 @@
             
           </div>
         </div>
+        <div class="sort-list" id="sortList">
+            <button id="sortNameAZ" class="sort-item" data-mode="az">by Name (A-Z)</button>
+            <button id="sortNameZA" class="sort-item" data-mode="za">by Name (Z-A)</button>
+            <!--<button id="sortRelease" class="sort-item" data-mode="release">by Release Date</button>   TODO--> 
+            <!--<button id="sortDate" class="sort-item" data-mode="dateAdded">by Date Added</button>      TODO-->
+          </div>
         <div id="games" class="games">
             <!-- games appear dinamically here (renderer.js) -->
           </div>
@@ -91,13 +98,20 @@
  
           </div>
           <div class="row game-info">
-            <p>Install Size</p><p class="value" id="installSize"></p>
+            <p>Install Size</p>
+            <p id="installSize"></p>
           </div>
           <div class="row game-info">
-            <p>Developer(s)</p><p class="value" id="developers"></p>
+            <p>Developer(s)</p>
+            <div id="developers" class="developers">
+              <!-- developers will be added dinamically here (renderer.js)-->
+            </div>
           </div>
           <div class="row game-info">
-            <p>Publisher(s)</p><p class="value" id="publishers"></p>
+            <p>Publisher(s)</p>
+            <div id="publishers"class="publishers">
+              <!-- publishers will be added dinamically here (renderer.js)-->
+            </div>
           </div>
           <div class="row" style="border-bottom: 1.5px solid var(--secondary-color);">
             <p>Tags</p>
@@ -172,11 +186,11 @@
           </div>
         </div>
         <div class="input-group">
-          <label for="developers">Developer(s):</label>
+          <label for="developers">Developer(s) <weak>(separated by comma)</weak>:</label>
           <input type="text" id="developersInput" name="developers" />
         </div>
         <div class="input-group">
-          <label for="publishers">Publisher(s):</label>
+          <label for="publishers">Publisher(s) <weak>(separated by comma)</weak>:</label>
           <input type="text" id="publishersInput" name="publishers" />
         </div>
         <div class="input-group">

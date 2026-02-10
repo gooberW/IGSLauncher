@@ -160,7 +160,7 @@ ipcMain.handle('select-executable', async () => {
     return result.canceled ? null : result.filePaths[0];
 });
 
-// calculates the size of the game installation folder
+// calculates the size of the game installation folder (this needs to be fixed)
 ipcMain.handle('get-install-size', async (event, exePath) => {
     try {
         if (typeof exePath !== 'string' || exePath.trim() === '') {

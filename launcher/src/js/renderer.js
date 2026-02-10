@@ -1,15 +1,55 @@
-let gamesData = null;
-let currentGame = null;
-import { openEditGame } from "./add-game.js";
-import { showAlert, showConfirmation } from "./alert.js";
-
-
-
 /**
  * Displays all the games in the 'games' div.
  * @throws {Error} If there is an error loading the games.
  */
-export async function displayGames() {
+let gamesData = null;
+let currentGame = null;
+let currentSort = 'dateAdded'; // Default sort mode
+
+import { openEditGame } from "./add-game.js";
+import { showAlert, showConfirmation } from "./alert.js";
+
+/**
+ * Sorts an array of games based on the specified mode
+ * @param {Array} gamesArray - Array of game objects
+ * @param {string} mode - Sort mode: 'az', 'za', 'release', 'dateAdded'
+ * @returns {Array} Sorted array
+ */
+function sortGamesArray(gamesArray, mode) {
+    const sorted = gamesArray.slice(); // copy
+    
+    switch(mode) {
+        case 'az':
+            return sorted.sort((a, b) => 
+                (a.title || '').localeCompare(b.title || '')
+            );
+        
+        case 'za':
+            return sorted.sort((a, b) => 
+                (b.title || '').localeCompare(a.title || '')
+            );
+        
+        case 'release':
+            return sorted.sort((a, b) => 
+                new Date(a.releaseDate || 0) - new Date(b.releaseDate || 0)
+            );
+        
+        case 'dateAdded':
+            return sorted.sort((a, b) => 
+                parseInt(a.id) - parseInt(b.id)
+            );
+        
+        default:
+            return sorted;
+    }
+}
+
+/**
+ * Displays all the games in the 'games' div with optional sorting
+ * @param {string} sortMode - The sort mode to apply
+ * @throws {Error} If there is an error loading the games.
+ */
+export async function displayGames(sortMode = currentSort) {
     const container = document.getElementById('games'); 
 
     if (!container) {
@@ -22,7 +62,13 @@ export async function displayGames() {
         container.innerHTML = '';
         gamesData = data;
 
-        Object.entries(data).forEach(([id, info]) => {
+        currentSort = sortMode;
+
+        let gamesArray = Object.entries(data).map(([id, info]) => ({ id, ...info }));
+        gamesArray = sortGamesArray(gamesArray, sortMode);
+
+        // display sorted games
+        gamesArray.forEach(({ id, ...info }) => {
             console.log("Adding game:", info.title);
             const coverSrc = info.coverImage
                 ? `local-resource://${info.coverImage.replace(/\\/g, '/')}`
@@ -42,13 +88,6 @@ export async function displayGames() {
                 </div>
             `;
 
-            // no futuro se calahar adiciona-se o pin
-            /*
-            <div class="row top">
-                <div id="pin-${id}" class="icon icon-pin" data-title="Pin Game"></div>
-            </div>
-            */
-
             const infoButton = gameBox.querySelector(`#info-${id}`);
             infoButton.onclick = () => openSidebar(id);
 
@@ -67,6 +106,15 @@ export async function displayGames() {
     } catch (err) {
         console.error("Error loading games:", err);
     }
+}
+
+/**
+ * Applies sorting and updates the display
+ * @param {string} mode - The sort mode to apply
+ */
+function applySorting(mode) {
+    currentSort = mode;
+    displayGames(mode);
 }
 
 /**
@@ -121,44 +169,8 @@ export async function openSidebar(id) {
         window.electronAPI.launchGame(gameInfo.path);
     };
 
-    sidebar.querySelector('#publishers').innerText =
-        gameInfo.publishers || "Unknown Publisher";
-
-    sidebar.querySelector('#developers').innerText =
-        gameInfo.developers || "Unknown Developer";
-
-    const installSizeElement = sidebar.querySelector('#installSize');
-    installSizeElement.innerText = "Calculating...";
-
-    try {
-        console.log("Game path:", gameInfo.path);
-        console.log("window.electronAPI exists?", !!window.electronAPI);
-        console.log("window.electronAPI.getInstallSize exists?", !!window.electronAPI?.getInstallSize);
-        
-        if (!window.electronAPI || !window.electronAPI.getInstallSize) {
-            throw new Error("electronAPI.getInstallSize is not defined");
-        }
-        
-        if (!gameInfo.path) {
-            throw new Error("No executable path found");
-        }
-        
-        const result = await window.electronAPI.getInstallSize(gameInfo.path);
-        console.log("Install size result:", result);
-        
-        if (result && result.success) {
-            installSizeElement.innerText = formatBytes(result.size);
-        } else {
-            console.error("Install size calculation failed:", result?.error || "Unknown error");
-            installSizeElement.innerText = "Unknown";
-        }
-    } catch (error) {
-        console.error("Exception caught:", error);
-        console.error("Error name:", error.name);
-        console.error("Error message:", error.message);
-        console.error("Error stack:", error.stack);
-        installSizeElement.innerText = "Error";
-    }
+    fillDevelopers(id);
+    fillPublishers(id);
 
     const descContainer = sidebar.querySelector('#description');
     descContainer.innerHTML = formatDescription(
@@ -166,8 +178,65 @@ export async function openSidebar(id) {
     );
 
     sidebar.classList.add('active');
+
+    // install size is calculated in the background
+    const installSizeElement = sidebar.querySelector('#installSize');
+    installSizeElement.innerText = "Calculating...";
+
+    calculateSizeInBackground(gameInfo.path, installSizeElement);
 }
 
+function fillDevelopers(id) {
+    const developersElement = document.getElementById(`developers`);
+    developersElement.innerHTML = '';
+
+    const developers = gamesData[id].developers;
+    const developersList = developers.split(',');
+
+    if (developersList.length === 0) {
+        developersElement.innerHTML = `<p>Unknown</p>`;
+        return;
+    }
+    
+    developersList.forEach(developer => {
+        developersElement.innerHTML += `<p>${developer}</p>`;
+    })
+}
+
+function fillPublishers(id) {
+    const publishersElement = document.getElementById(`publishers`);
+    publishersElement.innerHTML = '';
+    const publishers = gamesData[id].publishers;
+    const publishersList = publishers.split(',');
+
+    if (publishersList.length === 0) {
+        publishersElement.innerHTML = `<p>Unknown</p>`;
+        return;
+    }
+    
+    publishersList.forEach(publisher => {
+        publishersElement.innerHTML += `<p>${publisher}</p>`;
+    })
+}
+
+async function calculateSizeInBackground(path, element) {
+    try {
+        if (!path) {
+            throw new Error("No executable path found");
+        }
+
+        const result = await window.electronAPI.getInstallSize(path);
+        
+        if (result && result.success) {
+            element.innerText = formatBytes(result.size);
+        } else {
+            element.innerText = "Unknown";
+        }
+    } catch (error) {
+        console.error("Size calculation error:", error.message);
+        element.innerText = "Error";
+    }
+}
 
 function formatBytes(bytes) {
     console.log(bytes);
@@ -199,6 +268,12 @@ function toggleMoreMenu(event) {
     moreMenu.classList.toggle('active');
 }
 
+function toggleSortMenu(event) {
+    const sortList = document.getElementById('sortList');
+    event.stopPropagation();
+    sortList.classList.toggle('active');
+}
+
 function closeMoreMenu(event) {
     if (!event) {
         moreMenu.classList.remove('active');
@@ -211,14 +286,27 @@ function closeMoreMenu(event) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
+    const sortItems = sortList.querySelectorAll('.sort-item');
+        sortItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const mode = item.dataset.mode;
+                applySorting(mode);
+                sortList.classList.remove('active');
+            });
+        });
+    
     displayGames();
     // Sidebar / menu buttons
     const moreBtn = document.getElementById('moreBtn');
-    const moreMenu = document.getElementById('moreMenu');
     const closeBtn = document.getElementById('closeSidebar');
     const removeGameBtn = document.getElementById('removeGameBtn');
     const editGameBtn = document.getElementById('editGameBtn');
+    const sortBtn = document.getElementById('sortBtn');
+    console.log("Sort button:", sortBtn);
+
+    if(sortBtn) {
+        sortBtn.addEventListener('click', toggleSortMenu);
+    }
 
     if (moreBtn) {
         moreBtn.addEventListener('click', toggleMoreMenu);
