@@ -274,7 +274,7 @@ body {
 }
 
 .main-area #searchRow .play-btn {
-    height: 41px !important;
+    height: 43px !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1083,9 +1083,9 @@ input, textarea {
 .nav-bar .play-btn {
     align-items: center;
     justify-content: center;
-    height: 41px !important;
+    height: 43px !important;
     padding: 10px !important;
-    min-width: 41px !important; 
+    min-width: 43px !important; 
     max-width: 80px !important;
 }
 
@@ -1200,7 +1200,7 @@ btn-search:hover {
     display: flex;
     align-items: center;
     gap: 5px;
-    padding: 5px;
+    padding: 5px 10px;
     border-radius: 5px;
     border: var(--border);
     background-color: var(--main-bg-color);
@@ -1208,7 +1208,7 @@ btn-search:hover {
     font-family: var(--normal-font);
     font-size: 15px;
     transition: all 0.2s ease;
-    max-height: 41px;
+    max-height: 43px;
 }
 
 .filter input {
