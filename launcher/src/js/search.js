@@ -39,9 +39,32 @@ async function autoCompleteSearch(query) {
     matches.forEach(name => {
         const item = document.createElement('div');
         item.className = 'suggestion-item';
-        item.textContent = name;
 
-        let matchID = Object.keys(gamesData).find(key => gamesData[key].title === name);
+        const icon = document.createElement('div');
+        icon.className = 'suggestion-icon';
+
+        const text = document.createElement('div');
+        text.className = 'suggestion-text';
+        text.textContent = name;
+
+        const matchID = Object.keys(gamesData).find(
+            key => gamesData[key].title === name
+        );
+
+        const game = gamesData[matchID];
+
+        let iconSrc = '';
+
+        if (game.icon && game.icon.trim() !== '') {
+            iconSrc = toFileURL(game.icon);
+        } else {
+            iconSrc = './assets/default_game_icon.png'; // fallback
+        }
+
+        icon.style.backgroundImage = `url("${iconSrc}")`;
+
+        item.appendChild(icon);
+        item.appendChild(text);
 
         item.addEventListener('click', () => {
             searchInput.value = '';
@@ -54,6 +77,12 @@ async function autoCompleteSearch(query) {
 
     suggestions.style.display = 'block';
 }
+
+function toFileURL(filePath) {
+    if (!filePath) return '';
+    return `file:///${filePath.replace(/\\/g, '/')}`;
+}
+
 
 /**
  * Handles keydown events on the search bar.
@@ -107,3 +136,19 @@ document.addEventListener('click', (e) => {
 
 searchInput.addEventListener('keydown', handleKeydown);
 suggestions.style.display = 'none';
+
+document.addEventListener('keydown', (e) => {
+    // ignores if user is already typing in an input or textarea
+    const isTyping =
+        e.target.tagName === 'INPUT' ||
+        e.target.tagName === 'TEXTAREA' ||
+        e.target.isContentEditable;
+
+    if (isTyping) return;
+
+    if (e.key === '\\') {
+        e.preventDefault();
+        searchInput.focus();
+    }
+});
+

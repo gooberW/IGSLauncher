@@ -30,7 +30,7 @@ html {
 label, input, textarea, button {
     font-family: var(--normal-font);
     color: var(--text-color);
-    font-size: 14px;
+    font-size: 15px;
 }
 
 ::selection {
@@ -52,7 +52,7 @@ p {
     margin: 0;
     color: var(--text-color);
     font-family: var(--normal-font);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: var(--normal-weight);
 }
 
@@ -63,7 +63,7 @@ body {
     display: flex;
     justify-content: center;
     font-family: var(--normal-font);
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-color);
     overflow: hidden;
     flex-direction: column;
@@ -179,7 +179,7 @@ body {
 }
 
 .row.title-bar p {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-color);
 }
 
@@ -219,11 +219,11 @@ body {
     padding: 10px;
     cursor: pointer;
    color: var(--text-color);
-    transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease;
     align-items: baseline;
     margin: 0;
     font-family: var(--normal-font);
-    font-size: 14px;
+    font-size: 15px;
     text-decoration: none;
     margin-left: auto;
 }
@@ -237,18 +237,19 @@ body {
 }
 
 .search-bar{
-    padding: 10px;
+    padding: 5px 5px 5px 10px;
     display: flex;
     border: var(--border);
     border-radius: 5px;
     z-index: 6;
     gap: 10px;
+    align-items: center;
 }
 
 .search-bar input {
     border: none;
     outline: none;
-    font-size: 14px;
+    font-size: 15px;
     background-color: transparent;
     width: 100%;
     font-family: var(--normal-font);
@@ -273,7 +274,7 @@ body {
 }
 
 .main-area #searchRow .play-btn {
-    height: 42px !important;
+    height: 41px !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -298,10 +299,14 @@ body {
 }
 
 .suggestion-item {
-  padding: 10px;
+  padding: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
    color: var(--text-color);
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   gap: 10px;
 }
 
 ::placeholder {
@@ -315,6 +320,21 @@ body {
 
 .suggestion-item.active {
     background-color: var(--accent-color);
+}
+
+.suggestion-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 5px;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+.suggestion-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .main-area {
@@ -341,6 +361,7 @@ body {
 .main-area #searchRow {
     padding: 10px;
     border-bottom: var(--border);
+    height: min-content;
 }
 
 .nav {
@@ -405,7 +426,7 @@ body {
     transform: rotate(45deg);
     width: 22px;
     height: 22px;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease;
 }
 
 .sidebar img:hover {
@@ -413,12 +434,12 @@ body {
 }
 
 .tag {
-    font-size: 14px;
+    font-size: 15px;
     background-color: var(--text-color);
     color: var(--main-bg-color);
     padding: 8px 10px;
     border-radius: 10px;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease;
 }
 
 #tags.row {
@@ -534,7 +555,7 @@ weak {
     align-items: center;
     flex-direction: row;
     gap: 10px;
-    font-size: 14px;
+    font-size: 15px;
    color: var(--text-color);
 }
 
@@ -543,7 +564,7 @@ button.add-game-button {
     border: none;
     cursor: pointer;
     border: var(--border);
-    transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -579,11 +600,24 @@ button.add-game-button:hover {
     width: 22px;
     height: 22px;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease;
 }
 
 .settings:hover img {
     transform: rotate(90deg);
+}
+
+.search-key {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: var(--accent-color);
+    border: var(--border);
+    cursor: auto
+    ;
+}
+
+.search-key:hover {
+    cursor: default;
 }
 
 .play-btn {
@@ -593,7 +627,7 @@ button.add-game-button:hover {
    color: var(--text-color);
     border: var(--border);
     cursor: pointer;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease;
     font-family: var(--normal-font);
     width: 10%;
     min-width: 35px;
@@ -682,7 +716,7 @@ input, textarea {
     padding: 10px;
     border-radius: 5px;
     border: var(--border);
-    font-size: 14px;
+    font-size: 15px;
     background-color: var(--main-bg-color);
     outline: none;
     width: 400px;
@@ -703,7 +737,7 @@ input, textarea {
     background-color: var(--main-bg-color);
    color: var(--text-color);
     cursor: pointer;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease;
     width: 38px;
     min-width: 38px;
     max-width: 38px;
@@ -750,7 +784,7 @@ input, textarea {
 
 .browse-btn p{
     font-family: var(--normal-font);
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .more-container {
@@ -809,7 +843,7 @@ input, textarea {
 .more-item, .sort-item {
     padding: 10px;
     cursor: pointer;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease;
     border: none;
     background-color: var(--main-bg-color);
     border-bottom: var(--border);
@@ -835,7 +869,7 @@ input, textarea {
     background-color: var(--main-bg-color);
    color: var(--text-color);
     font-family: var(--normal-font);
-    font-size: 14px;
+    font-size: 15px;
     position: absolute;
     transform: scale(0.8);
     width: 0;
@@ -887,9 +921,9 @@ input, textarea {
     border-radius: 5px;
     padding: 5px;
     cursor: pointer;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease;
     font-family: var(--normal-font);
-    font-size: 14px;
+    font-size: 15px;
     background-color: var(--main-bg-color);
    color: var(--text-color);
     outline: none;
@@ -925,7 +959,7 @@ input, textarea {
     border-top: var(--border);
     height: fit-content;
     font-family: var(--normal-font);
-    font-size: 14px;
+    font-size: 15px;
     width: 100%;
     margin-bottom: 10px;
     justify-content: center;
@@ -954,7 +988,7 @@ input, textarea {
    color: var(--text-color);
     height: fit-content;
     font-family: var(--normal-font);
-    font-size: 14px;
+    font-size: 15px;
     padding: 10px;
     gap: 10px;
     border-bottom: var(--border);
@@ -1049,9 +1083,9 @@ input, textarea {
 .nav-bar .play-btn {
     align-items: center;
     justify-content: center;
-    height: 42px !important;
+    height: 41px !important;
     padding: 10px !important;
-    min-width: 42px !important; 
+    min-width: 41px !important; 
     max-width: 80px !important;
 }
 
@@ -1131,7 +1165,7 @@ btn-search:hover {
     background-color: var(--main-bg-color);
     color: var(--text-color);
     font-family: var(--normal-font);
-    font-size: 14px;
+    font-size: 15px;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -1166,15 +1200,15 @@ btn-search:hover {
     display: flex;
     align-items: center;
     gap: 5px;
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
     border: var(--border);
     background-color: var(--main-bg-color);
     color: var(--text-color);
     font-family: var(--normal-font);
-    font-size: 14px;
+    font-size: 15px;
     transition: all 0.2s ease;
-    max-height: 42px;
+    max-height: 41px;
 }
 
 .filter input {
@@ -1183,7 +1217,7 @@ btn-search:hover {
     background: transparent;
     color: inherit;
     font-family: inherit;
-
+    padding: 0;
     max-width: 150px;
     overflow: hidden;
 }

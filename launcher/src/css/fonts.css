@@ -1,74 +1,39 @@
 /* DISPLAY */
 
 @font-face {
-    font-family: 'Geist';
-    src: url(../assets/fonts/geist/webfonts/Geist-Regular.woff2) format('woff2');
+    font-family: 'Nature';
+    src: url(../assets/fonts/ZTNature-Light.otf) format('openType');
     font-style: normal;
     font-weight: 400;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Geist';
-    src: url(../assets/fonts/geist/webfonts/Geist-Bold.woff2) format('woff2');
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Geist';
-    src: url(../assets/fonts/geist/webfonts/Geist-RegularItalic.woff2) format('woff2');
-    font-style: italic;
-    font-weight: 400;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Geist';
-    src: url(../assets/fonts/geist/webfonts/Geist-BoldItalic.woff2) format('woff2');
-    font-style: italic;
-    font-weight: 700;
-    font-display: swap;
-}
-
-/* MONO */
-
-@font-face {
-    font-family: 'Geist Mono';
-    src: url(../assets/fonts/geist-mono/webfonts/GeistMono-Regular.woff2) format('woff2');
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Geist Mono';
-    src: url(../assets/fonts/geist-mono/webfonts/GeistMono-Bold.woff2) format('woff2');
+    font-family: 'Nature';
+    src: url(../assets/fonts/ZTNature-SemiBold.otf) format('openType');
     font-style: normal;
     font-weight: 700;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Geist Mono';
-    src: url(../assets/fonts/geist-mono/webfonts/GeistMono-Italic.woff2) format('woff2');
+    font-family: 'Nature';
+    src: url(../assets/fonts/ZTNature-LightItalic.otf) format('openType');
     font-style: italic;
     font-weight: 400;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Geist Mono';
-    src: url(../assets/fonts/geist-mono/webfonts/GeistMono-BoldItalic.woff2) format('woff2');
+    font-family: 'Nature';
+    src: url(../assets/fonts/ZTNature-SemiBoldItalic.otf) format('openType');
     font-style: italic;
     font-weight: 700;
     font-display: swap;
 }
 
 :root {
-    --normal-font: 'Geist', sans-serif;
-    --mono-font: 'Geist Mono', monospace;
+    --normal-font: 'Nature', sans-serif;
     --bold-weight: 700;
     --normal-weight: 400;
 }
