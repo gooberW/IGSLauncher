@@ -286,14 +286,8 @@ function closeMoreMenu(event) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const sortItems = sortList.querySelectorAll('.sort-item');
-        sortItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const mode = item.dataset.mode;
-                applySorting(mode);
-                sortList.classList.remove('active');
-            });
-        });
+   
+
     
     displayGames();
     // Sidebar / menu buttons
@@ -302,7 +296,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const removeGameBtn = document.getElementById('removeGameBtn');
     const editGameBtn = document.getElementById('editGameBtn');
     const sortBtn = document.getElementById('sortBtn');
+    const sortList = document.getElementById('sortList');
     console.log("Sort button:", sortBtn);
+
+     if (sortList) {
+        const sortItems = sortList.querySelectorAll('.sort-item');
+
+        sortItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const mode = item.dataset.mode;
+                applySorting(mode);
+                sortList.classList.remove('active');
+            });
+        });
+    }
 
     if(sortBtn) {
         sortBtn.addEventListener('click', toggleSortMenu);
@@ -331,17 +338,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterBtn = document.getElementById('filterBtn');
     const input = document.getElementById('filterTag');
 
-    filterBtn.addEventListener('click', () => {
-        filterBtn.classList.toggle('active');
-        input.focus();
-    });
+    if(filterBtn) {
+        filterBtn.addEventListener('click', () => {
+            filterBtn.classList.toggle('active');
+            input.focus();
+        });
+    }
+    
 
     document.addEventListener('click', (e) => {
-        //close sort menu when clicking outside
-        if (!sortBtn.contains(e.target) && !sortList.contains(e.target)) {
+        if (
+            sortList &&
+            sortBtn &&
+            sortList.classList.contains('active') &&
+            !sortList.contains(e.target) &&
+            !sortBtn.contains(e.target)
+        ) {
             sortList.classList.remove('active');
         }
-    })
+    });
+
 
     /* TESTING
     const tooltipText = document.getElementById("hoverTooltipText");
