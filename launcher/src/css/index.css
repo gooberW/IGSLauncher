@@ -146,6 +146,11 @@ body {
     opacity: 1;
 }
 
+.icons button:active::before, .closeBtn:active::before {
+    transform: scale(0.9);
+    opacity: 1;
+}
+
 .icons button .icon {
     position: relative;
     z-index: 1;
@@ -265,7 +270,7 @@ body {
 
 .search-bar input::placeholder{
    color: var(--text-color);
-    opacity: 0.70;
+    opacity: 0.6;
 }
 
 .search-container {
@@ -400,6 +405,12 @@ body {
     
 }
 
+.nav button:active::before {
+    transform: scale(0.9);
+    opacity: 1;
+    
+}
+
 .sidebar {     
     display: flex;
     flex-direction: column;
@@ -519,6 +530,7 @@ weak {
     background-repeat: no-repeat;
     max-width: 300px;
     justify-content: space-between;
+    background-color: var(--sec-bg-color);
 }
 
 .game-box img {
@@ -1144,6 +1156,16 @@ btn-search:hover {
 }
 
 #goBackBtn.enabled:hover::before,
+#goForwardBtn.enabled:hover::before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+#goBackBtn.enabled:active::before,
+#goForwardBtn.enabled:active::before {
+    transform: scale(0.9) !important;
+}
+
 #goForwardBtn.enabled:hover::before {
     transform: scale(1);
     opacity: 1;

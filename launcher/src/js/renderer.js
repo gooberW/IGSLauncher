@@ -29,14 +29,14 @@ function sortGamesArray(gamesArray, mode) {
                 (b.title || '').localeCompare(a.title || '')
             );
         
-        case 'release':
-            return sorted.sort((a, b) => 
-                new Date(a.releaseDate || 0) - new Date(b.releaseDate || 0)
-            );
-        
-        case 'dateAdded':
+        case 'earliestAdded':
             return sorted.sort((a, b) => 
                 parseInt(a.id) - parseInt(b.id)
+            );
+        
+        case 'latestAdded':
+            return sorted.sort((a, b) => 
+                parseInt(b.id) - parseInt(a.id)
             );
         
         default:
