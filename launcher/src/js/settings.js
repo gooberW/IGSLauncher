@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         btn.dataset.theme = themeName;
         btn.dataset.title = themeName.charAt(0).toUpperCase() + themeName.slice(1);
 
-        const bgColor = themeValues["main-bg-color"];
+        const bgColor = themeValues["sec-bg-color"];
         if (bgColor) {
             btn.style.backgroundColor = bgColor;
         }

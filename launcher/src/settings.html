@@ -49,10 +49,19 @@
             <div class="row"><div class="icon icon-palette"></div><p>Appearance</p></div>
             <div class="settings-section">
               <div class="settings-item">
-                <label for="bg-color">Background Color</label>
+                <label for="main-bg-color">Main Background Color</label>
                 <div style="display: flex; align-items: center; gap: 10px; flex-direction: row;">
-                  <input type="color" id="bg-color" name="bg-color" data-var="--main-bg-color"/>
-                  <button id="bg-color-reset" data-var="--main-bg-color" class="reset-btn" data-title="Reset">
+                  <input type="color" id="main-bg-color" name="main-bg-color" data-var="--main-bg-color"/>
+                  <button id="main-bg-color-reset" data-var="--main-bg-color" class="reset-btn" data-title="Reset">
+                    <div class="icon icon-reset"></div>
+                  </button>
+                </div>
+              </div>
+              <div class="settings-item">
+                <label for="sec-bg-color">Secondary Background Color</label>
+                <div style="display: flex; align-items: center; gap: 10px; flex-direction: row;">
+                  <input type="color" id="sec-bg-color" name="sec-bg-color" data-var="--sec-bg-color"/>
+                  <button id="sec-bg-color-reset" data-var="--sec-bg-color" class="reset-btn" data-title="Reset">
                     <div class="icon icon-reset"></div>
                   </button>
                 </div>
