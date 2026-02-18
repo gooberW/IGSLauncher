@@ -336,6 +336,13 @@ document.addEventListener('DOMContentLoaded', () => {
         input.focus();
     });
 
+    document.addEventListener('click', (e) => {
+        //close sort menu when clicking outside
+        if (!sortBtn.contains(e.target) && !sortList.contains(e.target)) {
+            sortList.classList.remove('active');
+        }
+    })
+
     /* TESTING
     const tooltipText = document.getElementById("hoverTooltipText");
     const tooltip = document.getElementById("hoverTooltip");
