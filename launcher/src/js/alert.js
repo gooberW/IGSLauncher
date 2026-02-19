@@ -4,6 +4,8 @@ export function showAlert(message) {
     document.getElementById("alert-ok").addEventListener("click", closeAlert);
     document.getElementById("alert-cancel").hidden = true;
     document.getElementById("alert-close").addEventListener("click", closeAlert);
+    document.getElementById("alert-ok").focus();
+    document.getElementById("alert-backdrop").classList.add("show");
 
     centerAlertWindow();
 }
@@ -18,11 +20,17 @@ export function showConfirmation(message) {
         const closeBtn = document.getElementById("alert-close");
         const okBtn = document.getElementById("alert-ok");
         const cancelBtn = document.getElementById("alert-cancel");
+        const alertBG = document.getElementById("alert-backdrop");
+
+        okBtn.focus();
+        alertBG.classList.add("show");
 
         function cleanup(result) {
             closeAlert();
             okBtn.removeEventListener("click", onOk);
             cancelBtn.removeEventListener("click", onCancel);
+            closeBtn.removeEventListener("click", onCancel);
+            alertBG.classList.remove("show");
             resolve(result);
         }
 

@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="css/tooltips.css"></link>
     <title>IGS Launcher</title>
   </head>
+
+  <div id="alert-backdrop"></div>
+
   <body>
     <div class="row title-bar">
       <div class="title">
@@ -133,9 +136,13 @@
         
 
       <div class="footer">
-        <button class="add-game-button" id="add-game-menu-button">
-          Add Game
-        </button>
+        <div class="add-game-section">
+          <button class="add-game-button" id="add-game-menu-button">
+            <div class="icon icon-plus"></div>
+          </button>
+          <p>Add Game</p>
+        </div>
+        
         <div class="hover-tooltip" id="hoverTooltip">
           <!-- this will show the data titles of anything that is being hovered instead of a tooltip (like FL studio) -->
            <p id="hoverTooltipText"></p>

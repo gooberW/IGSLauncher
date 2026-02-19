@@ -15,8 +15,8 @@ async function writeGameData() {
     const coverImage = document.getElementById('coverPathDisplay').value;
     const icon = document.getElementById('iconPathDisplay').value;
     const description = document.getElementById('descriptionArea').value;
-    const developers = document.getElementById('developersInput').value.trim(); // ← added trim()
-    const publishers = document.getElementById('publishersInput').value.trim(); // ← added trim()
+    const developers = document.getElementById('developersInput').value.trim();
+    const publishers = document.getElementById('publishersInput').value.trim();
 
     const tags = Array.from(
         document.getElementById('tag-container').children
@@ -101,6 +101,9 @@ function addTag() {
 function openAddGame() {
     const addGameWindow = document.querySelector('.add-game-window');
     if (addGameWindow) addGameWindow.classList.add('active');
+
+    const alertBG = document.getElementById('alert-backdrop');
+    alertBG.classList.add('show');
 }
 
 export function openEditGame(gameID, gameData) {
@@ -144,6 +147,9 @@ function closeAddGame() {
     if (addGameWindow) addGameWindow.classList.remove('active');
     resetForm();
     editingGame = null;
+
+    const alertBG = document.getElementById('alert-backdrop');
+    alertBG.classList.remove('show');
 }
 
 function resetForm() {

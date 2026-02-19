@@ -1,4 +1,5 @@
 const searchInput = document.getElementById('searchInput');
+const searchBar = document.getElementById('search');
 const suggestions = document.getElementById('suggestions');
 let gamesCache = null;
 let activeIndex = -1;
@@ -149,6 +150,13 @@ document.addEventListener('keydown', (e) => {
     if (e.key === '\\') {
         e.preventDefault();
         searchInput.focus();
+        search.classList.add('focused');
     }
+});
+
+document.addEventListener('click', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    search.classList.remove('focused');
+    searchInput.blur();
 });
 

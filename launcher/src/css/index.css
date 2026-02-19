@@ -7,6 +7,7 @@
     --tooltip-bg-color: #050522;
     --selected-color: #E6192A;
     --border: 1px solid var(--secondary-color);
+    --accent-border: 2px solid var(--selected-color);
 }
 
 ::-webkit-scrollbar {
@@ -45,6 +46,22 @@ h1, h2, h3 {
     color: var(--text-color);
     font-size: 20px;
     margin: 0;
+}
+
+#alert-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 9999;
+    display: none;
+    pointer-events: all;
+}
+
+#alert-backdrop.show {
+    display: block;
 }
 
 p {
@@ -253,6 +270,10 @@ body {
     align-items: center;
 }
 
+.search-bar.focused {
+    border-color: var(--selected-color);
+}
+
 .search-bar input {
     border: none;
     outline: none;
@@ -303,6 +324,7 @@ body {
   background: var(--main-bg-color);
   z-index: 5;
   border-radius: 5px;
+  overflow: hidden;
 }
 
 .suggestion-item {
@@ -566,7 +588,7 @@ weak {
     width: 100%;
     background-color: var(--main-bg-color);
     border-top: var(--border);
-    padding: 10px 20px;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -574,6 +596,12 @@ weak {
     gap: 10px;
     font-size: 15px;
    color: var(--text-color);
+}
+
+.add-game-section {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
 
 button.add-game-button {
@@ -587,7 +615,7 @@ button.add-game-button {
     align-items: center;
     justify-content: center;
     font-family: var(--normal-font);
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px ;
     background-color: var(--main-bg-color);
 }
@@ -683,6 +711,7 @@ button.add-game-button:hover {
     top: 50%;
     transform: translate(-50%, -50%) scale(0.8);
     transition: transform 0.1s ease-out;
+    z-index: 999999;
 }
 
 .drag-bar {
@@ -789,6 +818,10 @@ input, textarea {
 #tag-container .tag:hover {
     background-color: var(--selected-color);
     cursor: pointer;
+}
+
+#tag-container {
+    padding-top: 0;
 }
 
 .browse-btn {
