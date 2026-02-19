@@ -311,8 +311,9 @@ ipcMain.handle("get-current-page" , () => {
 // creates the main window
 const createWindow = () => {
     const win = new BrowserWindow({
-        width: 1000,
-        height: 700,
+        width: 1280,
+        height: 720,
+        show: false,
         frame: false,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
@@ -321,7 +322,31 @@ const createWindow = () => {
         }
     });
 
+    const splash = new BrowserWindow({
+        width: 500,
+        height: 300,
+        show: true,
+        frame: false,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js'),
+            contextIsolation: true,
+            nodeIntegration: false
+        },
+        alwaysOnTop: true,
+        skipTaskbar: true
+    });
+
     win.loadFile(path.join(__dirname, '../index.html'));
+    splash.loadFile(path.join(__dirname, '../splash.html'));
+
+    splash.center();
+    win.center();
+
+    
+    setTimeout(function () {
+        splash.close();
+        win.show();
+        }, 3000)
 };
 
 // starts the app and handles the protocol

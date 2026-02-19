@@ -107,6 +107,49 @@
     transform: rotate(45deg);
 }
 
+.icon-loading {
+    -webkit-mask-image: url("../assets/arrow-repeat.svg");
+    mask-image: url("../assets/arrow-repeat.svg");
+    width: 25px;
+    height: 25px;
+    animation: spin 1s linear infinite;
+}
+
+.logo-full {
+    -webkit-mask-image: url("../assets/igs-logo-full.svg");
+    mask-image: url("../assets/igs-logo-full.svg");
+    width: 250px;
+    height: 250px;
+    animation: slide-up 1.5s ease-out;
+}
+
+.logo-full:hover {
+    cursor: default;
+}
+
+@keyframes slide-up {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.icon-loading:hover {
+    cursor: default;
+}
+
 .icon-cross:hover {
     background-color: var(--text-color);
     cursor: unset;

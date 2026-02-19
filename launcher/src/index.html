@@ -21,6 +21,11 @@
 
   <div id="alert-backdrop"></div>
 
+  <div class="hover-tooltip" id="hoverTooltip">
+    <!-- this will show the data titles of anything that is being hovered instead of a tooltip (like FL studio) -->
+    <p id="hoverTooltipText"></p>
+  </div>
+
   <body>
     <div class="row title-bar">
       <div class="title">
@@ -43,113 +48,92 @@
         <button id="settingsBtn" data-title="Settings"><div class="icon icon-settings"></div></button>
       </div>
 
-      <div class="main-area" style="background-color: transparent;">
-        <div id="searchRow" class="row" >
-          <div class="search-container">
-            <div id="search" class="search-bar">
-              <div class="icon icon-search"></div>
-              <input id="searchInput" type="text" placeholder="Search" />
-              <div class="search-key">\</div>
-            </div>
-              <!-- autocomplete -->
-            <div id="suggestions" class="suggestions">
-            </div>
+    <div class="main-area" style="background-color: transparent;">
+      <div id="searchRow" class="row" >
+        <div class="search-container">
+          <div id="search" class="search-bar">
+            <div class="icon icon-search"></div>
+            <input id="searchInput" type="text" placeholder="Search" />
+            <div class="search-key">\</div>
           </div>
-          <div id="sortBtn" class="play-btn" style="gap: 5px;">
-            <div class="icon icon-sort"></div>
-            <p>Sort</p>
-          </div>
-          
-
+            <!-- autocomplete -->
+          <div id="suggestions" class="suggestions"></div>
         </div>
-        <div class="sort-list" id="sortList">
-            <button id="sortNameAZ" class="sort-item" data-mode="az">by Name (A-Z)</button>
-            <button id="sortNameZA" class="sort-item" data-mode="za">by Name (Z-A)</button>
-            <button id="earliestAdded" class="sort-item" data-mode="earliestAdded">by Date Added (Earliest)</button>
-            <button id="latestAdded" class="sort-item" data-mode="latestAdded">by Date Added (Latest)</button>
-            <!--<button id="sortRelease" class="sort-item" data-mode="release">by Release Date</button>   TODO--> 
-            <!--<button id="sortDate" class="sort-item" data-mode="dateAdded">by Date Added</button>      TODO-->
-          </div>
-        <div id="games" class="games">
-            <!-- games appear dinamically here (renderer.js) -->
-          </div>
+        <div id="sortBtn" class="play-btn" style="gap: 5px;">
+          <div class="icon icon-sort"></div>
+          <p>Sort</p>
         </div>
-
-        <!-- the sidebar appears when the "i" icon is clicked on a game.-->
-         <!-- the data must be related to the game clicked -->
-        <div class="sidebar">
-          <div class="row" style="justify-content: end;">
-            <button id="closeSidebar" class="closeBtn" data-title="Close Sidebar">
-              <div class="icon icon-cross"></div>
-            </button>
-          </div>
-          <div id="gameName" class="row">
-            <h3>Game Name</h3>
-          </div>
-          <div class="row">
-            <button id="sidebarPlay" class="play-btn">Play Game</button>
-            <div class="more-container">
-              <button id="moreBtn" class="play-btn" style="min-width: 100%;">More</button>
-              <div id="moreMenu" class="more-menu">
-                <button id="editGameBtn" class="more-item">Edit Game</button>
-                <button id="removeGameBtn" class="more-item">Remove Game</button>
-              </div>
-            </div>
- 
-          </div>
-          <div class="row game-info">
-            <p>Install Size</p>
-            <p id="installSize"></p>
-          </div>
-          <div class="row game-info">
-            <p>Developer(s)</p>
-            <div id="developers" class="developers">
-              <!-- developers will be added dinamically here (renderer.js)-->
-            </div>
-          </div>
-          <div class="row game-info">
-            <p>Publisher(s)</p>
-            <div id="publishers"class="publishers">
-              <!-- publishers will be added dinamically here (renderer.js)-->
-            </div>
-          </div>
-          <div class="row" style="border-bottom: 1.5px solid var(--secondary-color);">
-            <p>Tags</p>
-          </div>
-          <div id="tags" class="row">
-          </div>
-          <div class="row" style="border-bottom: 1.5px solid var(--secondary-color);">
-            <p>Game description</p>
-          </div>
-          <div id="description" class="row" style="flex-direction: column; align-items: start;">
-          </div>
-
-        </div>
-        
       </div>
+      <div class="sort-list" id="sortList">
+          <button id="sortNameAZ" class="sort-item" data-mode="az">by Name (A-Z)</button>
+          <button id="sortNameZA" class="sort-item" data-mode="za">by Name (Z-A)</button>
+          <button id="earliestAdded" class="sort-item" data-mode="earliestAdded">by Date Added (Earliest)</button>
+          <button id="latestAdded" class="sort-item" data-mode="latestAdded">by Date Added (Latest)</button>
+          <!--<button id="sortRelease" class="sort-item" data-mode="release">by Release Date</button>   TODO--> 
+          <!--<button id="sortDate" class="sort-item" data-mode="dateAdded">by Date Added</button>      TODO-->
+        </div>
+      <div id="games" class="games">
+          <!-- games appear dinamically here (renderer.js) -->
+        </div>
       </div>
-      
-          
-        
-        
 
-        
-
-      <div class="footer">
-        <div class="add-game-section">
-          <button class="add-game-button" id="add-game-menu-button">
-            <div class="icon icon-plus"></div>
+      <!-- the sidebar appears when the "i" icon is clicked on a game.-->
+      <!-- the data must be related to the game clicked -->
+      <div class="sidebar">
+        <div class="row" style="justify-content: end;">
+          <button id="closeSidebar" class="closeBtn" data-title="Close Sidebar">
+            <div class="icon icon-cross"></div>
           </button>
-          <p>Add Game</p>
         </div>
-        
-        <div class="hover-tooltip" id="hoverTooltip">
-          <!-- this will show the data titles of anything that is being hovered instead of a tooltip (like FL studio) -->
-           <p id="hoverTooltipText"></p>
+        <div id="gameName" class="row">
+          <h3>Game Name</h3>
         </div>
+        <div class="row">
+          <button id="sidebarPlay" class="play-btn">Play Game</button>
+          <div class="more-container">
+            <button id="moreBtn" class="play-btn" style="min-width: 100%;">More</button>
+            <div id="moreMenu" class="more-menu">
+              <button id="editGameBtn" class="more-item">Edit Game</button>
+              <button id="removeGameBtn" class="more-item">Remove Game</button>
+            </div>
+          </div>
+        </div>
+        <div class="row game-info">
+          <p>Install Size</p>
+          <div id="installSize">
+            <div class="icon icon-loading"></div>
+          </div>
+        </div>
+        <div class="row game-info">
+          <p>Developer(s)</p>
+          <div id="developers" class="developers">
+            <!-- developers will be added dinamically here (renderer.js)-->
+          </div>
+        </div>
+        <div class="row game-info">
+          <p>Publisher(s)</p>
+          <div id="publishers"class="publishers">
+            <!-- publishers will be added dinamically here (renderer.js)-->
+          </div>
+        </div>
+        <div class="row" style="border-bottom: var(--border);">
+          <p>Tags</p>
+        </div>
+        <div id="tags" class="row"></div>
+        <div class="row" style="border-bottom: var(--border);">
+            <p>Game description</p>
+        </div>
+        <div id="description" class="row" style="flex-direction: column; align-items: start;"></div>
       </div>
-
+    </div>
+    <div class="footer">
+      <div class="add-game-section">
+        <button class="add-game-button" id="add-game-menu-button">
+          <div class="icon icon-plus"></div>
+        </button>
+        <p>Add Game</p>
       </div>
+  </div>
 
       <div class="add-game-window">
         <div class="row">

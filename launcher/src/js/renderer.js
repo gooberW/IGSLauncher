@@ -4,7 +4,8 @@
  */
 let gamesData = null;
 let currentGame = null;
-let currentSort = 'dateAdded'; // Default sort mode
+let currentSort = 'dateAdded'; // default sort mode
+let installSizeCache = {}; // saves the install size of each game so it doesn't have to be calculated every time
 
 import { openEditGame } from "./add-game.js";
 import { showAlert, showConfirmation } from "./alert.js";
@@ -183,60 +184,79 @@ export async function openSidebar(id) {
     const installSizeElement = sidebar.querySelector('#installSize');
     installSizeElement.innerText = "Calculating...";
 
-    calculateSizeInBackground(gameInfo.path, installSizeElement);
+    calculateSizeInBackground(gameInfo.path, installSizeElement, id);
 }
 
 function fillDevelopers(id) {
-    const developersElement = document.getElementById(`developers`);
-    developersElement.innerHTML = '';
+    const developersElement = document.getElementById("developers");
+    developersElement.innerHTML = "";
 
-    const developers = gamesData[id].developers;
-    const developersList = developers.split(',');
+    const rawdevelopers = gamesData[id].developers || "";
+
+    const developersList = rawdevelopers
+        .split(",")
+        .map(p => p.trim())
+        .filter(p => p.length > 0);
 
     if (developersList.length === 0) {
-        developersElement.innerHTML = `<p>Unknown</p>`;
+        developersElement.innerHTML = "<p>Unknown</p>";
         return;
     }
-    
-    developersList.forEach(developer => {
+
+    developersList.forEach(publisher => {
         developersElement.innerHTML += `<p>${developer}</p>`;
-    })
+    });
 }
+
 
 function fillPublishers(id) {
-    const publishersElement = document.getElementById(`publishers`);
-    publishersElement.innerHTML = '';
-    const publishers = gamesData[id].publishers;
-    const publishersList = publishers.split(',');
+    const publishersElement = document.getElementById("publishers");
+    publishersElement.innerHTML = "";
+
+    const rawPublishers = gamesData[id].publishers || "";
+
+    const publishersList = rawPublishers
+        .split(",")
+        .map(p => p.trim())
+        .filter(p => p.length > 0);
 
     if (publishersList.length === 0) {
-        publishersElement.innerHTML = `<p>Unknown</p>`;
+        publishersElement.innerHTML = "<p>Unknown</p>";
         return;
     }
-    
+
     publishersList.forEach(publisher => {
         publishersElement.innerHTML += `<p>${publisher}</p>`;
-    })
+    });
 }
 
-async function calculateSizeInBackground(path, element) {
+
+async function calculateSizeInBackground(path, element, gameId) {
     try {
-        if (!path) {
-            throw new Error("No executable path found");
+        if (!path) throw new Error("No executable path found");
+
+        if (installSizeCache[gameId] !== undefined) { //caches the install size
+            element.innerHTML = `<p>${formatBytes(installSizeCache[gameId])}</p>`;
+            return;
         }
 
+        element.innerHTML = `<div class="icon icon-loading"></div>`;
+
         const result = await window.electronAPI.getInstallSize(path);
-        
+
         if (result && result.success) {
-            element.innerText = formatBytes(result.size);
+            installSizeCache[gameId] = result.size;
+            element.innerHTML = `<p>${formatBytes(result.size)}</p>`;
         } else {
-            element.innerText = "Unknown";
+            element.innerHTML = `<p>Unknown</p>`;
         }
     } catch (error) {
         console.error("Size calculation error:", error.message);
-        element.innerText = "Error";
+        element.innerHTML = `<p>Error</p>`;
     }
 }
+
+
 
 function formatBytes(bytes) {
     console.log(bytes);
