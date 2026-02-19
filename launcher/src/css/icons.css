@@ -120,7 +120,7 @@
     mask-image: url("../assets/igs-logo-full.svg");
     width: 250px;
     height: 250px;
-    animation: slide-up 1.5s ease-out;
+    animation: slide-up 0.7s ease-out;
 }
 
 .logo-full:hover {

@@ -339,14 +339,19 @@ const createWindow = () => {
     win.loadFile(path.join(__dirname, '../index.html'));
     splash.loadFile(path.join(__dirname, '../splash.html'));
 
-    splash.center();
-    win.center();
+    let progress = 0;
 
-    
-    setTimeout(function () {
+    const interval = setInterval(() => {
+    progress += 10;
+    splash.webContents.send('loading-progress', progress);
+
+    if (progress >= 150) {
+        clearInterval(interval);
         splash.close();
         win.show();
-        }, 3000)
+    }
+    }, 200);
+
 };
 
 // starts the app and handles the protocol

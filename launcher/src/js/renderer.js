@@ -306,9 +306,6 @@ function closeMoreMenu(event) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-   
-
-    
     displayGames();
     // Sidebar / menu buttons
     const moreBtn = document.getElementById('moreBtn');

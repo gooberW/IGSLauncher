@@ -1285,6 +1285,7 @@ btn-search:hover {
 
 .container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -1293,4 +1294,29 @@ btn-search:hover {
     overflow: hidden;
     border-radius: 5px;
     -webkit-app-region: drag;
+    margin-top: auto;
+    width: 100vw;
+
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: auto;
+}
+
+.loading-bar {
+    border: var(--border);
+    height: 10px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.loading-bar .fill {
+    background-color: var(--secondary-color);
+    height: 10px;
+    width: 0%;
+    transition: all 0.1s ease;
 }

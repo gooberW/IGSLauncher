@@ -18,3 +18,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getCurrentPage: () => ipcRenderer.invoke('get-current-page'),
     getInstallSize: (exePath) => ipcRenderer.invoke('get-install-size', exePath)
 });
+
+contextBridge.exposeInMainWorld('loaderAPI', {
+  onProgress: (cb) => ipcRenderer.on('loading-progress', (_, value) => cb(value))
+});
