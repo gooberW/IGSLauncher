@@ -120,12 +120,12 @@
     mask-image: url("../assets/view-stacked.svg");
 }
 
-.icon-covers {
+.icon-grid {
     -webkit-mask-image: url("../assets/columns-gap.svg");
     mask-image: url("../assets/columns-gap.svg");
 }
 
-.icon-list:hover, .icon-covers:hover {
+.icon-list:hover, .icon-grid:hover {
     cursor: unset;
 }
 

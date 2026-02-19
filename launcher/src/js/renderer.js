@@ -9,6 +9,7 @@ let installSizeCache = {}; // saves the install size of each game so it doesn't 
 
 import { openEditGame } from "./add-game.js";
 import { showAlert, showConfirmation } from "./alert.js";
+import { toFileURL } from "./search.js";
 
 /**
  * Sorts an array of games based on the specified mode
@@ -52,56 +53,77 @@ function sortGamesArray(gamesArray, mode) {
  */
 export async function displayGames(sortMode = currentSort) {
     const container = document.getElementById('games'); 
-
-    if (!container) {
-        console.error("Could not find the 'games' div in HTML");
-        return;
-    }
+    if (!container) return;
 
     try {
         const data = await window.electronAPI.loadGames(); 
         container.innerHTML = '';
         gamesData = data;
-
         currentSort = sortMode;
 
         let gamesArray = Object.entries(data).map(([id, info]) => ({ id, ...info }));
         gamesArray = sortGamesArray(gamesArray, sortMode);
 
-        // display sorted games
-        gamesArray.forEach(({ id, ...info }) => {
-            console.log("Adding game:", info.title);
-            const coverSrc = info.coverImage
-                ? `local-resource://${info.coverImage.replace(/\\/g, '/')}`
-                : '';
+        const isListView = container.classList.contains("list");
 
+        gamesArray.forEach(({ id, ...info }) => {
             const gameBox = document.createElement('div');
             gameBox.className = 'game-box';
-            gameBox.style.backgroundImage = `url("${coverSrc}")`;
-            gameBox.innerHTML = `
-                <div class="row">
-                    <button id="play-game-${id}" class="play-btn" data-title="Play" >
-                        <div class="icon icon-play"></div>
-                    </button>
-                    <button id="info-${id}" class="play-btn" data-title="More info">
-                        <div class="icon icon-info"></div>
-                    </button>
-                </div>
-            `;
+
+            if (info.coverImage) {
+                const coverSrc = `local-resource://${info.coverImage.replace(/\\/g, '/')}`;
+                gameBox.style.backgroundImage = `url("${coverSrc}")`;
+            }
+
+            const iconSrc = (info.icon && info.icon.trim())
+                ? `local-resource://${info.icon.replace(/\\/g, '/')}`
+                : './assets/default_game_icon.png';
+
+            const safeTitle = info.title
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            gameBox.innerHTML = isListView
+                ? `
+                    <div class="row">
+                        <div class="game-icon" style="background-image: url('${iconSrc}')"></div>
+                        <div class="game-title">${safeTitle}</div>
+                    </div>
+                    
+                    <div class="row">
+                        <button id="play-game-${id}" class="play-btn" data-title="Play">
+                            <div class="icon icon-play"></div>
+                        </button>
+                        <button id="info-${id}" class="play-btn" data-title="More info">
+                            <div class="icon icon-info"></div>
+                        </button>
+                    </div>
+                `
+                : `
+                    <div class="row">
+                        <button id="play-game-${id}" class="play-btn" data-title="Play">
+                            <div class="icon icon-play"></div>
+                        </button>
+                        <button id="info-${id}" class="play-btn" data-title="More info">
+                            <div class="icon icon-info"></div>
+                        </button>
+                    </div>
+                `;
 
             const infoButton = gameBox.querySelector(`#info-${id}`);
-            infoButton.onclick = () => openSidebar(id);
+            if (infoButton) infoButton.onclick = () => openSidebar(id);
 
             const playButton = gameBox.querySelector(`#play-game-${id}`);
+            if (playButton) {
+                playButton.onclick = async () => {
+                    const result = await window.electronAPI.launchGame(info.path);
+                    if (!result.success) {
+                        showAlert(`Failed to launch game: ${result.error}`);
+                    }
+                };
+            }
 
-            playButton.onclick = async () => {
-                const exePath = info.path;
-                const result = await window.electronAPI.launchGame(exePath);
-
-                if (!result.success) {
-                    showAlert(`Failed to launch game: ${result.error}`);
-                }
-            };
             container.appendChild(gameBox);
         });
     } catch (err) {
@@ -182,7 +204,6 @@ export async function openSidebar(id) {
 
     // install size is calculated in the background
     const installSizeElement = sidebar.querySelector('#installSize');
-    installSizeElement.innerText = "Calculating...";
 
     calculateSizeInBackground(gameInfo.path, installSizeElement, id);
 }
@@ -306,7 +327,11 @@ function closeMoreMenu(event) {
 }
 
 function changeView() {
-
+    const container = document.getElementById('games');
+    container.classList.toggle('list');
+    const viewBtn = document.getElementById('viewBtn');
+    viewBtn.innerHTML = `<div class="icon icon-${container.classList.contains('list') ? 'grid' : 'list'}"></div>`
+    displayGames(currentSort);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -318,9 +343,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const editGameBtn = document.getElementById('editGameBtn');
     const sortBtn = document.getElementById('sortBtn');
     const sortList = document.getElementById('sortList');
-    
+    const changeViewBtn = document.getElementById('viewBtn');
 
     console.log("Sort button:", sortBtn);
+
+    if(changeViewBtn) {
+        changeViewBtn.addEventListener('click', changeView);
+    }
 
      if (sortList) {
         const sortItems = sortList.querySelectorAll('.sort-item');

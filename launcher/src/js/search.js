@@ -79,7 +79,7 @@ async function autoCompleteSearch(query) {
     suggestions.style.display = 'block';
 }
 
-function toFileURL(filePath) {
+export function toFileURL(filePath) {
     if (!filePath) return '';
     return `file:///${filePath.replace(/\\/g, '/')}`;
 }

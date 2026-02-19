@@ -370,13 +370,19 @@ body {
     background-color: var(--accent-color);
 }
 
-.suggestion-icon {
+.suggestion-icon, .game-icon {
     width: 26px;
     height: 26px;
     border-radius: 5px;
     background-size: cover;
     background-position: center;
     flex-shrink: 0;
+    border: var(--border);
+}
+
+.game-icon {
+    width: 35px;
+    height: 35px;
 }
 
 .suggestion-text {
@@ -553,6 +559,29 @@ weak {
     grid-auto-rows: calc(300px * 4 / 3);
     align-items: start;
     padding: 10px;
+}
+
+#games.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#games.list .game-box {
+    flex-direction: row;
+    max-width: 100%;
+    width: 100%;
+    height: fit-content;
+    overflow: visible;
+    padding: 5px;
+}
+
+#games.list .game-title {
+    font-size: 16px;
+}
+
+#games.list .play-btn {
+    margin-left: auto;
 }
 
 .game-box {

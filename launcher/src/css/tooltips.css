@@ -13,7 +13,7 @@
     border-radius: 5px;
     color: var(--text-color);
     position: absolute;
-    z-index: 99999;
+    z-index: 9999999999999999;
     left: 50%;
     bottom: 3em;
     opacity: 0;
