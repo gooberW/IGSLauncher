@@ -45,7 +45,7 @@
 }
 
 #closeSidebar[data-title]:after, #closeAddGame[data-title]:after {
-    left: -110%;
+    left: -250%;
     bottom: 50%;
     transform: translateX(0) translateY(50%) scale(0.8);
     visibility: hidden;
@@ -54,6 +54,16 @@
 #closeSidebar[data-title]:hover:after, #closeAddGame[data-title]:hover:after {
     transform: translateX(0) translateY(50%) scale(1);
     visibility: hidden;
+}
+
+#viewBtn[data-title]:after {
+    bottom: 50%;
+    left: -150%;
+    transform: translateX(-50%) translateY(50%) scale(0.8);
+}
+
+#viewBtn[data-title]:hover:after {
+    transform: translateX(-50%) translateY(50%) scale(1);
 }
 
 #addTag[data-title]:after {

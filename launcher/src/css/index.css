@@ -13,6 +13,7 @@
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
+    overflow: hidden;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -156,6 +157,24 @@ body {
     transition: transform 0.2s ease, opacity 0.1s ease;
 
     z-index: 0;
+}
+
+.view-btn {
+    border-radius: 5px;
+    border: var(--border);
+    background-color: var(--main-bg-color);
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    width: 43px;
+    margin-left: auto;
+}
+
+.view-btn:hover {
+    background-color: var(--accent-color);
+    cursor: pointer;
 }
 
 .icons button:hover::before, .closeBtn:hover::before {
@@ -1312,10 +1331,11 @@ btn-search:hover {
     height: 10px;
     overflow: hidden;
     width: 100%;
+    background-color: var(--secondary-color);
 }
 
 .loading-bar .fill {
-    background-color: var(--secondary-color);
+    background-color: var(--main-bg-color);
     height: 10px;
     width: 0%;
     transition: all 0.1s ease;

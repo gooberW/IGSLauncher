@@ -115,6 +115,20 @@
     animation: spin 1s linear infinite;
 }
 
+.icon-list {
+    -webkit-mask-image: url("../assets/view-stacked.svg");
+    mask-image: url("../assets/view-stacked.svg");
+}
+
+.icon-covers {
+    -webkit-mask-image: url("../assets/columns-gap.svg");
+    mask-image: url("../assets/columns-gap.svg");
+}
+
+.icon-list:hover, .icon-covers:hover {
+    cursor: unset;
+}
+
 .logo-full {
     -webkit-mask-image: url("../assets/igs-logo-full.svg");
     mask-image: url("../assets/igs-logo-full.svg");

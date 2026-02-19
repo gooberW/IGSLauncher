@@ -345,12 +345,12 @@ const createWindow = () => {
     progress += 10;
     splash.webContents.send('loading-progress', progress);
 
-    if (progress >= 150) {
+    if (progress >= 150) { // 150 so that it waits a little after 100%, might change later
         clearInterval(interval);
         splash.close();
         win.show();
     }
-    }, 200);
+    }, 100);
 
 };
 

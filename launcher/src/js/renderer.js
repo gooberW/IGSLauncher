@@ -305,6 +305,10 @@ function closeMoreMenu(event) {
     }
 }
 
+function changeView() {
+
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     displayGames();
     // Sidebar / menu buttons
@@ -314,6 +318,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const editGameBtn = document.getElementById('editGameBtn');
     const sortBtn = document.getElementById('sortBtn');
     const sortList = document.getElementById('sortList');
+    
+
     console.log("Sort button:", sortBtn);
 
      if (sortList) {
