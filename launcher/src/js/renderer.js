@@ -72,7 +72,7 @@ export async function displayGames(sortMode = currentSort) {
 
             if (info.coverImage) {
                 const coverSrc = `local-resource://${info.coverImage.replace(/\\/g, '/')}`;
-                gameBox.style.backgroundImage = `url("${coverSrc}")`;
+                gameBox.style.backgroundImage = isListView ? '' : `url("${coverSrc}")`;
             }
 
             const iconSrc = (info.icon && info.icon.trim())

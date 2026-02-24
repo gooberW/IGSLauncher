@@ -565,6 +565,7 @@ weak {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    transition: all 0.2s ease;
 }
 
 #games.list .game-box {
