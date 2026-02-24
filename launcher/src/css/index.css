@@ -592,6 +592,7 @@ weak {
 #games.list {
     display: flex;
     flex-direction: column;
+    justify-content: start;
     gap: 10px;
     transition: all 0.2s ease;
 }
@@ -602,7 +603,7 @@ weak {
     width: 100%;
     height: fit-content;
     overflow: visible;
-    padding: 5px;
+    padding: 10px;
 }
 
 #games.list .game-title {
@@ -611,6 +612,10 @@ weak {
 
 #games.list .play-btn {
     margin-left: auto;
+    width: fit-content !important;
+    aspect-ratio: unset !important;
+    max-width: unset !important;
+    padding-right: 10px;
 }
 
 .game-box {

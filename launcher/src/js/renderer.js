@@ -53,7 +53,7 @@ function sortGamesArray(gamesArray, mode) {
  */
 export async function displayGames(sortMode = currentSort) {
     const container = document.getElementById('games'); 
-    
+    container.style = ''; // reset styles to default
     if (!container) return;
 
     try {
@@ -65,19 +65,9 @@ export async function displayGames(sortMode = currentSort) {
         let gamesArray = Object.entries(data).map(([id, info]) => ({ id, ...info }));
         
         if(gamesArray.length === 0) {
-            container.innerHTML = `
-                <div class="no-games">
-                    <p>Pretty empty in here</p>
-                </div>
-            `;
-
-            container.style.display = 'flex';
-            container.style.justifyContent = 'center';
             return;
         }
 
-        container.style.display = 'grid';
-        container.style.justifyContent = 'start';
         gamesArray = sortGamesArray(gamesArray, sortMode);
 
 
@@ -109,11 +99,13 @@ export async function displayGames(sortMode = currentSort) {
                     </div>
                     
                     <div class="row">
-                        <button id="play-game-${id}" class="play-btn" data-title="Play">
+                        <button id="play-game-${id}" class="play-btn">
                             <div class="icon icon-play"></div>
+                            <p>Play</p>
                         </button>
-                        <button id="info-${id}" class="play-btn" data-title="More info">
+                        <button id="info-${id}" class="play-btn">
                             <div class="icon icon-info"></div>
+                            <p>More</p>
                         </button>
                     </div>
                 `
