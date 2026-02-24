@@ -317,6 +317,10 @@ body {
     border-color: var(--selected-color);
 }
 
+.search-bar.focused .search-key {
+    opacity: 0;
+}
+
 .search-bar input {
     border: none;
     outline: none;
