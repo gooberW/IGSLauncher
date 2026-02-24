@@ -2,6 +2,7 @@ const searchInput = document.getElementById('searchInput');
 const searchBar = document.getElementById('search');
 const suggestions = document.getElementById('suggestions');
 let gamesCache = null;
+let gameNamesCache = [];
 let activeIndex = -1;
 
 import { openSidebar } from "./renderer.js";
@@ -21,21 +22,21 @@ async function autoCompleteSearch(query) {
         return;
     }
 
-    const gamesData = await window.electronAPI.loadGames();
+    const gamesData = await getGamesData();
 
-    const gameNames = Object.values(gamesData).map(info => info.title);
-    console.log("Game names:", gameNames);
-
-    if (!gameNames.length) {
+    if (!gameNamesCache.length) {
         suggestions.style.display = 'none';
         return;
     }
 
-    const matches = gameNames.filter(name =>
+    const matches = gameNamesCache.filter(name =>
         name.toLowerCase().includes(query.toLowerCase())
     );
 
-    console.log("Matches:", matches);
+    if (!matches.length) {
+        suggestions.style.display = 'none';
+        return;
+    }
 
     matches.forEach(name => {
         const item = document.createElement('div');
@@ -54,13 +55,10 @@ async function autoCompleteSearch(query) {
 
         const game = gamesData[matchID];
 
-        let iconSrc = '';
-
-        if (game.icon && game.icon.trim() !== '') {
-            iconSrc = toFileURL(game.icon);
-        } else {
-            iconSrc = './assets/default_game_icon.png'; // fallback
-        }
+        const iconSrc =
+            game.icon && game.icon.trim() !== ''
+                ? toFileURL(game.icon)
+                : './assets/default_game_icon.png';
 
         icon.style.backgroundImage = `url("${iconSrc}")`;
 
@@ -77,6 +75,14 @@ async function autoCompleteSearch(query) {
     });
 
     suggestions.style.display = 'block';
+}
+
+async function getGamesData() {
+    if (!gamesCache) {
+        gamesCache = await window.electronAPI.loadGames();
+        gameNamesCache = Object.values(gamesCache).map(info => info.title);
+    }
+    return gamesCache;
 }
 
 export function toFileURL(filePath) {
