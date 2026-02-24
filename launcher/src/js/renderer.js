@@ -53,6 +53,7 @@ function sortGamesArray(gamesArray, mode) {
  */
 export async function displayGames(sortMode = currentSort) {
     const container = document.getElementById('games'); 
+    
     if (!container) return;
 
     try {
@@ -62,7 +63,23 @@ export async function displayGames(sortMode = currentSort) {
         currentSort = sortMode;
 
         let gamesArray = Object.entries(data).map(([id, info]) => ({ id, ...info }));
+        
+        if(gamesArray.length === 0) {
+            container.innerHTML = `
+                <div class="no-games">
+                    <p>Pretty empty in here</p>
+                </div>
+            `;
+
+            container.style.display = 'flex';
+            container.style.justifyContent = 'center';
+            return;
+        }
+
+        container.style.display = 'grid';
+        container.style.justifyContent = 'start';
         gamesArray = sortGamesArray(gamesArray, sortMode);
+
 
         const isListView = container.classList.contains("list");
 

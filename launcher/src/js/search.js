@@ -153,7 +153,7 @@ document.addEventListener('keydown', (e) => {
 
     if (isTyping) return;
 
-    if (e.key === '\\') {
+    if (e.key === 'k' && (e.ctrlKey || e.metaKey)) {
         e.preventDefault();
         searchInput.focus();
         search.classList.add('focused');

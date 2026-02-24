@@ -192,11 +192,35 @@ body {
     z-index: 1;
 }
 
+.no-games {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    justify-self: center;
+    align-self: center;
+    opacity: 0.2;
+}
+
+.no-games .icon {
+    background-color: var(--text-color);
+}
+
+.no-games p {
+    color: var(--text-color);
+    font-size: 18px !important;
+
+}
+
 .closeBtn {
     border: none;
     background: transparent;
     padding: 10px !important;
     cursor: pointer;
+    position: relative;
 }
 
 #minimizeBtn:hover .icon, #maximizeBtn:hover .icon {
@@ -326,6 +350,10 @@ body {
     justify-content: center;
     align-items: center;
     overflow: visible;
+}
+
+#searchInput {
+    border-radius: 0 !important;
 }
 
 #sortBtn.play-btn {
@@ -702,10 +730,11 @@ button.add-game-button:hover {
 .search-key {
     padding: 5px 10px;
     border-radius: 5px;
-    background-color: var(--sec-bg-color);
+    background-color: transparent;
     border: var(--border);
-    cursor: auto
-    ;
+    cursor: auto;
+    text-wrap: nowrap;
+    opacity: 0.6;
 }
 
 .search-key:hover {
@@ -976,6 +1005,7 @@ input, textarea {
     z-index: 9999999;
     transition: transform 0.1s ease;
     opacity: 0;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .alert-box.active {

@@ -189,6 +189,7 @@
     mask-image: url("../assets/search.svg");
     height: 20px;
     width: 20px;
+    flex-shrink: 0;
 }
 
 .icon-reset {
