@@ -4,8 +4,9 @@
  */
 let gamesData = null;
 let currentGame = null;
-let currentSort = 'dateAdded'; // default sort mode
+let currentSort = 'latestAdded'; // default sort mode
 let installSizeCache = {}; // saves the install size of each game so it doesn't have to be calculated every time
+let selectedTags = new Set();
 
 import { openEditGame } from "./add-game.js";
 import { showAlert, showConfirmation } from "./alert.js";
@@ -46,6 +47,12 @@ function sortGamesArray(gamesArray, mode) {
     }
 }
 
+function filterGamesByTags(gamesArray) {
+    return gamesArray.filter(game => {
+        return selectedTags.every(tag => game.tags.includes(tag));
+    });
+}
+
 /**
  * Displays all the games in the 'games' div with optional sorting
  * @param {string} sortMode - The sort mode to apply
@@ -62,6 +69,8 @@ export async function displayGames(sortMode = currentSort) {
         gamesData = data;
         currentSort = sortMode;
 
+        displayTagFilters(data);
+
         let gamesArray = Object.entries(data).map(([id, info]) => ({ id, ...info }));
         
         if(gamesArray.length === 0) {
@@ -69,6 +78,10 @@ export async function displayGames(sortMode = currentSort) {
         }
 
         gamesArray = sortGamesArray(gamesArray, sortMode);
+
+        if (selectedTags.length > 0) {
+            gamesArray = filterGamesByTags(gamesArray);
+        }
 
 
         const isListView = container.classList.contains("list");
@@ -233,7 +246,7 @@ function fillDevelopers(id) {
         return;
     }
 
-    developersList.forEach(publisher => {
+    developersList.forEach(developer => {
         developersElement.innerHTML += `<p>${developer}</p>`;
     });
 }
@@ -304,18 +317,22 @@ function formatDescription(text) {
         .join("");
 }
 
-function displayTagFilters() {
+function displayTagFilters(data) {
     const filterList = document.getElementById('filterList');
     filterList.innerHTML = '';
 
-    const gameTags = // TODO: implement this, get all tags from the games data
+    if (!data) return;
+
+    const gameTags = new Set(
+        Object.values(data).flatMap(g => g.tags || [])
+    );
 
     (gameTags || []).forEach(tag => {
         const p = document.createElement('p');
         p.className = 'tag';
         p.innerText = tag;
         p.addEventListener('click', () => {
-            filterGames(tag);
+            displayGames(currentSort);
         });
         filterList.appendChild(p);
     });
@@ -356,6 +373,20 @@ function closeMoreMenu(event) {
     if (!moreMenu.contains(event.target) && !moreBtn.contains(event.target)) {
         moreMenu.classList.remove('active');
     }
+}
+
+function selectTag(tag) {
+    if(selectedTags.has(tag)){
+        tag.classList.remove('selected');
+        selectedTags.remove(tag);
+    }else {
+        tag.classList.add('selected');
+        selectedTags.add(tag);
+    }
+    
+    const counter = document.getElementById('tagCounter');
+    counter.innerText = selectedTags.size;
+    displayGames(currentSort);
 }
 
 function changeView() {
@@ -424,9 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('filterTag');
 
     if(filterBtn) {
-        filterBtn.addEventListener('click', () => {
-            toggleFilterMenu();
-        });
+        filterBtn.addEventListener('click', toggleFilterMenu);
     }
     
 
