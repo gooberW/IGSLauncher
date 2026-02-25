@@ -304,6 +304,23 @@ function formatDescription(text) {
         .join("");
 }
 
+function displayTagFilters() {
+    const filterList = document.getElementById('filterList');
+    filterList.innerHTML = '';
+
+    const gameTags = // TODO: implement this, get all tags from the games data
+
+    (gameTags || []).forEach(tag => {
+        const p = document.createElement('p');
+        p.className = 'tag';
+        p.innerText = tag;
+        p.addEventListener('click', () => {
+            filterGames(tag);
+        });
+        filterList.appendChild(p);
+    });
+}
+
 /**
  * Closes the sidebar.
  * @todo Implement this function.
@@ -322,6 +339,12 @@ function toggleSortMenu(event) {
     const sortList = document.getElementById('sortList');
     event.stopPropagation();
     sortList.classList.toggle('active');
+}
+
+function toggleFilterMenu(event) {
+    const filterList = document.getElementById('filterList');
+    event.stopPropagation();
+    filterList.classList.toggle('active');
 }
 
 function closeMoreMenu(event) {
@@ -345,6 +368,7 @@ function changeView() {
 
 document.addEventListener('DOMContentLoaded', () => {
     displayGames();
+    displayTagFilters();
     // Sidebar / menu buttons
     const moreBtn = document.getElementById('moreBtn');
     const closeBtn = document.getElementById('closeSidebar');
@@ -401,8 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if(filterBtn) {
         filterBtn.addEventListener('click', () => {
-            filterBtn.classList.toggle('active');
-            input.focus();
+            toggleFilterMenu();
         });
     }
     
@@ -417,29 +440,16 @@ document.addEventListener('DOMContentLoaded', () => {
         ) {
             sortList.classList.remove('active');
         }
+
+        if (
+            filterList &&
+            filterBtn &&
+            filterList.classList.contains('active') &&
+            !filterList.contains(e.target) &&
+            !filterBtn.contains(e.target)
+        ) {
+            filterList.classList.remove('active');
+        }
     });
-
-
-    /* TESTING
-    const tooltipText = document.getElementById("hoverTooltipText");
-    const tooltip = document.getElementById("hoverTooltip");
-
-    document.addEventListener("mouseenter", (e) => {
-    const target = e.target.closest("[data-title]");
-    if (!target) return;
-
-    tooltipText.textContent = target.dataset.title;
-    tooltip.classList.add("visible");
-    }, true);
-
-    document.addEventListener("mouseleave", (e) => {
-    const target = e.target.closest("[data-title]");
-    if (!target) return;
-
-    tooltip.classList.remove("visible");
-    tooltipText.textContent = "";
-    }, true);
-
-    */
 
 })

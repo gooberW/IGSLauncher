@@ -360,10 +360,15 @@ body {
     border-radius: 0 !important;
 }
 
-#sortBtn.play-btn, #filterBtn.play-btn {
+#sortBtn.play-btn {
     max-width: 75px;
     min-width: 75px;
     anchor-name: --sort-btn;
+}
+
+#filterBtn {
+    anchor-name: --filter-btn;
+    max-width: 100px !important;
 }
 
 .suggestions {
@@ -950,6 +955,64 @@ input, textarea {
     transform: translateY(-10px) scale(1);
     pointer-events: none;
     opacity: 0;
+}
+
+.filter-list {
+    position-anchor: --filter-btn;
+    position: absolute;
+    top: anchor(bottom);
+    left: anchor(left);
+    border-radius: 5px;
+    padding: 5px;
+    gap: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    width: fit-content;
+    max-width: 350px;
+    border: var(--border);
+    background-color: var(--main-bg-color);
+    margin-top: 5px;
+    transition: transform 0.2s ease, opacity 0.1s ease;
+    transform: translateY(-10px) scale(1);
+    pointer-events: none;
+    opacity: 0;
+    height: fit-content;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.filter-list.active {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+    pointer-events: auto;
+}
+
+.filter-list .tag:hover{
+    cursor: pointer;
+    background-color: var(--selected-color);
+
+}
+
+.filter-list .tag.selected{
+    background-color: var(--selected-color);
+}
+
+#filterBtn .counter {
+    border-radius: 500px;
+    background-color: var(--selected-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    width: 20px;
+    padding: 2px;
+}
+
+.counter p {
+    font-family: var(--normal-font);
+    font-size: 13px;
+    color: var(--main-bg-color);
 }
 
 .sort-list {

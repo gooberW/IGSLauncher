@@ -66,6 +66,9 @@
         <div id="filterBtn" class="play-btn" style="gap: 5px;">
           <div class="icon icon-filter"></div>
           <p>Filter</p>
+          <div id="filterCounter" class="counter">
+            <p>0</p>
+          </div>
         </div>
         <div id="viewBtn" class="view-btn" data-title="Change View">
           <div class="icon icon-list"></div>
@@ -78,6 +81,9 @@
           <button id="latestAdded" class="sort-item" data-mode="latestAdded">by Date Added (Latest)</button>
           <!--<button id="sortRelease" class="sort-item" data-mode="release">by Release Date</button>   TODO--> 
           <!--<button id="sortDate" class="sort-item" data-mode="dateAdded">by Date Added</button>      TODO-->
+        </div>
+        <div id="filterList" class="filter-list">
+          <!-- all tags appear dinamically here (renderer.js) -->
         </div>
       <div id="games" class="games">
           <!-- games appear dinamically here (renderer.js) -->
