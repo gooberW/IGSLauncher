@@ -360,7 +360,7 @@ body {
     border-radius: 0 !important;
 }
 
-#sortBtn.play-btn {
+#sortBtn.play-btn, #filterBtn.play-btn {
     max-width: 75px;
     min-width: 75px;
     anchor-name: --sort-btn;
@@ -743,7 +743,7 @@ button.add-game-button:hover {
     border: var(--border);
     cursor: auto;
     text-wrap: nowrap;
-    opacity: 0.6;
+    opacity: 1;
 }
 
 .search-key:hover {
