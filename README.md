@@ -1,4 +1,4 @@
-## **ISEL Game Studios Launcher**
+# **ISEL Game Studios Launcher**
 
 This project aims to help ISEL Game Studios keep their games available on a portable platform for use at external events.
 The application is designed to be simple and intuitive, allowing even users with little technical experience to use it easily. 
