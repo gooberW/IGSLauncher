@@ -369,6 +369,11 @@ body {
 #filterBtn {
     anchor-name: --filter-btn;
     max-width: 100px !important;
+    flex-shrink: 0;
+    width: fit-content !important;
+    min-width: none;
+    aspect-ratio: unset !important;
+    padding: 5px 10px !important;
 }
 
 .suggestions {
@@ -535,11 +540,13 @@ body {
 
 .tag {
     font-size: 15px;
-    background-color: var(--text-color);
-    color: var(--main-bg-color);
+    background-color: var(--sec-bg-color);
+    color: var(--text-color);
     padding: 8px 10px;
-    border-radius: 10px;
+    border-radius: 100px;
     transition: all 0.1s ease;
+    border: var(--border);
+
 }
 
 #tags.row {
@@ -1000,19 +1007,21 @@ input, textarea {
 
 #filterBtn .counter {
     border-radius: 500px;
-    background-color: var(--selected-color);
+    background-color: var(--accent-color);
+    border: var(--border);
     display: flex;
     justify-content: center;
     align-items: center;
-    aspect-ratio: 1 / 1;
-    width: 20px;
-    padding: 2px;
+    height: 25px;
+    width: 25px;
+    flex-shrink: 0;
 }
 
 .counter p {
     font-family: var(--normal-font);
     font-size: 13px;
-    color: var(--main-bg-color);
+    color: var(--text-color);
+    margin: 0;
 }
 
 .sort-list {

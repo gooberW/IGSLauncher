@@ -48,10 +48,10 @@
 }
 
 .icon-filter {
-    -webkit-mask-image: url("../assets/funnel.svg");
-    mask-image: url("../assets/funnel.svg");
-    height: 16px !important;
-    width: 16px !important;
+    -webkit-mask-image: url("../assets/tags.svg");
+    mask-image: url("../assets/tags.svg");
+    height: 18px !important;
+    width: 18px !important;
 }
 
 .icon-minimize {
