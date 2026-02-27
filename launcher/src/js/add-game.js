@@ -1,5 +1,5 @@
 import { showAlert, showConfirmation } from "./alert.js";
-import { displayGames, closeSidebar } from "./renderer.js";
+import { displayGames, closeSidebar, calculateSizeInBackground, clearInstallSizeCache } from "./renderer.js";
 
 let editingGame = null; // null = add mode, otherwise stores { id, data }
 
@@ -43,6 +43,7 @@ async function writeGameData() {
 
         if (editingGame) {
             // ppdate existing game
+            clearInstallSizeCache(editingGame.id);
             result = await window.electronAPI.updateGame(
                 editingGame.id,
                 gameData
@@ -63,6 +64,7 @@ async function writeGameData() {
             resetForm();
             editingGame = null;
             console.log("Saved game data:", gameData);
+            calculateSizeInBackground(path, document.getElementById('installSize'), result.id);
         } else {
             console.error("Save failed:", result.error);
             showAlert("Failed to save game: " + result.error);

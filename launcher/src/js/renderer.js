@@ -279,7 +279,7 @@ function fillPublishers(id) {
 }
 
 
-async function calculateSizeInBackground(path, element, gameId) {
+export async function calculateSizeInBackground(path, element, gameId) {
     try {
         if (!path) throw new Error("No executable path found");
 
@@ -304,7 +304,9 @@ async function calculateSizeInBackground(path, element, gameId) {
     }
 }
 
-
+export function clearInstallSizeCache(gameId) {
+    delete installSizeCache[gameId];
+}
 
 function formatBytes(bytes) {
     console.log(bytes);
