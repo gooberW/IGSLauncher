@@ -49,7 +49,10 @@ function sortGamesArray(gamesArray, mode) {
 
 function filterGamesByTags(gamesArray) {
     return gamesArray.filter(game => {
-        return selectedTags.every(tag => game.tags.includes(tag));
+        const gameTags = game.tags || [];
+        return [...selectedTags].every(tag =>
+            gameTags.includes(tag)
+        );
     });
 }
 
@@ -71,6 +74,8 @@ export async function displayGames(sortMode = currentSort) {
 
         displayTagFilters(data);
 
+      
+
         let gamesArray = Object.entries(data).map(([id, info]) => ({ id, ...info }));
         
         if(gamesArray.length === 0) {
@@ -79,7 +84,7 @@ export async function displayGames(sortMode = currentSort) {
 
         gamesArray = sortGamesArray(gamesArray, sortMode);
 
-        if (selectedTags.length > 0) {
+        if (selectedTags.size > 0) {
             gamesArray = filterGamesByTags(gamesArray);
         }
 
@@ -332,10 +337,29 @@ function displayTagFilters(data) {
         p.className = 'tag';
         p.innerText = tag;
         p.addEventListener('click', () => {
-            displayGames(currentSort);
+            selectTag(p);
         });
         filterList.appendChild(p);
+
+        if (selectedTags.has(tag)) {
+            p.classList.add('selected');
+        }
     });
+
+    const clearFiltersBtn = document.createElement('div');
+    clearFiltersBtn.className = 'clear-btn';
+    clearFiltersBtn.innerText = 'Clear Filters';
+    clearFiltersBtn.addEventListener('click', () => {
+        selectedTags.clear();
+        displayGames();
+        resetCounter();
+    });
+    filterList.appendChild(clearFiltersBtn);
+}
+
+function resetCounter() {
+    const counter = document.getElementById('tagCounter');
+    counter.innerText = selectedTags.size;
 }
 
 /**
@@ -356,12 +380,20 @@ function toggleSortMenu(event) {
     const sortList = document.getElementById('sortList');
     event.stopPropagation();
     sortList.classList.toggle('active');
+
+    if (filterList && filterList.classList.contains('active')) {
+        filterList.classList.remove('active');
+    }
 }
 
 function toggleFilterMenu(event) {
     const filterList = document.getElementById('filterList');
     event.stopPropagation();
     filterList.classList.toggle('active');
+
+    if(sortList && sortList.classList.contains('active')) {
+        sortList.classList.remove('active');
+    }
 }
 
 function closeMoreMenu(event) {
@@ -375,17 +407,20 @@ function closeMoreMenu(event) {
     }
 }
 
-function selectTag(tag) {
-    if(selectedTags.has(tag)){
-        tag.classList.remove('selected');
-        selectedTags.remove(tag);
-    }else {
-        tag.classList.add('selected');
-        selectedTags.add(tag);
+function selectTag(tagElement) {
+    const tagName = tagElement.innerText;
+
+    if (selectedTags.has(tagName)) {
+        selectedTags.delete(tagName);
+        tagElement.classList.remove('selected');
+    } else {
+        selectedTags.add(tagName);
+        tagElement.classList.add('selected');
     }
-    
+
     const counter = document.getElementById('tagCounter');
     counter.innerText = selectedTags.size;
+
     displayGames(currentSort);
 }
 
@@ -452,7 +487,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const filterBtn = document.getElementById('filterBtn');
-    const input = document.getElementById('filterTag');
 
     if(filterBtn) {
         filterBtn.addEventListener('click', toggleFilterMenu);
