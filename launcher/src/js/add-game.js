@@ -1,5 +1,6 @@
 import { showAlert, showConfirmation } from "./alert.js";
 import { displayGames, closeSidebar, calculateSizeInBackground, clearInstallSizeCache } from "./renderer.js";
+import { updateNamesCache } from "./search.js";
 
 let editingGame = null; // null = add mode, otherwise stores { id, data }
 
@@ -42,12 +43,14 @@ async function writeGameData() {
         let result;
 
         if (editingGame) {
-            // ppdate existing game
             clearInstallSizeCache(editingGame.id);
+
             result = await window.electronAPI.updateGame(
                 editingGame.id,
                 gameData
             );
+
+            updateNamesCache(editingGame.id, title);
         } else {
             // add new game
             result = await window.electronAPI.writeGameData({

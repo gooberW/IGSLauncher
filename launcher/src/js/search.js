@@ -1,36 +1,67 @@
 const searchInput = document.getElementById('searchInput');
 const searchBar = document.getElementById('search');
 const suggestions = document.getElementById('suggestions');
-let gamesCache = null;
-let gameNamesCache = [];
+
+let gamesCache = null;        // full game data
+let gameNamesCache = [];      // { id, title } for autocomplete
 let activeIndex = -1;
 
 import { openSidebar } from "./renderer.js";
 
 /**
- * Adds suggestions to the search bar based on the games in the library.
- * Suggestions are added as div elements with the class 'suggestion'.
- * The text content of each suggestion is the name of the game.
- * @throws {Error} If there is an error loading the games.
+ * Load the games cache once at startup.
  */
-async function autoCompleteSearch(query) {
+export async function loadGamesCache() {
+    if (!gamesCache) {
+        gamesCache = await window.electronAPI.loadGames();
+        gameNamesCache = Object.entries(gamesCache).map(([id, info]) => ({
+            id,
+            title: info.title || ""
+        }));
+    }
+    return gamesCache;
+}
+
+/**
+ * Updates the cached title for a game (used after renaming)
+ */
+export function updateNamesCache(gameId, newTitle) {
+    const entry = gameNamesCache.find(g => g.id === gameId);
+
+    if (entry) {
+        entry.title = newTitle;
+    } else {
+        // fallback if cache missed it
+        gameNamesCache.push({ id: gameId, title: newTitle });
+    }
+
+    if (gamesCache && gamesCache[gameId]) {
+        gamesCache[gameId].title = newTitle;
+    }
+}
+
+/**
+ * Converts a local file path to a file:// URL
+ */
+export function toFileURL(filePath) {
+    if (!filePath) return '';
+    return `file:///${filePath.replace(/\\/g, '/')}`;
+}
+
+/**
+ * Autocomplete search
+ */
+export function autoCompleteSearch(query) {
     suggestions.innerHTML = '';
     activeIndex = -1;
 
-    if (!query) {
+    if (!query || !gameNamesCache.length) {
         suggestions.style.display = 'none';
         return;
     }
 
-    const gamesData = await getGamesData();
-
-    if (!gameNamesCache.length) {
-        suggestions.style.display = 'none';
-        return;
-    }
-
-    const matches = gameNamesCache.filter(name =>
-        name.toLowerCase().includes(query.toLowerCase())
+    const matches = gameNamesCache.filter(game =>
+        game.title && game.title.toLowerCase().includes(query.toLowerCase())
     );
 
     if (!matches.length) {
@@ -38,27 +69,22 @@ async function autoCompleteSearch(query) {
         return;
     }
 
-    matches.forEach(name => {
+    matches.forEach(({ id, title }) => {
+        const game = gamesCache[id];
+        if (!game) return;
+
         const item = document.createElement('div');
         item.className = 'suggestion-item';
 
         const icon = document.createElement('div');
         icon.className = 'suggestion-icon';
-
         const text = document.createElement('div');
         text.className = 'suggestion-text';
-        text.textContent = name;
+        text.textContent = title;
 
-        const matchID = Object.keys(gamesData).find(
-            key => gamesData[key].title === name
-        );
-
-        const game = gamesData[matchID];
-
-        const iconSrc =
-            game.icon && game.icon.trim() !== ''
-                ? toFileURL(game.icon)
-                : './assets/default_game_icon.png';
+        const iconSrc = game.icon && game.icon.trim()
+            ? toFileURL(game.icon)
+            : './assets/default_game_icon.png';
 
         icon.style.backgroundImage = `url("${iconSrc}")`;
 
@@ -68,7 +94,7 @@ async function autoCompleteSearch(query) {
         item.addEventListener('click', () => {
             searchInput.value = '';
             suggestions.style.display = 'none';
-            openSidebar(matchID);
+            openSidebar(id);
         });
 
         suggestions.appendChild(item);
@@ -77,26 +103,8 @@ async function autoCompleteSearch(query) {
     suggestions.style.display = 'block';
 }
 
-async function getGamesData() {
-    if (!gamesCache) {
-        gamesCache = await window.electronAPI.loadGames();
-        gameNamesCache = Object.values(gamesCache).map(info => info.title);
-    }
-    return gamesCache;
-}
-
-export function toFileURL(filePath) {
-    if (!filePath) return '';
-    return `file:///${filePath.replace(/\\/g, '/')}`;
-}
-
-
 /**
- * Handles keydown events on the search bar.
- * If the key pressed is one of the arrow keys, it will move the active index up or down
- * the list of suggestions. If the enter key is pressed, it will simulate a click on the
- * currently active suggestion.
- * @param {KeyboardEvent} e The event object passed to the function.
+ * Handles keyboard navigation in suggestions
  */
 function handleKeydown(e) {
     const items = suggestions.querySelectorAll('.suggestion-item');
@@ -105,12 +113,10 @@ function handleKeydown(e) {
     if (e.key === 'ArrowDown') {
         e.preventDefault();
         activeIndex = (activeIndex + 1) % items.length;
-    } 
-    else if (e.key === 'ArrowUp') {
+    } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         activeIndex = (activeIndex - 1 + items.length) % items.length;
-    } 
-    else if (e.key === 'Enter') {
+    } else if (e.key === 'Enter') {
         e.preventDefault();
         if (activeIndex >= 0) {
             items[activeIndex].click();
@@ -118,8 +124,7 @@ function handleKeydown(e) {
             searchInput.blur();
         }
         return;
-    } 
-    else {
+    } else {
         return;
     }
 
@@ -127,13 +132,12 @@ function handleKeydown(e) {
     items[activeIndex].classList.add('active');
 }
 
-searchInput.addEventListener('input', (e) => {
-    autoCompleteSearch(e.target.value);
-});
-
+// Event listeners
+searchInput.addEventListener('input', (e) => autoCompleteSearch(e.target.value));
 searchInput.addEventListener('focus', (e) => {
     if (e.target.value) autoCompleteSearch(e.target.value);
 });
+searchInput.addEventListener('keydown', handleKeydown);
 
 document.addEventListener('click', (e) => {
     if (!e.target.closest('.search-container')) {
@@ -141,11 +145,7 @@ document.addEventListener('click', (e) => {
     }
 });
 
-searchInput.addEventListener('keydown', handleKeydown);
-suggestions.style.display = 'none';
-
 document.addEventListener('keydown', (e) => {
-    // ignores if user is already typing in an input or textarea
     const isTyping =
         e.target.tagName === 'INPUT' ||
         e.target.tagName === 'TEXTAREA' ||
@@ -166,3 +166,10 @@ document.addEventListener('click', (e) => {
     searchInput.blur();
 });
 
+// Hide suggestions initially
+suggestions.style.display = 'none';
+
+// Load cache at startup
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadGamesCache();
+});
