@@ -2,8 +2,8 @@ const searchInput = document.getElementById('searchInput');
 const searchBar = document.getElementById('search');
 const suggestions = document.getElementById('suggestions');
 
-let gamesCache = null;        // full game data
-let gameNamesCache = [];      // { id, title } for autocomplete
+let gamesCache = null;   // full game data
+let gameNamesCache = [];   // { id, title } for autocomplete
 let activeIndex = -1;
 
 import { openSidebar } from "./renderer.js";
@@ -166,7 +166,6 @@ document.addEventListener('click', (e) => {
     searchInput.blur();
 });
 
-// Hide suggestions initially
 suggestions.style.display = 'none';
 
 // Load cache at startup
