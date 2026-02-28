@@ -626,7 +626,7 @@ weak {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    gap: 10px;
+    gap: 5px;
     transition: all 0.2s ease;
 }
 

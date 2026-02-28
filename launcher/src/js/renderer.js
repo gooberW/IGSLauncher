@@ -50,7 +50,7 @@ function sortGamesArray(gamesArray, mode) {
 function filterGamesByTags(gamesArray) {
     return gamesArray.filter(game => {
         const gameTags = game.tags || [];
-        return [...selectedTags].every(tag =>
+        return [...selectedTags].some(tag => // use 'some' for OR filtering and 'every' for AND filtering
             gameTags.includes(tag)
         );
     });
