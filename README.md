@@ -18,6 +18,7 @@
 - Library sorting
 - Filtering by tags
 
+## Showcase
 ![IGSLauncher_Showcase(1)](https://github.com/user-attachments/assets/cc4e6409-05af-4b48-9788-2b3e907d0eca)
 
 ## Install
