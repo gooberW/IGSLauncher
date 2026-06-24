@@ -311,8 +311,8 @@ ipcMain.handle("get-current-page" , () => {
 // creates the main window
 const createWindow = () => {
     const win = new BrowserWindow({
-        width: 1280,
-        height: 720,
+        width: 1320,
+        height: 900,
         show: false,
         frame: false,
         webPreferences: {

@@ -22,7 +22,6 @@
   <div id="alert-backdrop"></div>
 
   <div class="hover-tooltip" id="hoverTooltip">
-    <!-- this will show the data titles of anything that is being hovered instead of a tooltip (like FL studio) -->
     <p id="hoverTooltipText"></p>
   </div>
 
@@ -44,7 +43,7 @@
     </div>
     <div id="app">
       <div class="nav">
-        <button id="homeBtn" data-title="Collection"><div class="icon icon-library"></div></button>
+        <button id="homeBtn" data-title="Collection"><div class="icon icon-folder"></div></button>
         <button id="settingsBtn" data-title="Settings"><div class="icon icon-settings"></div></button>
       </div>
 
@@ -148,6 +147,10 @@
         </button>
         <p>Add Game</p>
       </div>
+
+      <div class="row">
+        <button class="add-game-button" id="website">Our Website</button>
+      </div>
   </div>
 
       <div class="add-game-window">
@@ -163,7 +166,7 @@
         </div>
         <div class="input-group">
           <label for="pathDisplay">Path (Executable):</label>
-          <div class="row" style="border:none; padding: 0; max-width: 400px; gap: 5px;">
+          <div class="row" style="border:none; padding: 0; gap: 5px;">
               <input type="text" id="exePathDisplay" placeholder="Select game executable..." readonly>
               <button type="button" id="selectExeBtn" class="browse-btn">
                 <p>Browse</p>
@@ -172,7 +175,7 @@
         </div>
         <div class="input-group">
           <label for="cover">Cover Image:</label>
-          <div class="row" style="border:none; padding: 0; max-width: 400px; gap: 5px;">
+          <div class="row" style="border:none; padding: 0; gap: 5px;">
               <input type="text" id="coverPathDisplay" placeholder="Select cover..." readonly>
               <button type="button" id="selectCoverBtn" class="browse-btn">
                 <p>Browse</p>
@@ -181,7 +184,7 @@
         </div>
         <div class="input-group">
           <label for="icon">Icon:</label>
-          <div class="row" style="border:none; padding: 0; max-width: 400px; gap: 5px;">
+          <div class="row" style="border:none; padding: 0; gap: 5px;">
               <input type="text" id="iconPathDisplay" placeholder="Select icon..." readonly>
               <button type="button" id="selectIconBtn" class="browse-btn">
                 <p>Browse</p>

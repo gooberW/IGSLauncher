@@ -15,7 +15,7 @@
     height: 10px;
     overflow: hidden;
 }
-
+m
 ::-webkit-scrollbar-thumb {
     background-color: var(--main-bg-color);
     border-left: var(--border);
@@ -28,6 +28,11 @@
 html {
     width: 100%;
     height: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
 }
 
 label, input, textarea, button {
@@ -344,7 +349,7 @@ body {
 .search-container {
     position: relative;
     flex: 1;
-    max-width: 400px;
+    max-width: fit-content;
     min-width: 100px;
 }
 
@@ -358,6 +363,7 @@ body {
 
 #searchInput {
     border-radius: 0 !important;
+    min-width: 300px;
 }
 
 #sortBtn.play-btn {
@@ -728,7 +734,7 @@ button.add-game-button {
     align-items: center;
     justify-content: center;
     font-family: var(--normal-font);
-    padding: 5px;
+    padding: 0.5em 1em;
     border-radius: 5px ;
     background-color: var(--main-bg-color);
 }
@@ -749,7 +755,7 @@ button.add-game-button:hover {
     border: var(--border);
     border-radius: 5px;
     width: 40vw;
-    min-width: 400px;
+    min-width: fit-content;
     overflow: hidden;
     margin-bottom: 10px;
 }
@@ -813,19 +819,22 @@ button.add-game-button:hover {
     gap: 10px;
     z-index: 10;
     position: absolute;
-    height: 0;
-    width: 0;
-    visibility: hidden;
+    width: 50vw;
+    min-width: fit-content;
+    height: fit-content;
+    max-height: 80vh;
+    opacity: 0;
     background-color: var(--main-bg-color);
     border: var(--border);
     border-radius: 5px;
     overflow: auto;
-    max-height: 95vh;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    transition: transform 0.1s ease-out;
+    transform: translate(-50%, -50%) scale(0.95);
+    transition: transform 0.2s ease, opacity 0.1s easet;
     z-index: 999999;
+    pointer-events: none;
+    
 }
 
 .drag-bar {
@@ -840,6 +849,15 @@ button.add-game-button:hover {
     align-items: center;
     border-bottom: var(--border);
     padding: 10px;
+    padding-inline: 5em;
+}
+
+.add-game-window .row:first-child {
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--main-bg-color);
 }
 
 .add-game-window .input-group {
@@ -847,18 +865,17 @@ button.add-game-button:hover {
     gap: 5px;
     display: flex;
     flex-direction: column;
+    padding-inline: 5em;
 }
 
-.add-game-window .input-group:last-child {
-    padding: 10px;
+.add-game-window .row:last-child {
+    padding: 10px 5em 2em 5em;
 }
 
 .add-game-window.active {
     transform: translate(-50%, -50%) scale(1);
-    width: fit-content;
-    height: fit-content;
-    max-height: 80vh;
-    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
 }
 
 .add-game-window .row img {
@@ -879,8 +896,8 @@ input, textarea {
     font-size: 15px;
     background-color: var(--main-bg-color);
     outline: none;
-    width: 400px;
     display: flex;
+    flex: 1;
 }
 
 .input-group.desc {
@@ -1233,6 +1250,7 @@ input, textarea {
 
 .settings-item input[type="color"] {
     width: 50px;
+    min-width: unset;
     height: 34px;
     padding: 0;
     margin: 0;

@@ -32,6 +32,12 @@
     mask-image: url("../assets/pin-angle.svg");
 }
 
+.icon-folder {
+    -webkit-mask-image: url("../assets/folder-fill.svg");
+    mask-image: url("../assets/folder-fill.svg");
+    height: 24px !important;
+    width: 24px !important;
+}
 
 .icon-sort {
     -webkit-mask-image: url("../assets/arrow-down-up.svg");

@@ -445,8 +445,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortBtn = document.getElementById('sortBtn');
     const sortList = document.getElementById('sortList');
     const changeViewBtn = document.getElementById('viewBtn');
+    const websiteBtn = document.getElementById('website');
 
     console.log("Sort button:", sortBtn);
+
+    if (websiteBtn) {
+        websiteBtn.addEventListener('click', () => {
+            window.open('https://iselgamestudios.com', '_blank');
+        });
+    }
 
     if(changeViewBtn) {
         changeViewBtn.addEventListener('click', changeView);
