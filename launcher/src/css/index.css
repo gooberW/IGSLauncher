@@ -15,7 +15,7 @@
     height: 10px;
     overflow: hidden;
 }
-m
+
 ::-webkit-scrollbar-thumb {
     background-color: var(--main-bg-color);
     border-left: var(--border);
@@ -216,7 +216,7 @@ body {
 
 .no-games p {
     color: var(--text-color);
-    font-size: 18px !important;
+    font-size: 15px !important;
 
 }
 
@@ -351,6 +351,7 @@ body {
     flex: 1;
     max-width: fit-content;
     min-width: 100px;
+    background-color: var(--accent-color);
 }
 
 .main-area #searchRow .play-btn {
@@ -646,7 +647,7 @@ weak {
 }
 
 #games.list .game-title {
-    font-size: 16px;
+    font-size: 15px;
 }
 
 #games.list .play-btn {
@@ -772,12 +773,13 @@ button.add-game-button:hover {
 }
 
 .search-key {
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 0.25em 0.5em;
+    border-radius: 3px;
     background-color: transparent;
     border: var(--border);
     cursor: auto;
     text-wrap: nowrap;
+    font-size: small;
     opacity: 1;
 }
 
@@ -890,15 +892,17 @@ button.add-game-button:hover {
 }
 
 input, textarea {
-    padding: 10px;
+    padding: 0.5em;
     border-radius: 5px;
     border: var(--border);
     font-size: 15px;
-    background-color: var(--main-bg-color);
+    background-color: var(--accent-color);
     outline: none;
     display: flex;
     flex: 1;
 }
+
+.search-container
 
 .input-group.desc {
     display: flex;
@@ -908,22 +912,19 @@ input, textarea {
 
 
 .input-group button {
-    padding: 5px;
+    padding: 0.5em 1em;
     border-radius: 5px;
     border: var(--border);
     background-color: var(--main-bg-color);
    color: var(--text-color);
     cursor: pointer;
     transition: all 0.1s ease;
-    width: 38px;
-    min-width: 38px;
-    max-width: 38px;
     aspect-ratio: 1 / 1;
     flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
+    font-size: 15px;
 }
 
 .input-group button:hover {
@@ -956,16 +957,7 @@ input, textarea {
 }
 
 .browse-btn {
-    min-width: fit-content !important;
-    max-width: fit-content !important;
-    display: flex !important;
     aspect-ratio: unset !important;
-    padding: 10px !important;
-}
-
-.browse-btn p{
-    font-family: var(--normal-font);
-    font-size: 15px;
 }
 
 .more-container {
@@ -996,6 +988,7 @@ input, textarea {
     transform: translateY(-10px) scale(1);
     pointer-events: none;
     opacity: 0;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .filter-list {
@@ -1098,6 +1091,7 @@ input, textarea {
     text-wrap: nowrap;
     font-family: var(--normal-font);
     font-size: 15px;
+    gap: 0.5em;
 }
 
 .more-item:hover, .sort-item:hover {
@@ -1225,7 +1219,7 @@ input, textarea {
 .settings-area .row p{
     overflow: hidden;
     display: flex;
-    font-size: 16px;
+    font-size: 15px;
     font-family: var(--normal-font);
     font-weight: var(--bold-weight);
 }
@@ -1520,4 +1514,48 @@ btn-search:hover {
     height: 10px;
     width: 0%;
     transition: all 0.1s ease;
+}
+
+.game-running {
+    padding: 0.3em 0.7em;
+    opacity: 0;
+    border-radius: 5px;
+    border: var(--border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    transition: all 0.1s ease;
+}
+
+.game-running.active {
+    opacity: 1;
+}
+
+.game-running .circle {
+    border-radius: 20em;
+    background-color: var(--text-color);
+    width: 10px;
+    height: 10px;
+    animation: pulse 1s infinite;
+}
+
+.game-running p {
+    font-weight: normal;
+    font-size: small !important;
+    margin: 0 !important;
+    color: var(--secondary-color);
+    opacity: 1;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }

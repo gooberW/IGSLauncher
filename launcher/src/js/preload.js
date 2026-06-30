@@ -16,7 +16,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
     minimizeApp: () => ipcRenderer.invoke('minimize-window'),
     toggleMaximize: () => ipcRenderer.invoke("toggle-window-maximize"),
     getCurrentPage: () => ipcRenderer.invoke('get-current-page'),
-    getInstallSize: (exePath) => ipcRenderer.invoke('get-install-size', exePath)
+    getInstallSize: (exePath) => ipcRenderer.invoke('get-install-size', exePath),
+    openInExplorer: (exePath) => ipcRenderer.invoke('open-in-explorer', exePath),
+    onGameClosed: (callback) => ipcRenderer.on('game-closed', (_event, path) => callback(path)),
 });
 
 contextBridge.exposeInMainWorld('loaderAPI', {

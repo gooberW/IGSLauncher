@@ -1,252 +1,298 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="js/theme.js"></script>
-    <meta charset="UTF-8" />
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; img-src 'self' local-resource: data:; style-src 'self' 'unsafe-inline';"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <link rel="stylesheet" href="css/fonts.css"></link>
-    <link rel="stylesheet" href="css/index.css"></link>
-    <link rel="stylesheet" href="css/icons.css"></link>
-    <link rel="stylesheet" href="css/tooltips.css"></link>
-    <title>IGS Launcher</title>
-  </head>
-
-  <div id="alert-backdrop"></div>
-
-  <div class="hover-tooltip" id="hoverTooltip">
-    <p id="hoverTooltipText"></p>
-  </div>
-
-  <body>
-    <div class="row title-bar">
-      <div class="title">
-        <icon class="icon icon-igs"></icon>
-        <div class="nav-btns">
-          <button id="goBackBtn" data-title="Go Back"><icon class="icon icon-arrow-left"></icon></button>
-          <button id="goForwardBtn" data-title="Go Forward"><icon class="icon icon-arrow-right"></icon></button>
-        </div>
-        <p>Collection</p>
-      </div>
-      <div class="icons">
-        <button id="minimizeBtn"><div class="icon icon-minimize"></div></button>
-        <button id="maximizeBtn"><div class="icon icon-maximize"></div></button>
-        <button id="closeBtn"><div class="icon icon-cross"></div></button>
-      </div>
+    <head>
+        <script src="js/theme.js"></script>
+        <meta charset="UTF-8">
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src 'self' local-resource: data:; style-src 'self' 'unsafe-inline';">
+        <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+        <link rel="stylesheet" href="css/fonts.css"></link>
+        <link rel="stylesheet" href="css/main.css"></link>
+        <link rel="stylesheet" href="css/icons.css"></link>
+        <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+        <title>IGS Launcher</title>
+    </head>
+    <div id="alert-backdrop"></div>
+    <div class="hover-tooltip" id="hoverTooltip">
+        <p id="hoverTooltipText"></p>
     </div>
-    <div id="app">
-      <div class="nav">
-        <button id="homeBtn" data-title="Collection"><div class="icon icon-folder"></div></button>
-        <button id="settingsBtn" data-title="Settings"><div class="icon icon-settings"></div></button>
-      </div>
-
-    <div class="main-area" style="background-color: transparent;">
-      <div id="searchRow" class="row" >
-        <div class="search-container">
-          <div id="search" class="search-bar">
-            <div class="icon icon-search"></div>
-            <input id="searchInput" type="text" placeholder="Search" />
-            <div class="search-key">Ctrl + K</div>
-          </div>
-            <!-- autocomplete -->
-          <div id="suggestions" class="suggestions"></div>
-        </div>
-        <div id="sortBtn" class="play-btn" style="gap: 5px;">
-          <div class="icon icon-sort"></div>
-          <p>Sort</p>
-        </div>
-        <div id="filterBtn" class="play-btn" style="gap: 5px;">
-          <div class="icon icon-filter"></div>
-          <p>Filters</p>
-          <div id="tagCounter" class="counter">
-            <p>0</p>
-          </div>
-        </div>
-        <div id="viewBtn" class="view-btn" data-title="Change View">
-          <div class="icon icon-list"></div>
-        </div>
-      </div>
-      <div class="sort-list" id="sortList">
-          <button id="sortNameAZ" class="sort-item" data-mode="az">by Name (A-Z)</button>
-          <button id="sortNameZA" class="sort-item" data-mode="za">by Name (Z-A)</button>
-          <button id="earliestAdded" class="sort-item" data-mode="earliestAdded">by Date Added (Earliest)</button>
-          <button id="latestAdded" class="sort-item" data-mode="latestAdded">by Date Added (Latest)</button>
-          <!--<button id="sortRelease" class="sort-item" data-mode="release">by Release Date</button>   TODO--> 
-          <!--<button id="sortDate" class="sort-item" data-mode="dateAdded">by Date Added</button>      TODO-->
-        </div>
-        <div id="filterList" class="filter-list">
-          <!-- all tags appear dinamically here (renderer.js) -->
-          
-        </div>
-      <div id="games" class="games">
-          <!-- games appear dinamically here (renderer.js) -->
-           
-        </div>
-      </div>
-
-      <!-- the sidebar appears when the "i" icon is clicked on a game.-->
-      <!-- the data must be related to the game clicked -->
-      <div class="sidebar">
-        <div class="row" style="justify-content: end;">
-          <button id="closeSidebar" class="closeBtn" data-title="Close Sidebar">
-            <div class="icon icon-cross"></div>
-          </button>
-        </div>
-        <div id="gameName" class="row">
-          <h3>Game Name</h3>
-        </div>
-        <div class="row">
-          <button id="sidebarPlay" class="play-btn">Play Game</button>
-          <div class="more-container">
-            <button id="moreBtn" class="play-btn" style="min-width: 100%;">More</button>
-            <div id="moreMenu" class="more-menu">
-              <button id="editGameBtn" class="more-item">Edit Game</button>
-              <button id="removeGameBtn" class="more-item">Remove Game</button>
+    <body class="column">
+        <div class="row space-between title-bar drag pad-05 border-bottom">
+            <div class="title row gap-1 ">
+                <div class="row align-start">
+                    <icon class="icon icon-igs"></icon>
+                    <p class="title-text">Launcher</p>
+                </div>
+                <div class="nav-btns row gap-05 no-drag">
+                    <div id="goBackBtn" class="btn round pad-05">
+                        <i class="bi bi-arrow-left"></i>
+                    </div>
+                    <div id="goForwardBtn" class="btn round pad-05">
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </div>
+                <p>Collection</p>
+                <div id="game-running-div" class="row gap-05"></div>
             </div>
-          </div>
+            <div class="icons row gap-05 no-drag">
+                <div id="minimizeBtn" class="btn pad-1 br-05">
+                    <i class="bi bi-dash-lg"></i>
+                </div>
+                <div id="maximizeBtn" class="btn pad-1 br-05">
+                    <i class="bi bi-square"></i>
+                </div>
+                <div id="closeBtn" class="btn pad-1 br-05">
+                    <i class="bi bi-x-lg"></i>
+                </div>
+            </div>
         </div>
-        <div class="row game-info">
-          <p>Install Size</p>
-          <div id="installSize">
-            <div class="icon icon-loading"></div>
-          </div>
+        <div id="app" class="row flex-grow stretch" style="align-items: start;">
+            <div class="nav column gap-05 full-height pad-05 border-right">
+                <div id="homeBtn" class="pad-05 btn-light br-05" data-title="Collection">
+                    <i class="bi bi-folder-fill"></i>
+                </div>
+                <div id="settingsBtn" class="pad-05 btn-light br-05 spin" data-title="Settings">
+                    <i class="bi bi-gear-fill"></i>
+                </div>
+            </div>
+            <div class="main-area column full-height flex-grow pos-rel" style="background-color: transparent;">
+                <div id="searchRow" class="row gap-05 pad-1 border-bottom">
+                    <div class="search-container pos-rel">
+                        <div id="search" class="search-bar row box-light wide gap-05 ">
+                            <i class="bi bi-search"></i>
+                            <input id="searchInput" type="text" placeholder="Search">
+                            <p class="hidden small">Ctrl + K</p>
+                        </div>
+                        <!-- autocomplete -->
+                        <div id="suggestions" class="suggestions menu float active"></div>
+                    </div>
+                    <div id="sortBtn" class="box-dark wide gap-05 row btn pos-rel">
+                        <i class="bi bi-arrow-down-up"></i>
+                        <p>Sort</p>
+                    </div>
+                    <div id="filterBtn" class="box-dark wide gap-05 row btn pos-rel">
+                        <i class="bi bi-funnel"></i>
+                        <p>Filters</p>
+                        <div id="tagCounter" class="counter">
+                            <p>0</p>
+                        </div>
+                    </div>
+                    <div class="row gap-05" style="margin-left: auto;">
+                        <div id="viewBtn" class="btn box-dark border-none row gap-05" style="margin-left: auto;">
+                            <i class="bi bi-view-stacked"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu float" id="sortList">
+                    <div id="sortNameAZ" class="menu-item btn" data-mode="az">by Name (A-Z)</div>
+                    <div id="sortNameZA" class="menu-item btn" data-mode="za">by Name (Z-A)</div>
+                    <div id="earliestAdded" class="menu-item btn" data-mode="earliestAdded">by Date Added (Earliest)</div>
+                    <div id="latestAdded" class="menu-item btn" data-mode="latestAdded">by Date Added (Latest)</div>
+                    <!--<div id="sortRelease" class="sort-item" data-mode="release">by Release Date</button>   TODO-->
+                    <!--<div id="sortDate" class="sort-item" data-mode="dateAdded">by Date Added</button>      TODO-->
+                </div>
+                <div id="filterList" class="menu float pad-05">
+                    <!-- all tags appear dinamically here (renderer.js) --></div>
+                <div id="games" class="games full-height pad-1 grid">
+                    <!-- games appear dinamically here (renderer.js) --></div>
+            </div>
+            <!-- the sidebar appears when the "i" icon is clicked on a game.-->
+            <!-- the data must be related to the game clicked -->
+            <div class="sidebar column gap-05 full-height border-left">
+                <div class="row pad-05-1" style="justify-content: end;">
+                    <div id="closeSidebar" class="box-dark btn border-none" data-title="Close Sidebar">
+                        <i class="bi bi-x-lg"></i>
+                    </div>
+                </div>
+                <div id="gameName" class="row pad-05-1">
+                    <h3 class="title-text">Game Name</h3>
+                </div>
+                <div class="row gap-05 pad-05-1">
+                    <div id="sidebarPlay" class="box-dark btn wide w-50 center">Play Game</div>
+                    <div class="more-container w-50" style="display: flex;">
+                        <div id="moreBtn" class="box-dark btn wide w-100 center">More</div>
+                        <div id="moreMenu" class="menu float">
+                            <div id="editGameBtn" class="menu-item gap-05 row btn">
+                                <i class="bi bi-pencil"></i>
+                                Edit Game
+                            </div>
+                            <div id="removeGameBtn" class="menu-item gap-05 row btn">
+                                <i class="bi bi-trash3"></i>
+                                Remove Game
+                            </div>
+                            <div id="showInExplorerBtn" class="menu-item gap-05 row btn">
+                                <i class="bi bi-folder2-open"></i>
+                                Show in Explorer
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row gap-05 pad-05-1 space-between">
+                    <p>Install Size</p>
+                    <div id="installSize">
+                        <i class="bi bi-arrow-repeat"></i>
+                    </div>
+                </div>
+                <div class="row gap-05 pad-05-1 space-between">
+                    <p>Developer(s)</p>
+                    <div id="developers" class="developers">
+                        <!-- developers will be added dinamically here (renderer.js)--></div>
+                </div>
+                <div class="row gap-05 pad-05-1 space-between">
+                    <p>Publisher(s)</p>
+                    <div id="publishers" class="publishers">
+                        <!-- publishers will be added dinamically here (renderer.js)--></div>
+                </div>
+                <div class="row border-bottom pad-05-1">
+                    <p>Tags</p>
+                </div>
+                <div id="tags" class="row pad-05 gap-05"></div>
+                <div class="row border-bottom pad-05-1">
+                    <p>Game description</p>
+                </div>
+                <div id="description" class="row pad-1" style="flex-direction: column; align-items: start;"></div>
+            </div>
         </div>
-        <div class="row game-info">
-          <p>Developer(s)</p>
-          <div id="developers" class="developers">
-            <!-- developers will be added dinamically here (renderer.js)-->
-          </div>
+        <div class="add-game-window column float center">
+            <div class="row space-between pad-05-1 border-bottom sticky">
+                <p id="addGameTitle">Add Game</p>
+                <div id="closeAddGame" class="btn border-none square box-dark" data-title="Close Window">
+                    <i class="bi bi-x-lg"></i>
+                </div>
+            </div>
+            <div class="input-group column gap-05 pad-05 pad-in-5">
+                <label for="title">Game Name:</label>
+                <input
+                    class="border pad-05 br-05"
+                    type="text"
+                    id="title"
+                    name="title"
+                >
+            </div>
+            <div class="input-group column gap-05 pad-05 pad-in-5">
+                <label for="pathDisplay">Path (Executable):</label>
+                <div class="row gap-05">
+                    <input
+                        class="border pad-05 br-05 flex-grow"
+                        type="text"
+                        id="exePathDisplay"
+                        placeholder="Select game executable..."
+                        readonly
+                    >
+                    <div type="button" id="selectExeBtn" class="box-dark btn wide row gap-05">
+                        <i class="bi bi-folder2-open"></i>
+                        <p>Browse</p>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group column gap-05 pad-05 pad-in-5">
+                <label for="cover">Cover Image:</label>
+                <div class="row gap-05">
+                    <input
+                        class="border pad-05 br-05 flex-grow"
+                        type="text"
+                        id="coverPathDisplay"
+                        placeholder="Select cover..."
+                        readonly
+                    >
+                    <div type="button" id="selectCoverBtn" class="box-dark wide btn row gap-05">
+                        <i class="bi bi-folder2-open"></i>
+                        <p>Browse</p>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group column gap-05 pad-05 pad-in-5">
+                <label for="icon">Icon:</label>
+                <div class="row gap-05">
+                    <input
+                    class="border pad-05 br-05 flex-grow"
+                        type="text"
+                        id="iconPathDisplay"
+                        placeholder="Select icon..."
+                        readonly
+                    >
+                    <div type="button" id="selectIconBtn" class="box-dark wide btn row gap-05">
+                        <i class="bi bi-folder2-open"></i>
+                        <p>Browse</p>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group column gap-05 pad-05 pad-in-5">
+                <label for="developers">
+                    Developer(s)
+                    <weak>(separated by comma)</weak>
+                    :
+                </label>
+                <input type="text" id="developersInput" name="developers" class="border pad-05 br-05">
+            </div>
+            <div class="input-group column gap-05 pad-05 pad-in-5">
+                <label for="publishers">
+                    Publisher(s)
+                    <weak>(separated by comma)</weak>
+                    :
+                </label>
+                <input type="text" id="publishersInput" name="publishers" class="border pad-05 br-05">
+            </div>
+            <div class="input-group column gap-05 pad-05 pad-in-5">
+                <label for="tags">Tags:</label>
+                <div class="row gap-05">
+                    <input type="text" id="tag" name="tag" class="border pad-05 br-05">
+                    <div id="addTag" class="box-dark square btn" data-title="Add Tag">
+                        <i class="bi bi-plus-lg"></i>
+                    </div>
+                </div>
+            </div>
+            <div id="tag-container" class="row tags">
+                <!-- tags appear dinamically here --></div>
+            <div class="input-group desc column gap-05 pad-05">
+                <label for="description">Description:</label>
+                <textarea
+                    class="border pad-05 br-05"
+                    id="descriptionArea"
+                    name="description"
+                    cols="20"
+                    rows="10"
+                ></textarea>
+            </div>
+            <div class="row pad-1">
+                <div class="box-dark btn wide" id="add-game-button">
+                    Add Game
+                </div>
+            </div>
         </div>
-        <div class="row game-info">
-          <p>Publisher(s)</p>
-          <div id="publishers"class="publishers">
-            <!-- publishers will be added dinamically here (renderer.js)-->
-          </div>
-        </div>
-        <div class="row" style="border-bottom: var(--border);">
-          <p>Tags</p>
-        </div>
-        <div id="tags" class="row"></div>
-        <div class="row" style="border-bottom: var(--border);">
-            <p>Game description</p>
-        </div>
-        <div id="description" class="row" style="flex-direction: column; align-items: start;"></div>
-      </div>
     </div>
-    <div class="footer">
-      <div class="add-game-section">
-        <button class="add-game-button" id="add-game-menu-button">
-          <div class="icon icon-plus"></div>
-        </button>
-        <p>Add Game</p>
-      </div>
-
-      <div class="row">
-        <button class="add-game-button" id="website">Our Website</button>
-      </div>
-  </div>
-
-      <div class="add-game-window">
+    <div class="footer row space-between pad-05 full-width border-top">
+        <div class="add-game-section row gap-05">
+            <div class="box-dark square btn" id="add-game-menu-button">
+                <i class="bi bi-plus-lg"></i>
+            </div>
+            <p>Add Game</p>
+        </div>
         <div class="row">
-          <p id="addGameTitle">Add Game</p>
-          <button id="closeAddGame" class="closeBtn" data-title="Close Window">
-              <div class="icon icon-cross"></div>
-            </button>
+            <div class="box-dark wide btn" id="website">Our Website</div>
         </div>
-        <div class="input-group">
-          <label for="title">Game Name:</label>
-          <input type="text" id="title" name="title" />
-        </div>
-        <div class="input-group">
-          <label for="pathDisplay">Path (Executable):</label>
-          <div class="row" style="border:none; padding: 0; gap: 5px;">
-              <input type="text" id="exePathDisplay" placeholder="Select game executable..." readonly>
-              <button type="button" id="selectExeBtn" class="browse-btn">
-                <p>Browse</p>
-              </button>
-          </div>
-        </div>
-        <div class="input-group">
-          <label for="cover">Cover Image:</label>
-          <div class="row" style="border:none; padding: 0; gap: 5px;">
-              <input type="text" id="coverPathDisplay" placeholder="Select cover..." readonly>
-              <button type="button" id="selectCoverBtn" class="browse-btn">
-                <p>Browse</p>
-              </button>
-          </div>
-        </div>
-        <div class="input-group">
-          <label for="icon">Icon:</label>
-          <div class="row" style="border:none; padding: 0; gap: 5px;">
-              <input type="text" id="iconPathDisplay" placeholder="Select icon..." readonly>
-              <button type="button" id="selectIconBtn" class="browse-btn">
-                <p>Browse</p>
-              </button>
-          </div>
-        </div>
-        <div class="input-group">
-          <label for="developers">Developer(s) <weak>(separated by comma)</weak>:</label>
-          <input type="text" id="developersInput" name="developers" />
-        </div>
-        <div class="input-group">
-          <label for="publishers">Publisher(s) <weak>(separated by comma)</weak>:</label>
-          <input type="text" id="publishersInput" name="publishers" />
-        </div>
-        <div class="input-group">
-          <label for="tags">Tags:</label>
-          <div class="add-tag">
-            <input type="text" id="tag" name="tag" />
-            <button id="addTag" data-title="Add Tag">+</button>
-          </div>
-        </div>
-        <div id="tag-container" class="row tags" >
-          <!-- tags appear dinamically here -->
-        </div>
-        <div class="input-group desc">
-          <label for="description">Description:</label>
-          <textarea id="descriptionArea" name="description" cols="20" rows="10"></textarea>
-        </div>
-        <div class="row" style="border: none;">
-          <button class="add-game-button" id="add-game-button">
-            Add Game
-          </button>
-        </div>
-      </div>
-      
     </div>
-
-
-    <div id="alert" class="alert-box">
-      <div class="row drag-bar">
-        <p id="alert-title">ISEL Game Studios</p>
-        <button id="alert-close" class="closeBtn">
-          <div class="icon icon-cross"></div>
-        </button>
-      </div>
-      <div class="message-container">
-        <p id="alert-message">
-          Alert! Alert! Alert!
-        </p>
-      </div>
-      <div class="row btn-row">
-        <button id="alert-ok" class="alert-button">Ok</button>
-        <button id="alert-cancel" class="alert-button">Cancel</button>
-      </div>
+    <div id="alert" class="alert-box float box-dark column">
+        <div class="row drag-bar">
+            <p id="alert-title">ISEL Game Studios</p>
+            <div id="alert-close" class="closeBtn">
+                <i class="bi bi-x-lg"></i>
+            </div>
+        </div>
+        <div class="message-container">
+            <p id="alert-message">
+                Alert! Alert! Alert!
+            </p>
+        </div>
+        <div class="row btn-row">
+            <div id="alert-ok" class="alert-button">Ok</div>
+            <div id="alert-cancel" class="alert-button">Cancel</div>
+        </div>
     </div>
-
-
-  </body>
-
-  <script type="module" src="js/renderer.js"></script>
-  <script type="module" src="js/frame.js"></script>
-  <script type="module" src="js/search.js"></script>
-  <script type="module" src="js/add-game.js"></script>  
-  <script type="module" src="js/navigation.js"></script>
+</body>
+<script type="module" src="js/renderer.js"></script>
+<script type="module" src="js/frame.js"></script>
+<script type="module" src="js/search.js"></script>
+<script type="module" src="js/add-game.js"></script>
+<script type="module" src="js/navigation.js"></script>
 </html>

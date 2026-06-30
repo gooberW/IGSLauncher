@@ -144,6 +144,10 @@ export function openEditGame(gameID, gameData) {
     openAddGame();
 }
 
+export async function showInExplorer(currentGameDir) {
+    await window.electronAPI.openInExplorer(currentGameDir);
+}
+
 /**
  * Closes the add game window.
  */

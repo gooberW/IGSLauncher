@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, protocol, net, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, protocol, net, dialog, shell } = require('electron');
 const fs = require('fs');
 const { spawn } = require('child_process');
 const path = require('path');
@@ -307,6 +307,11 @@ ipcMain.handle("get-current-page" , () => {
     return history[historyIndex] || null
 })
 
+ipcMain.handle('open-in-explorer', async (event, exePath) => {
+  const gameDir = path.dirname(exePath);
+  shell.openPath(gameDir);
+});
+
 
 // creates the main window
 const createWindow = () => {
@@ -421,6 +426,7 @@ ipcMain.handle('launch-game', async (event, exePath) => {
     gameProcess.on('exit', () => {
         activeGames.delete(finalPath);
         console.log("Game closed. Removed from active list.");
+        event.sender.send('game-closed', finalPath); 
     });
 
     gameProcess.unref();

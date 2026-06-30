@@ -22,118 +22,14 @@
     cursor: pointer;
 }
 
-.icon-pin-fill {
-    -webkit-mask-image: url("../assets/pin-angle-fill.svg");
-    mask-image: url("../assets/pin-angle-fill.svg");
-}
-
-.icon-pin {
-    -webkit-mask-image: url("../assets/pin-angle.svg");
-    mask-image: url("../assets/pin-angle.svg");
-}
-
-.icon-folder {
-    -webkit-mask-image: url("../assets/folder-fill.svg");
-    mask-image: url("../assets/folder-fill.svg");
-    height: 24px !important;
-    width: 24px !important;
-}
-
-.icon-sort {
-    -webkit-mask-image: url("../assets/arrow-down-up.svg");
-    mask-image: url("../assets/arrow-down-up.svg");
-    height: 16px !important;
-    width: 16px !important;
-}
-
-.icon-filter-fill {
-    -webkit-mask-image: url("../assets/funnel-fill.svg");
-    mask-image: url("../assets/funnel-fill.svg");
-    height: 16px !important;
-    width: 16px !important;
-}
-
-.icon-filter {
-    -webkit-mask-image: url("../assets/tags.svg");
-    mask-image: url("../assets/tags.svg");
-    height: 18px !important;
-    width: 18px !important;
-}
-
-.icon-minimize {
-    -webkit-mask-image: url("../assets/dash-lg.svg");
-    mask-image: url("../assets/dash-lg.svg");
-    width: 18px;
-    height: 18px;
-}
-
-.icon-maximize {
-    -webkit-mask-image: url("../assets/square.svg");
-    mask-image: url("../assets/square.svg");
-    width: 12px;
-    height: 12px;
-}
-
-.icon-restore {
-    -webkit-mask-image: url("../assets/square-double.svg");
-    mask-image: url("../assets/square-double.svg");
-    width: 14px;
-    height: 14px;
-    rotate: 180deg;
-}
-
-.icon-palette {
-    -webkit-mask-image: url("../assets/palette-fill.svg");
-    mask-image: url("../assets/palette-fill.svg");
-    cursor: unset !important;
-    width: 18px;
-}
-
 .icon-igs {
     -webkit-mask-image: url("../assets/IGS_Icon.svg");
     mask-image: url("../assets/IGS_Icon.svg");
-    width: 35px;
-    min-height: 35px;
+    width: 30px;
 }
 
 .icon-igs:hover {
     transform: scale(1.1);
-}
-
-.icon-settings {
-    -webkit-mask-image: url("../assets/gear-fill.svg");
-    mask-image: url("../assets/gear-fill.svg");
-    width: 25px;
-    height: 25px;
-    transition: all 0.4s ease;
-}
-
-.icon-cross {
-    -webkit-mask-image: url("../assets/plus-lg.svg");
-    mask-image: url("../assets/plus-lg.svg");
-    transform: rotate(45deg);
-}
-
-.icon-loading {
-    -webkit-mask-image: url("../assets/arrow-repeat.svg");
-    mask-image: url("../assets/arrow-repeat.svg");
-    width: 25px;
-    height: 25px;
-    animation: spin 1s linear infinite;
-}
-
-.icon-list {
-    -webkit-mask-image: url("../assets/view-stacked.svg");
-    mask-image: url("../assets/view-stacked.svg");
-}
-
-.icon-grid {
-    -webkit-mask-image: url("../assets/columns-gap.svg");
-    mask-image: url("../assets/columns-gap.svg");
-}
-
-.icon-list:hover, .icon-grid:hover {
-    cursor: unset;
 }
 
 .logo-full {

@@ -74,10 +74,10 @@ export function autoCompleteSearch(query) {
         if (!game) return;
 
         const item = document.createElement('div');
-        item.className = 'suggestion-item';
+        item.className = 'menu-item btn row';
 
         const icon = document.createElement('div');
-        icon.className = 'suggestion-icon';
+        icon.className = 'game-icon';
         const text = document.createElement('div');
         text.className = 'suggestion-text';
         text.textContent = title;
@@ -107,7 +107,7 @@ export function autoCompleteSearch(query) {
  * Handles keyboard navigation in suggestions
  */
 function handleKeydown(e) {
-    const items = suggestions.querySelectorAll('.suggestion-item');
+    const items = suggestions.querySelectorAll('.menu-item');
     if (!items.length || suggestions.style.display === 'none') return;
 
     if (e.key === 'ArrowDown') {

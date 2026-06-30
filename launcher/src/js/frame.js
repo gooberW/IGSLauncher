@@ -12,8 +12,8 @@ async function toggleMaximize() {
     const isMaximized = await window.electronAPI.toggleMaximize();
 
     maximizeBtn.innerHTML = isMaximized
-        ? `<div class="icon icon-restore"></div>`
-        : `<div class="icon icon-maximize"></div>`;
+        ? `<i class="bi bi-copy" style="transform: rotate(180deg);"></i>`
+        : `<i class="bi bi-square"></i>`;
 }
 
 
